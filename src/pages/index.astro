@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Newsletter from '../components/Newsletter';
+import ThreeBoxes from '@/components/ThreeBoxes';
+---
+
+<Layout title="Ecma TC54">
+  <main class="mx-auto max-w-7xl py-12 lg:py-24">
+    <div class="lg:w-7/12 md:w-12/12">
+      <p class="mt-4 text-6xl font-bold sm:text-6xl text-gradient">
+        Ecma TC54
+      </p>
+      <p class="mt-4 text-5xl font-bold sm:text-5xl">
+        Software and System Transparency
+      </p>
+      <p class="mt-4 mb-10 text-2xl sm:text-2xl">
+        Standardizing core data formats, APIs, and algorithms that advance software and system transparency
+      </p>
+    </div>
+  </main>
+
+  <ThreeBoxes />
+
+  <Newsletter client:only="react" />
+</Layout>
+
+<style>
+  main {
+    margin: auto;
+    padding: 1.5rem;
+    /* max-width: 60ch; */
+  }
+  h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin: 0;
+  }
+  .text-gradient {
+    background-image: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 400%;
+    background-position: 0%;
+  }
+  .instructions {
+    line-height: 1.6;
+    margin: 2rem 0;
+    border: 1px solid rgba(var(--accent), 25%);
+    background-color: white;
+    padding: 1rem;
+    border-radius: 0.4rem;
+  }
+  .instructions code {
+    font-size: 0.875em;
+    font-weight: bold;
+    background: rgba(var(--accent), 12%);
+    color: rgb(var(--accent));
+    border-radius: 4px;
+    padding: 0.3em 0.45em;
+  }
+  .instructions strong {
+    color: rgb(var(--accent));
+  }
+  .link-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+    gap: 1rem;
+    padding: 0;
+  }
+</style>
