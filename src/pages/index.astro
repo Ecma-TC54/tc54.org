@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Newsletter from '../components/Newsletter';
+import SocialConnect from '../components/SocialConnect';
 import ThreeBoxes from '@/components/ThreeBoxes';
 ---
 
@@ -21,7 +21,7 @@ import ThreeBoxes from '@/components/ThreeBoxes';
 
   <ThreeBoxes />
 
-  <Newsletter client:only="react" />
+  <SocialConnect client:only="react" />
 </Layout>
 
 <style>

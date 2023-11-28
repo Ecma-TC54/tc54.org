@@ -1,6 +1,15 @@
 import { CalendarDaysIcon, HandRaisedIcon, UsersIcon } from '@heroicons/react/24/outline';
 
-export default function Newsletter() {
+export default function SocialConnect() {
+
+  function btnClickGetInvite() {
+    window.open('https://cyclonedx.org/slack/invite');
+  }
+
+  function btnClickConnect() {
+    window.open('https://cyclonedx.org/slack');
+  }
+
   return (
     <div
       className="relative isolate overflow-hidden bg-gray-900 py-16 sm:py-24 lg:py-32"
@@ -19,35 +28,23 @@ export default function Newsletter() {
               <label htmlFor="email-address" className="sr-only">
                 Email address
               </label>
-              <input
-                id="email-address"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                className="min-w-0 flex-auto rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                placeholder="Enter your email"
-              />
+              <button
+                  type="submit"
+                  className="flex-none rounded-md bg-indigo-500 py-2.5 px-12 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                  onClick={btnClickConnect} >
+                Connect
+              </button>
               <button
                 type="submit"
-                className="flex-none rounded-md bg-indigo-500 py-2.5 px-3.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-              >
-                Subscribe
+                className="flex-none rounded-md bg-indigo-500 py-2.5 px-12 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                onClick={btnClickGetInvite} >
+                Get Invite
               </button>
             </div>
           </div>
           <dl className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-1 lg:pt-2">
-            <div className="flex flex-col items-start">
-              <div className="rounded-md bg-white/5 p-2 ring-1 ring-white/10">
-                <UsersIcon
-                  className="h-6 w-6 text-white"
-                  aria-hidden="true"
-                />
-              </div>
-              <dt className="mt-4 font-semibold text-white">Have an Account?</dt>
-              <dd className="mt-2 leading-7 text-gray-400">
-                <a href="https://cyclonedx.org/slack">Login to the OWASP CycloneDX Slack workspace</a>
-              </dd>
+            <div className="flex flex-col items-start mx-auto hidden lg:block">
+              <img src="/images/slack-mockup.svg" alt="Slack screenshot mockup" width="400"/>
             </div>
           </dl>
         </div>
