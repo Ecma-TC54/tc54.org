@@ -12,7 +12,7 @@ export default function ThreeBoxes() {
                     <div className="card">
                         <div className="card-container">
                             <h3>Contribute</h3>
-                            <p>TODO</p>
+                            <p>TC54 welcomes contributions from the community. We encourage organizations and individuals to <a href="/contribute">contribute</a> to existing proposals, documentation, and specification feature ideas. To participate in TC54 meetings as a member, <a href="https://ecma-international.org/about-ecma/join-ecma/">join Ecma</a>.</p>
                         </div>
                     </div>
                     <div className="card">
