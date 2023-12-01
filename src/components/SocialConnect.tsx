@@ -44,7 +44,7 @@ export default function SocialConnect() {
           </div>
           <dl className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-1 lg:pt-2">
             <div className="flex flex-col items-start mx-auto hidden lg:block">
-              <img src="/images/slack-mockup.svg" alt="Slack screenshot mockup" width="400"/>
+              <img src="/images/connectivity.svg" alt="Connectivity Abstract Image" width="200"/>
             </div>
           </dl>
         </div>
