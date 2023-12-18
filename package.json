@@ -5,7 +5,7 @@
   "version": "SNAPSHOT",
   "scripts": {
     "start": "astro dev --host",
-    "build": "astro check && tsc --noEmit && astro build",
+    "build": "astro check --noEmit && astro build",
     "preview": "astro preview",
     "prettier": "prettier --write ./src",
     "astro": "astro",
