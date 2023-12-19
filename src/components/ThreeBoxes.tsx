@@ -18,7 +18,7 @@ export default function ThreeBoxes() {
                     <div className="card">
                         <div className="card-container">
                             <h3>Standards</h3>
-                            <p>OWASP and Ecma TC are actively working on standardizing CycloneDX v1.6. Ecma standards of CycloneDX should be available in 2024 and will be listed here.</p>
+                            <p>OWASP and Ecma TC54 are actively working on standardizing CycloneDX v1.6. Ecma standards of CycloneDX should be available in 2024 and will be listed here.</p>
                         </div>
                     </div>
                 </div>
