@@ -35,7 +35,7 @@ const specifications = [
   {
     name: 'Transparency Exchange API',
     description: 'Share BOM, VDR, and VEX data',
-    href: 'https://github.com/CycloneDX/cyclonedx-bom-exchange-api',
+    href: 'https://github.com/CycloneDX/transparency-exchange-api',
     icon: ShareIcon,
   }
 ];
