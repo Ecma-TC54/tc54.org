@@ -27,6 +27,12 @@ const specifications = [
     icon: CycloneDXIcon,
   },
   {
+    name: 'Package URL',
+    description: 'Identify and locate software packages',
+    href: 'https://github.com/package-url/purl-spec',
+    icon: FingerPrintIcon,
+  },
+  {
     name: 'Transparency Exchange API',
     description: 'Share BOM, VDR, and VEX data',
     href: 'https://github.com/CycloneDX/cyclonedx-bom-exchange-api',
