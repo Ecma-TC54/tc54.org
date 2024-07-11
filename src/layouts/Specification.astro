@@ -1,0 +1,48 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import SpecificationDetails from '@/components/SpecificationDetails.astro';
+import StandardCard from '@/components/StandardCard.astro';
+
+const { heading, text, standards, specificationDetails } = Astro.props;
+---
+
+<Layout title="cyclonedx">
+    <div class="bg-white pt-24 pb-12 sm:pt-32 sm:pb-16">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="lg:flex lg:gap-8">
+                <!-- Main content area -->
+                <div class="lg:w-2/3">
+                    <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl pb-10">
+                        {heading}
+                    </h1>
+                    <p class="mt-2 text-lg leading-8 text-gray-600">
+                        {text}
+                    </p>
+                    {standards.length > 0 && (
+                            <>
+                                <h2 class="text-2xl font-semibold tracking-tight text-gray-900 sm:text-3xl pt-8">
+                                    Standards
+                                </h2>
+                                <!-- Standards card layout -->
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 pt-6">
+                                    {standards.map((standard) => (
+                                            <StandardCard
+                                                    imgSrc={standard.imgSrc}
+                                                    name={standard.name}
+                                                    edition={standard.edition}
+                                                    publicationDate={standard.publicationDate}
+                                                    link={standard.link}
+                                            />
+                                    ))}
+                                </div>
+                            </>
+                    )}
+                </div>
+                <!-- Sidebar table area -->
+                <div class="lg:w-1/3 lg:mt-0 mt-10">
+                    <SpecificationDetails {...specificationDetails} />
+                </div>
+            </div>
+        </div>
+    </div>
+</Layout>

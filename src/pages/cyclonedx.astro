@@ -1,0 +1,34 @@
+---
+import Specification from '@/layouts/Specification.astro';
+
+const heading = "CycloneDX Bill of Materials Specification";
+const text = `CycloneDX is a modern standard for the software supply chain. At its core, CycloneDX is a general purpose Bill of Materials (BOM) standard capable of representing software, hardware, services, cryptography, and other types of inventory. CycloneDX is an OWASP flagship project, has a formal standardization process and governance model through Ecma Technical Committee 54, and is supported by the global information security community.`;
+
+const standards = [
+    {
+        imgSrc: "/images/ecma-424.jpg",
+        name: "ECMA-424",
+        edition: "1st Edition",
+        publicationDate: "2024-07-11",
+        link: "https://ecma-international.org/publications-and-standards/standards/ecma-424/"
+    }
+];
+
+const specificationDetails = {
+    title: "CycloneDX",
+    currentVersion: "1.6",
+    publicationDate: "2024-07-11",
+    mediaTypes: ["vnd.cyclonedx+json", "vnd.cyclonedx+xml"],
+    developedBy: ["OWASP Foundation", "Ecma International"],
+    standards: standards,
+    technicalCommittee: { name: "TC54", link: "https://ecma-international.org/technical-committees/tc54/" },
+    websites: ["https://cyclonedx.org", "https://owasp.org/cyclonedx"]
+};
+---
+
+<Specification
+        heading={heading}
+        text={text}
+        standards={standards}
+        specificationDetails={specificationDetails}
+/>

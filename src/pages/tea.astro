@@ -1,0 +1,28 @@
+---
+import Specification from '@/layouts/Specification.astro';
+
+const heading = "Transparency Exchange API Specification";
+const text = `The Transparency Exchange API (TEA) aims to facilitate the automated exchange of supply chain artifacts such as Software Bill of Materials (SBOM), Vulnerability Exploitability eXchange (VEX), and attestations, allowing users to automatically discover and consume transparency-related artifacts for a product. This API distinguishes between supply chain artifacts, such as BOMs, and supply chain intelligence, which provides insights into the security and compliance status of the components. Insights enable "limited transparency" that can be queried using an expression language, allowing for tightly scoped or outcome-driven inquiries. This feature removes the complexities of BOM format conversion. The TEA enhances transparency across the software supply chain by providing a standardized method to share and access critical security and compliance information. This automation benefits release management and optimizes procurement processes, ensuring timely updates and improving risk management.`;
+
+const standards = [
+
+];
+
+const specificationDetails = {
+    title: "Transparency Exchange API",
+    currentVersion: "In Development",
+    publicationDate: "TBD",
+    developedBy: ["OWASP Foundation", "Ecma International"],
+    standards: standards,
+    technicalCommittee: { name: "TC54", link: "https://ecma-international.org/technical-committees/tc54/" },
+    taskGroup: { name: "TC54-TG1", link:"https://ecma-international.org/task-groups/tc54-tg1/" },
+    websites: []
+};
+---
+
+<Specification
+        heading={heading}
+        text={text}
+        standards={standards}
+        specificationDetails={specificationDetails}
+/>

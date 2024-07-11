@@ -6,7 +6,7 @@ export default function ThreeBoxes() {
                     <div className="card">
                         <div className="card-container">
                             <h3>About TC54</h3>
-                            <p><a href="https://www.ecma-international.org/technical-committees/tc54/">Ecma Technical Committee 54</a> is chartered to standardize the <a href="https://cyclonedx.org/">OWASP CycloneDX</a> Bill of Materials specification, standards and algorithms that advance transparency and identity, and the sharing of transparency information across the supply chain.</p>
+                            <p><a href="https://www.ecma-international.org/technical-committees/tc54/">Ecma Technical Committee 54</a> is chartered to standardize the <a href="/cyclonedx">OWASP CycloneDX</a> Bill of Materials specification, standards and algorithms that advance transparency and identity, and the sharing of transparency information across the supply chain.</p>
                         </div>
                     </div>
                     <div className="card">

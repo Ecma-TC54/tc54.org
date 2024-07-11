@@ -1,0 +1,28 @@
+---
+import Specification from '@/layouts/Specification.astro';
+
+const heading = "Vers Version Range Specification";
+const text = `The Vers Version Range Specification defines a standard way to express version ranges for software packages. This specification introduces a syntax to describe ranges of versions, allowing for precise and consistent identification of sets of versions across different ecosystems. It supports various range operators such as exact, wildcard, and comparative operators (e.g., greater than, less than). The specification ensures compatibility with existing versioning schemes used in popular package managers and aims to facilitate better dependency management and security vulnerability detection.`;
+
+const standards = [
+
+];
+
+const specificationDetails = {
+    title: "Vers",
+    currentVersion: "In Development",
+    publicationDate: "TBD",
+    developedBy: ["Purl Community", "Ecma International"],
+    standards: standards,
+    technicalCommittee: { name: "TC54", link: "https://ecma-international.org/technical-committees/tc54/" },
+    taskGroup: { name: "TC54-TG2", link:"https://ecma-international.org/task-groups/tc54-tg2/" },
+    websites: []
+};
+---
+
+<Specification
+        heading={heading}
+        text={text}
+        standards={standards}
+        specificationDetails={specificationDetails}
+/>

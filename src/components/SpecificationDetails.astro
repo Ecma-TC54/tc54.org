@@ -1,0 +1,125 @@
+---
+// SpecificationDetails.astro
+
+export interface SidebarProps {
+    title?: string;
+    currentVersion?: string;
+    publicationDate?: string;
+    mediaTypes?: string[];
+    developedBy?: string[];
+    standards?: { name: string; link: string }[];
+    technicalCommittee?: { name: string; link: string };
+    taskGroup?: { name: string; link: string };
+    websites?: string[];
+}
+
+const {
+    title,
+    currentVersion,
+    publicationDate,
+    mediaTypes,
+    developedBy,
+    standards,
+    technicalCommittee,
+    taskGroup,
+    websites
+} = Astro.props as SidebarProps;
+---
+
+<div class="p-6 rounded-lg shadow-lg border border-gray-300">
+    <h2 class="text-xl font-bold text-gray-900">Specification Details</h2>
+    <table class="min-w-full mt-4">
+        <tbody>
+        {title && (
+                <tr>
+                    <th class="text-sm align-top text-left text-gray-700 py-2">Title</th>
+                    <td class="text-sm text-gray-900 py-2">{title}</td>
+                </tr>
+        )}
+        {currentVersion && (
+                <tr>
+                    <th class="text-sm align-top text-left text-gray-700 py-2">Current Version</th>
+                    <td class="text-sm text-gray-900 py-2">{currentVersion}</td>
+                </tr>
+        )}
+        {publicationDate && (
+                <tr>
+                    <th class="text-sm align-top text-left text-gray-700 py-2">Publication Date</th>
+                    <td class="text-sm text-gray-900 py-2">{publicationDate}</td>
+                </tr>
+        )}
+        {mediaTypes && mediaTypes.length > 0 && (
+                <tr>
+                    <th class="text-sm align-top text-left text-gray-700 py-2">
+                        Media Type{mediaTypes.length > 1 ? "s" : ""}
+                    </th>
+                    <td class="text-sm text-gray-900 py-2">
+                        {mediaTypes.map(type => (
+                                <div><code>{type}</code></div>
+                        ))}
+                    </td>
+                </tr>
+        )}
+        {developedBy && developedBy.length > 0 && (
+                <tr>
+                    <th class="text-sm align-top text-left text-gray-700 py-2">Developed By</th>
+                    <td class="text-sm text-gray-900 py-2">
+                        {developedBy.map(developer => (
+                                <div>{developer}</div>
+                        ))}
+                    </td>
+                </tr>
+        )}
+        {standards && standards.length > 0 && (
+                <tr>
+                    <th class="text-sm align-top text-left text-gray-700 py-2">Standards</th>
+                    <td class="text-sm text-gray-900 py-2">
+                        {standards.map(standard => (
+                                <div>
+                                    <a href={standard.link}>{standard.name}</a>
+                                </div>
+                        ))}
+                    </td>
+                </tr>
+        )}
+        {technicalCommittee && (
+                <tr>
+                    <th class="text-sm align-top text-left text-gray-700 py-2">
+                        Technical Committee
+                    </th>
+                    <td class="text-sm text-gray-900 py-2">
+                        <div>
+                            <a href={technicalCommittee.link}>{technicalCommittee.name}</a>
+                        </div>
+                    </td>
+                </tr>
+        )}
+        {taskGroup && (
+                <tr>
+                    <th class="text-sm align-top text-left text-gray-700 py-2">
+                        Task Group
+                    </th>
+                    <td class="text-sm text-gray-900 py-2">
+                        <div>
+                            <a href={taskGroup.link}>{taskGroup.name}</a>
+                        </div>
+                    </td>
+                </tr>
+        )}
+        {websites && websites.length > 0 && (
+                <tr>
+                    <th class="text-sm align-top text-left text-gray-700 py-2">
+                        Website{websites.length > 1 ? "s" : ""}
+                    </th>
+                    <td class="text-sm text-gray-900 py-2">
+                        {websites.map(website => (
+                                <div>
+                                    <a href={website}>{website}</a>
+                                </div>
+                        ))}
+                    </td>
+                </tr>
+        )}
+        </tbody>
+    </table>
+</div>
