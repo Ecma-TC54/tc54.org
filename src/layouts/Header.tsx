@@ -29,7 +29,7 @@ const specifications = [
     icon: CycloneDXIcon,
   },
   {
-    name: 'Package URL',
+    name: 'Package-URL',
     description: 'Identify and locate software packages',
     href: '/purl',
     icon: FingerPrintIcon,
