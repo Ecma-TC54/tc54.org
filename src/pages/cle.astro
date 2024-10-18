@@ -1,0 +1,28 @@
+---
+import Specification from '@/layouts/Specification.astro';
+
+const heading = "Common Lifecycle Enumeration Specification";
+const text = `The Common Lifecycle Enumeration (CLE) is an open standard designed to support component aliasing, component lifecycle events such as end-of-life (EOL) and end-of-support (EOS), and provenance chaining over time. The CLE will provide a structured and machine-readable format to communicate lifecycle events and milestones for software and hardware components. `;
+
+const standards = [
+
+];
+
+const specificationDetails = {
+  title: "Common Lifecycle Enumeration",
+  currentVersion: "In Development",
+  publicationDate: "TBD",
+  developedBy: ["OWASP Foundation", "Ecma International"],
+  standards: standards,
+  technicalCommittee: { name: "TC54", link: "https://ecma-international.org/technical-committees/tc54/" },
+  taskGroup: { name: "TC54-TG3", link:"https://ecma-international.org/task-groups/tc54-tg3/" },
+  websites: []
+};
+---
+
+<Specification
+  heading={heading}
+  text={text}
+  standards={standards}
+  specificationDetails={specificationDetails}
+/>

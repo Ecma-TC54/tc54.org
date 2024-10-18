@@ -6,6 +6,7 @@ import {
   Bars3Icon,
   CubeTransparentIcon,
   FingerPrintIcon,
+  QueueListIcon,
   RectangleGroupIcon,
   RectangleStackIcon,
   ShareIcon,
@@ -45,6 +46,12 @@ const specifications = [
     description: 'Share supply chain artifacts and intelligence',
     href: '/tea',
     icon: ShareIcon,
+  },
+  {
+    name: 'Common Lifecycle Enumeration',
+    description: 'Track product lifecycle events and milestones',
+    href: '/cle',
+    icon: QueueListIcon,
   }
 ];
 
