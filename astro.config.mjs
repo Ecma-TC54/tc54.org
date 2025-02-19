@@ -1,15 +1,17 @@
 import { defineConfig } from 'astro/config';
-import node from '@astrojs/node';
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
-import vercel from "@astrojs/vercel/serverless";
 import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
   output: 'static',
   site: 'https://tc54.org',
-  integrations: [react(), tailwind(), sitemap()],
+  integrations: [react(), tailwind(), sitemap({
+    changefreq: 'weekly',
+    priority: 0.7,
+    lastmod: new Date(),
+  })],
   markdown: {
     syntaxHighlight: 'prism'
   }
