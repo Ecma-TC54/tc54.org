@@ -1,5 +1,6 @@
 ---
 import Specification from '@/layouts/Specification.astro';
+import NextMeeting from '../components/NextMeeting.astro';
 
 const heading = "Transparency Exchange API Specification";
 const text = `The Transparency Exchange API (TEA) aims to facilitate the automated exchange of supply chain artifacts such as Software Bill of Materials (SBOM), Vulnerability Exploitability eXchange (VEX), and attestations, allowing users to automatically discover and consume transparency-related artifacts for a product. This API distinguishes between supply chain artifacts, such as BOMs, and supply chain intelligence, which provides insights into the security and compliance status of the components. Insights enable "limited transparency" that can be queried using an expression language, allowing for tightly scoped or outcome-driven inquiries. This feature removes the complexities of BOM format conversion. The TEA enhances transparency across the software supply chain by providing a standardized method to share and access critical security and compliance information. This automation benefits release management and optimizes procurement processes, ensuring timely updates and improving risk management.`;
@@ -24,5 +25,61 @@ const specificationDetails = {
         heading={heading}
         text={text}
         standards={standards}
-        specificationDetails={specificationDetails}
-/>
+        specificationDetails={specificationDetails}>
+
+  <h2 class="mt-8 text-2xl font-semibold mb-2">Upcoming Meetings</h2>
+  <div class="flex border-b border-gray-300 mb-4" role="tablist">
+    <button
+      class="tab-button px-4 py-2 text-gray-600 border-b-2 hover:text-blue-600  border-blue-600 text-blue-600 font-semibold focus:outline-none"
+      role="tab"
+      aria-selected="true"
+      aria-controls="tab-tc54"
+      id="tab-tc54-btn"
+    >
+      TC54-TG1 Meeting
+    </button>
+    <button
+      class="tab-button px-4 py-2 text-gray-600 hover:text-blue-600 focus:outline-none"
+      role="tab"
+      aria-selected="false"
+      aria-controls="tab-community"
+      id="tab-community-btn"
+    >
+      TEA Community Meeting
+    </button>
+  </div>
+
+  <div id="tab-tc54" role="tabpanel" aria-labelledby="tab-tc54-btn">
+    <h2 class="text-xl font-semibold mb-2">TC54-TG1 Meeting Details</h2>
+    <NextMeeting searchTerm="Ecma TC54-TG1" inviteUrl=""/>
+  </div>
+  <div id="tab-community" role="tabpanel" aria-labelledby="tab-community-btn" class="hidden">
+    <h2 class="text-xl font-semibold mb-2">TEA Community Meeting</h2>
+    <NextMeeting searchTerm="Project Koala Working Group" inviteUrl="https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=NzdoOWZzOXQxaW92M2ZsYWRqaGw2NHI0NGJfMjAyNTA0MDlUMTQwMDAwWiBjXzg4NGRlY2RlNWExNTI5MDJiYjUxYTYyZjg5NTUwZDBmMzc0ODQ4NDUzNGYwOGM2Mzc5MmYyZTY1NGYyYTdlYmNAZw&tmsrc=c_884decde5a152902bb51a62f89550d0f3748484534f08c63792f2e654f2a7ebc%40group.calendar.google.com&scp=ALL" />
+  </div>
+
+</Specification>
+
+<script>
+  const buttons = document.querySelectorAll(".tab-button");
+  const panels = document.querySelectorAll("[role='tabpanel']");
+
+  buttons.forEach((btn) =>
+    btn.addEventListener("click", () => {
+      buttons.forEach((b) => {
+        b.classList.remove("border-blue-600", "text-blue-600", "font-semibold");
+        b.classList.add("border-transparent", "border-b-2");
+        b.setAttribute("aria-selected", "false");
+      });
+
+      panels.forEach((p) => p.classList.add("hidden"));
+
+      btn.classList.remove("border-transparent");
+      btn.classList.add("border-blue-600", "text-blue-600", "font-semibold");
+      btn.setAttribute("aria-selected", "true");
+
+      const panel = document.getElementById(btn.getAttribute("aria-controls"));
+      panel.classList.remove("hidden");
+    })
+  );
+</script>
