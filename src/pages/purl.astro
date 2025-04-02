@@ -1,5 +1,6 @@
 ---
 import Specification from '@/layouts/Specification.astro';
+import NextMeeting from '../components/NextMeeting.astro';
 
 const heading = "Package-URL";
 const text = `Package-URL (PURL) is a standardized way to identify and locate software packages across various ecosystems and repositories. The PURL specification defines a consistent format that includes specific components such as type, namespace, name, version, qualifiers, and subpath to uniquely describe a package. This standardization facilitates accurate tracking, analysis, and management of software dependencies, vulnerabilities, and licensing across different package managers and systems.`;
@@ -24,5 +25,63 @@ const specificationDetails = {
         heading={heading}
         text={text}
         standards={standards}
-        specificationDetails={specificationDetails}
-/>
+        specificationDetails={specificationDetails}>
+
+  <h2 class="text-2xl font-semibold mb-2">Upcoming Meetings</h2>
+  <div class="flex border-b border-gray-300 mb-4" role="tablist">
+    <button
+      class="tab-button px-4 py-2 text-gray-600 border-b-2 hover:text-blue-600  border-blue-600 text-blue-600 font-semibold focus:outline-none"
+      role="tab"
+      aria-selected="true"
+      aria-controls="tab-tc54"
+      id="tab-tc54-btn"
+    >
+      TC54-TG2 Meeting
+    </button>
+    <button
+      class="tab-button px-4 py-2 text-gray-600 hover:text-blue-600 focus:outline-none"
+      role="tab"
+      aria-selected="false"
+      aria-controls="tab-purl"
+      id="tab-purl-btn"
+    >
+      PURL Community Meeting
+    </button>
+  </div>
+
+  <div id="tab-tc54" role="tabpanel" aria-labelledby="tab-tc54-btn">
+    <h2 class="text-xl font-semibold mb-2">TC54-TG2 Meeting Details</h2>
+    <NextMeeting searchTerm="tc54tg2" inviteUrl="https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=MWd2bzcydWloM2h1dWZsYnBwN3Rxc2sxYXZfMjAyNTA0MjVUMTQwMDAwWiBjXzg4NGRlY2RlNWExNTI5MDJiYjUxYTYyZjg5NTUwZDBmMzc0ODQ4NDUzNGYwOGM2Mzc5MmYyZTY1NGYyYTdlYmNAZw&tmsrc=c_884decde5a152902bb51a62f89550d0f3748484534f08c63792f2e654f2a7ebc%40group.calendar.google.com&scp=ALL"/>
+  </div>
+  <div id="tab-purl" role="tabpanel" aria-labelledby="tab-purl-btn" class="hidden">
+    <h2 class="text-xl font-semibold mb-2">PURL Community Meeting</h2>
+    <NextMeeting searchTerm="purlcommunitycall" inviteUrl="https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=NGRyMXBya2xidW82NGlnYzE5M2h1dDF1MjdfMjAyNTA0MzBUMTYwMDAwWiBjXzg4NGRlY2RlNWExNTI5MDJiYjUxYTYyZjg5NTUwZDBmMzc0ODQ4NDUzNGYwOGM2Mzc5MmYyZTY1NGYyYTdlYmNAZw&tmsrc=c_884decde5a152902bb51a62f89550d0f3748484534f08c63792f2e654f2a7ebc%40group.calendar.google.com&scp=ALL" />
+  </div>
+
+</Specification>
+
+<script>
+  const buttons = document.querySelectorAll(".tab-button");
+  const panels = document.querySelectorAll("[role='tabpanel']");
+
+  buttons.forEach((btn) =>
+    btn.addEventListener("click", () => {
+      buttons.forEach((b) => {
+        b.classList.remove("border-blue-600", "text-blue-600", "font-semibold");
+        b.classList.add("border-transparent", "border-b-2");
+        b.setAttribute("aria-selected", "false");
+      });
+
+      panels.forEach((p) => p.classList.add("hidden"));
+
+      btn.classList.remove("border-transparent");
+      btn.classList.add("border-blue-600", "text-blue-600", "font-semibold");
+      btn.setAttribute("aria-selected", "true");
+
+      const panel = document.getElementById(btn.getAttribute("aria-controls"));
+      panel.classList.remove("hidden");
+    })
+  );
+</script>
+
+

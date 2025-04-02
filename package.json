@@ -28,8 +28,12 @@
     "@types/react-dom": "^18.0.6",
     "astro": "^4.11.5",
     "classnames": "^2.3.2",
+    "date-fns": "^4.1.0",
+    "date-fns-tz": "^3.2.0",
+    "ical.js": "^2.1.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "rrule": "^2.8.1",
     "tailwindcss": "^3.4.4"
   },
   "devDependencies": {

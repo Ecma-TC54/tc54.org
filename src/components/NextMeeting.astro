@@ -1,0 +1,129 @@
+---
+import { formatInTimeZone } from 'date-fns-tz';
+import ICAL from 'ical.js';
+
+const { searchTerm, inviteUrl } = Astro.props;
+
+const calendarURL = 'https://calendar.google.com/calendar/ical/c_884decde5a152902bb51a62f89550d0f3748484534f08c63792f2e654f2a7ebc%40group.calendar.google.com/public/basic.ics';
+
+// Fetch and parse .ics
+const res = await fetch(calendarURL);
+const icsText = await res.text();
+const jcalData = ICAL.parse(icsText);
+const vcalendar = new ICAL.Component(jcalData);
+const vevents = vcalendar.getAllSubcomponents('vevent');
+
+const now = new Date();
+const oneYearFromNow = new Date();
+oneYearFromNow.setFullYear(now.getFullYear() + 1);
+
+// Parse and normalize events
+const events = [];
+
+for (const vevent of vevents) {
+  const event = new ICAL.Event(vevent);
+  const title = event.summary;
+  const location = event.location;
+  const description = event.description;
+
+  if (event.isRecurring()) {
+    try {
+      const iterator = event.iterator?.();
+      if (!iterator || typeof iterator.next !== 'function') {
+        throw new Error('No valid recurrence iterator');
+      }
+
+      let next;
+      while ((next = iterator.next())) {
+        const jsDate = next.toJSDate();
+        if (jsDate > oneYearFromNow) break;
+        if (jsDate >= now) {
+          events.push({
+            title,
+            location,
+            description,
+            start: jsDate,
+            end: event.endDate?.toJSDate()
+          });
+        }
+      }
+    } catch (err) {
+      console.warn("⚠️ Skipping broken RRULE:", err.message);
+    }
+  } else {
+    const start = event.startDate.toJSDate();
+    if (start >= now && start <= oneYearFromNow) {
+      events.push({
+        title,
+        location,
+        description,
+        start,
+        end: event.endDate?.toJSDate()
+      });
+    }
+  }
+}
+
+events.sort((a, b) => a.start - b.start);
+
+const normalize = (str) => str?.toLowerCase().replace(/[^a-z0-9]/g, '');
+const nextEvent = events.find((e) =>
+  normalize(e.title).includes(normalize(searchTerm))
+);
+
+const formatTimeRange = (start, end, zone, label) => {
+  if (!start || !end) return null;
+  const startStr = formatInTimeZone(start, zone, 'HH:mm');
+  const endStr = formatInTimeZone(end, zone, 'HH:mm');
+  return `${startStr} to ${endStr} ${label}`;
+};
+---
+
+{nextEvent ? (
+<>
+  <div class="text-gray-700 mb-2">
+    📅 Date: {formatInTimeZone(nextEvent.start, 'UTC', 'PPP')}
+    <ul class="ml-4 mt-1 list-disc text-md">
+      <li>{formatTimeRange(nextEvent.start, nextEvent.end, 'UTC', 'UTC')}</li>
+      <li>{formatTimeRange(nextEvent.start, nextEvent.end, 'Europe/Brussels', 'CET (Europe/Brussels)')}</li>
+      <li>{formatTimeRange(nextEvent.start, nextEvent.end, 'America/New_York', 'EDT (America/New_York)')}</li>
+      <li>{formatTimeRange(nextEvent.start, nextEvent.end, 'America/Los_Angeles', 'PDT (America/Los_Angeles)')}</li>
+      <li>{formatTimeRange(nextEvent.start, nextEvent.end, 'Asia/Tokyo', 'JST (Tokyo, Japan)')}</li>
+    </ul>
+  </div>
+
+  {nextEvent.location && (
+    <p class="text-gray-700 mb-2">
+      📍 {nextEvent.location.startsWith('http') ? 'Meeting URL:' : 'Location:'}{' '}
+      {nextEvent.location.startsWith('http') ? (
+        <a
+          href={nextEvent.location}
+          class="text-blue-600 underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {nextEvent.location}
+        </a>
+      ) : (
+        nextEvent.location
+      )}
+    </p>
+  )}
+
+  {inviteUrl && (
+    <p class="text-gray-700 mt-2">
+      &#128197; Meeting Invite:
+      <a href={inviteUrl} target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">
+        Get Meeting Invite
+      </a>
+    </p>
+  )}
+<!--
+  {nextEvent.description && (
+    <p class="mt-8 text-gray-700" set:html={`📝 ${nextEvent.description}`} />
+  )}
+  -->
+</>
+  ) : (
+<p class="text-gray-500">No upcoming {searchTerm.toUpperCase()} meetings found.</p>
+  )}
