@@ -33,6 +33,9 @@ for (const vevent of vevents) {
         throw new Error('No valid recurrence iterator');
       }
 
+      // Calculate original duration once
+      const durMs = event.endDate ? event.endDate.toJSDate() - event.startDate.toJSDate() : 0;
+
       let next;
       while ((next = iterator.next())) {
         const jsDate = next.toJSDate();
@@ -43,7 +46,7 @@ for (const vevent of vevents) {
             location,
             description,
             start: jsDate,
-            end: event.endDate?.toJSDate()
+            end: new Date(jsDate.getTime() + durMs)
           });
         }
       }
@@ -71,11 +74,18 @@ const nextEvent = events.find((e) =>
   normalize(e.title).includes(normalize(searchTerm))
 );
 
-const formatTimeRange = (start, end, zone, label) => {
+// New helper to get timezone abbreviation dynamically
+const tzAbbrev = (date, zone) =>
+  new Intl.DateTimeFormat('en-US', { timeZone: zone, timeZoneName: 'short' })
+    .format(date)
+    .split(' ')
+    .pop();
+
+const formatTimeRange = (start, end, zone) => {
   if (!start || !end) return null;
   const startStr = formatInTimeZone(start, zone, 'HH:mm');
   const endStr = formatInTimeZone(end, zone, 'HH:mm');
-  return `${startStr} to ${endStr} ${label}`;
+  return `${startStr} to ${endStr} ${tzAbbrev(start, zone)} (${zone})`;
 };
 ---
 
@@ -84,11 +94,11 @@ const formatTimeRange = (start, end, zone, label) => {
   <div class="text-gray-700 mb-2">
     📅 Date: {formatInTimeZone(nextEvent.start, 'UTC', 'PPP')}
     <ul class="ml-4 mt-1 list-disc text-md">
-      <li>{formatTimeRange(nextEvent.start, nextEvent.end, 'UTC', 'UTC')}</li>
-      <li>{formatTimeRange(nextEvent.start, nextEvent.end, 'Europe/Brussels', 'CET (Europe/Brussels)')}</li>
-      <li>{formatTimeRange(nextEvent.start, nextEvent.end, 'America/New_York', 'EDT (America/New_York)')}</li>
-      <li>{formatTimeRange(nextEvent.start, nextEvent.end, 'America/Los_Angeles', 'PDT (America/Los_Angeles)')}</li>
-      <li>{formatTimeRange(nextEvent.start, nextEvent.end, 'Asia/Tokyo', 'JST (Tokyo, Japan)')}</li>
+      <li>{formatTimeRange(nextEvent.start, nextEvent.end, 'UTC')}</li>
+      <li>{formatTimeRange(nextEvent.start, nextEvent.end, 'Europe/Brussels')}</li>
+      <li>{formatTimeRange(nextEvent.start, nextEvent.end, 'America/New_York')}</li>
+      <li>{formatTimeRange(nextEvent.start, nextEvent.end, 'America/Los_Angeles')}</li>
+      <li>{formatTimeRange(nextEvent.start, nextEvent.end, 'Asia/Tokyo')}</li>
     </ul>
   </div>
 
@@ -118,11 +128,11 @@ const formatTimeRange = (start, end, zone, label) => {
       </a>
     </p>
   )}
-<!--
-  {nextEvent.description && (
-    <p class="mt-8 text-gray-700" set:html={`📝 ${nextEvent.description}`} />
-  )}
-  -->
+  <!--
+    {nextEvent.description && (
+      <p class="mt-8 text-gray-700" set:html={`📝 ${nextEvent.description}`} />
+    )}
+    -->
 </>
   ) : (
 <p class="text-gray-500">No upcoming {searchTerm.toUpperCase()} meetings found.</p>
