@@ -12,7 +12,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@astrojs/node": "^8.3.2",
+    "@astrojs/node": "^9.4.1",
     "@astrojs/prism": "^3.1.0",
     "@astrojs/react": "^3.6.0",
     "@astrojs/sitemap": "^3.0.3",
