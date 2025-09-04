@@ -1,0 +1,33 @@
+---
+import Specification from '@/layouts/Specification.astro';
+import NextMeeting from '../components/NextMeeting.astro';
+
+const heading = "Contributing.yaml Specification";
+const text = `Contributing.yaml is an open contributions specification to enable the structured and machine-readable communication of an open source community’s or project's state, needs, and support intentions. This includes codifying maintainers’ support levels, signalling calls for assistance, identifying abandonment or handoff status, and improving visibility into whether a project is viable for commercial or long-term use. The Contributing.yaml specification aims to support software supply chain risk assessment, organisational investment decisions, and community sustainability efforts.`;
+
+const standards = [
+
+];
+
+const specificationDetails = {
+  title: "Contributing.yaml",
+  currentVersion: "In Development",
+  publicationDate: "TBD",
+  developedBy: ["OWASP Foundation", "Ecma International"],
+  standards: standards,
+  technicalCommittee: { name: "TC54", link: "https://ecma-international.org/technical-committees/tc54/" },
+  taskGroup: { name: "TC54-TG4", link:"https://ecma-international.org/task-groups/tc54-tg4/" },
+  websites: []
+};
+---
+
+<Specification
+  heading={heading}
+  text={text}
+  standards={standards}
+  specificationDetails={specificationDetails}>
+
+  <h2 class="text-2xl font-semibold mb-2">Upcoming TC54-TG4 Meetings</h2>
+  <NextMeeting searchTerm="Ecma TC54-TG4" inviteUrl="https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=c2ZjN2FwNmo4cm1lc2FzOTBzbWNpZ3M5NzJfMjAyNTA5MDRUMTcwMDAwWiBjXzg4NGRlY2RlNWExNTI5MDJiYjUxYTYyZjg5NTUwZDBmMzc0ODQ4NDUzNGYwOGM2Mzc5MmYyZTY1NGYyYTdlYmNAZw&tmsrc=c_884decde5a152902bb51a62f89550d0f3748484534f08c63792f2e654f2a7ebc%40group.calendar.google.com&scp=ALL"/>
+
+</Specification>

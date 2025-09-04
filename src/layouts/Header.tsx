@@ -11,7 +11,8 @@ import {
   RectangleStackIcon,
   ShareIcon,
   SquaresPlusIcon,
-  XMarkIcon
+  XMarkIcon,
+  LifebuoyIcon
 } from '@heroicons/react/24/outline';
 import {
   ChevronDownIcon,
@@ -52,6 +53,12 @@ const specifications = [
     description: 'Track product lifecycle events and milestones',
     href: '/cle',
     icon: QueueListIcon,
+  },
+  {
+    name: 'Contributing.yaml',
+    description: 'Promote Open Source Sustainability',
+    href: '/contributing-yaml',
+    icon: LifebuoyIcon,
   }
 ];
 
