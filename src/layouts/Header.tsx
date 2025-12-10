@@ -32,6 +32,7 @@ const specifications = [
   },
   {
     name: 'Package-URL',
+    standard: "ECMA-427",
     description: 'Identify and locate software packages',
     href: '/purl',
     icon: FingerPrintIcon,
@@ -50,6 +51,7 @@ const specifications = [
   },
   {
     name: 'Common Lifecycle Enumeration',
+    standard: "ECMA-428",
     description: 'Track product lifecycle events and milestones',
     href: '/cle',
     icon: QueueListIcon,

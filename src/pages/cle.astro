@@ -6,13 +6,19 @@ const heading = "Common Lifecycle Enumeration Specification";
 const text = `The Common Lifecycle Enumeration (CLE) is an open standard designed to support component aliasing, component lifecycle events such as end-of-life (EOL) and end-of-support (EOS), and provenance chaining over time. The CLE will provide a structured and machine-readable format to communicate lifecycle events and milestones for software and hardware components. `;
 
 const standards = [
-
+  {
+    imgSrc: "/images/ecma-428.jpg",
+    name: "ECMA-428",
+    edition: "1st Edition",
+    publicationDate: "2025-12-10",
+    link: "https://ecma-international.org/publications-and-standards/standards/ecma-428/"
+  }
 ];
 
 const specificationDetails = {
   title: "Common Lifecycle Enumeration",
-  currentVersion: "In Development",
-  publicationDate: "TBD",
+  currentVersion: "1.0",
+  publicationDate: "2025-12-10",
   developedBy: ["OWASP Foundation", "Ecma International"],
   standards: standards,
   technicalCommittee: { name: "TC54", link: "https://ecma-international.org/technical-committees/tc54/" },
@@ -27,7 +33,7 @@ const specificationDetails = {
   standards={standards}
   specificationDetails={specificationDetails}>
 
-  <h2 class="text-2xl font-semibold mb-2">Upcoming TC54-TG3 Meetings</h2>
+  <h2 class="mt-12 text-2xl font-semibold mb-2">Upcoming TC54-TG3 Meetings</h2>
   <NextMeeting searchTerm="Ecma TC54-TG3" inviteUrl="https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=MGNlbWgwcDdoYWtwbjhvZGo5NzRsYzdvb3ZfMjAyNTA0MDNUMTgwMDAwWiBjXzg4NGRlY2RlNWExNTI5MDJiYjUxYTYyZjg5NTUwZDBmMzc0ODQ4NDUzNGYwOGM2Mzc5MmYyZTY1NGYyYTdlYmNAZw&tmsrc=c_884decde5a152902bb51a62f89550d0f3748484534f08c63792f2e654f2a7ebc%40group.calendar.google.com&scp=ALL"/>
 
 </Specification>
