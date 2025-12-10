@@ -18,7 +18,7 @@ export default function ThreeBoxes() {
                     <div className="card">
                         <div className="card-container">
                             <h3>Standards</h3>
-                            <p><a href="https://ecma-international.org/publications-and-standards/standards/ecma-424/">ECMA-424</a> standardizes the CycloneDX v1.6 Bill of materials specification. TC54 is actively working on additional standards which will be listed here in the future.</p>
+                            <p>Ecma TC54 develops open standards for software and system transparency, including <a href="https://ecma-international.org/publications-and-standards/standards/ecma-424/">ECMA-424</a> (CycloneDX), <a href="https://ecma-international.org/publications-and-standards/standards/ecma-427/">ECMA-427</a> (Package-URL), and <a href="https://ecma-international.org/publications-and-standards/standards/ecma-428/">ECMA-428</a> (Common Lifecycle Enumeration), while continuously evolving these and other emerging specifications.</p>
                         </div>
                     </div>
                 </div>
