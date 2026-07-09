@@ -1,0 +1,61 @@
+---
+import Layout from '@/layouts/Layout.astro';
+
+const heading = "Schemas";
+const text = `Canonical, versioned schema definitions for the standards developed by Ecma Technical Committee 54. Each schema is served from a stable URL and may be referenced directly from tooling.`;
+
+// To publish a new schema: drop the file into public/schemas/<slug>/ (the version
+// lives in the filename) and add a matching entry below.
+const schemas = [
+  {
+    name: "Common Lifecycle Enumeration (CLE)",
+    standard: "ECMA-428",
+    version: "1.0",
+    format: "JSON Schema",
+    href: "/schemas/cle/cle-1.0.0.schema.json",
+    specHref: "/cle"
+  }
+];
+---
+
+<Layout title={heading}>
+    <div class="bg-white pt-24 pb-12 sm:pt-32 sm:pb-16">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                {heading}
+            </h1>
+            <p class="mt-4 max-w-3xl text-lg leading-8 text-gray-600">
+                {text}
+            </p>
+
+            <div class="mt-10 overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-300">
+                    <thead>
+                        <tr>
+                            <th class="py-3 pr-4 text-left text-sm font-semibold text-gray-900">Schema</th>
+                            <th class="py-3 px-4 text-left text-sm font-semibold text-gray-900">Standard</th>
+                            <th class="py-3 px-4 text-left text-sm font-semibold text-gray-900">Version</th>
+                            <th class="py-3 px-4 text-left text-sm font-semibold text-gray-900">Format</th>
+                            <th class="py-3 pl-4 text-left text-sm font-semibold text-gray-900">Download</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        {schemas.map((schema) => (
+                                <tr>
+                                    <td class="py-4 pr-4 text-sm font-medium text-gray-900">
+                                        <a href={schema.specHref}>{schema.name}</a>
+                                    </td>
+                                    <td class="py-4 px-4 text-sm text-gray-600">{schema.standard}</td>
+                                    <td class="py-4 px-4 text-sm text-gray-600">{schema.version}</td>
+                                    <td class="py-4 px-4 text-sm text-gray-600">{schema.format}</td>
+                                    <td class="py-4 pl-4 text-sm">
+                                        <a href={schema.href}><code>{schema.href}</code></a>
+                                    </td>
+                                </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</Layout>
