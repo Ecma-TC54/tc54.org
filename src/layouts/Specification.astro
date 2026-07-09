@@ -3,7 +3,7 @@ import Layout from '@/layouts/Layout.astro';
 import SpecificationDetails from '@/components/SpecificationDetails.astro';
 import StandardCard from '@/components/StandardCard.astro';
 
-const { heading, text, standards, specificationDetails } = Astro.props;
+const { heading, text, standards, specificationDetails, specHtmlUrl } = Astro.props;
 ---
 
 <Layout title={heading}>
@@ -18,6 +18,15 @@ const { heading, text, standards, specificationDetails } = Astro.props;
                     <p class="mt-2 text-lg leading-8 text-gray-600">
                         {text}
                     </p>
+                    {specHtmlUrl && (
+                            <a
+                                    href={specHtmlUrl}
+                                    class="no-underline hover:text-white mt-6 inline-flex items-center gap-2 rounded-md bg-orange-500 px-5 py-2.5 text-base font-semibold text-white shadow-sm transition hover:bg-orange-600"
+                            >
+                                Read the specification online
+                                <span aria-hidden="true">&rarr;</span>
+                            </a>
+                    )}
                     {standards.length > 0 && (
                             <>
                                 <h2 class="text-2xl font-semibold tracking-tight text-gray-900 sm:text-3xl pt-8">

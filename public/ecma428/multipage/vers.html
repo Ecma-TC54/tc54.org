@@ -1,0 +1,643 @@
+<!doctype html><html lang=en-GB-oxendict>
+<head><meta content="width=device-width,initial-scale=1" name=viewport><meta charset=utf-8><meta content=https://tc39.es/ecmarkup/ecma-logo.png property=og:image><meta content="Common Lifecycle Enumeration (CLE) specification" property=og:title><meta content="Introduction
+  The Common Lifecycle Enumeration (CLE) specification provides a standardized, machine-readable format for communicating lifecycle events of software and hardware components throughout the supply chain. As modern software systems increasingly rely on complex networks of dependencies" property=og:description>
+<link href=../img/favicon.ico rel=icon>
+<link href=../assets/css/ecmarkup.css rel=stylesheet><link href=../assets/css/print.css rel=stylesheet media=print><style media=print>#sec-example pre{break-inside:auto}</style>
+<title>Common Lifecycle Enumeration (CLE) specification</title><script src="../assets/js/multipage.js?cache=PPwU1647" async></script><script src="../assets/js/ecmarkup.js?cache=JB8xiYbE" defer></script><style>@media print{@page :left{@bottom-right{content:'© Ecma International 2025'}}@page :right{@bottom-left{content:'© Ecma International 2025'}}@page :first{@bottom-left{content:''}@bottom-right{content:''}}@page :blank{@bottom-left{content:''}@bottom-right{content:''}}}</style><style>@import url(https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/base16/solarized-light.min.css);@import url(https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/a11y-dark.min.css) (prefers-color-scheme: dark);</style><link href=../#sec-vers rel=canonical></head>
+<body><div id=menu><div id=menu-search><input id=menu-search-box placeholder=Search...><div id=menu-search-results class=inactive></div></div><div id=menu-pins><div class=menu-pane-header>Pins<button class=unpin-all>clear</button></div><ul id=menu-pins-list></ul></div><div class=menu-pane-header>Table of Contents</div><div id=menu-toc><ol class=toc><li><span class=item-toggle-none></span><a href=./#sec-intro title=Introduction>Introduction</a></li><li><span class=item-toggle-none></span><a href=scope.html#sec-scope title=Scope><span class=secnum>1</span> Scope</a></li><li><span class=item-toggle-none></span><a href=conformance.html#sec-conformance title=Conformance><span class=secnum>2</span> Conformance</a></li><li><span class=item-toggle-none></span><a href=normative-references.html#sec-normative-references title="Normative references"><span class=secnum>3</span> Normative references</a></li><li><span class=item-toggle>+</span><a href=terms-and-definitions.html#sec-terms-and-definitions title="Terms and definitions"><span class=secnum>4</span> Terms and definitions</a><ol class=toc><li><span class=item-toggle-none></span><a href=terms-and-definitions.html#sec-component title=component><span class=secnum>4.1</span> component</a></li><li><span class=item-toggle-none></span><a href=terms-and-definitions.html#sec-lifecycle-event title="lifecycle event"><span class=secnum>4.2</span> lifecycle event</a></li><li><span class=item-toggle-none></span><a href=terms-and-definitions.html#sec-purl title=PURL><span class=secnum>4.3</span> PURL</a></li></ol></li><li><span class=item-toggle-none></span><a href=types-of-work.html#sec-types-of-work title="Types of work"><span class=secnum>5</span> Types of work</a></li><li><span class=item-toggle>+</span><a href=schema-definition.html#sec-schema-definition title="Schema definition"><span class=secnum>6</span> Schema definition</a><ol class=toc><li><span class=item-toggle-none></span><a href=schema-definition.html#sec-json-schema title="JSON Schema"><span class=secnum>6.1</span> JSON Schema</a></li><li><span class=item-toggle-none></span><a href=schema-definition.html#sec-top-level-fields title="Top-level fields"><span class=secnum>6.2</span> Top-level fields</a></li><li><span class=item-toggle>+</span><a href=schema-definition.html#sec-definitions-object title="Definitions object"><span class=secnum>6.3</span> Definitions object</a><ol class=toc><li><span class=item-toggle-none></span><a href=schema-definition.html#sec-support-definitions title="Support definitions"><span class=secnum>6.3.1</span> Support definitions</a></li></ol></li><li><span class=item-toggle-none></span><a href=schema-definition.html#sec-event-object title="Event object"><span class=secnum>6.4</span> Event object</a></li></ol></li><li><span class=item-toggle>+</span><a href=event-types.html#sec-event-types title="Event types"><span class=secnum>7</span> Event types</a><ol class=toc><li><span class=item-toggle-none></span><a href=event-types.html#sec-event-type-released title=released><span class=secnum>7.1</span> released</a></li><li><span class=item-toggle-none></span><a href=event-types.html#sec-event-type-endofdevelopment title=endOfDevelopment><span class=secnum>7.2</span> endOfDevelopment</a></li><li><span class=item-toggle-none></span><a href=event-types.html#sec-event-type-endofsupport title=endOfSupport><span class=secnum>7.3</span> endOfSupport</a></li><li><span class=item-toggle-none></span><a href=event-types.html#sec-event-type-endoflife title=endOfLife><span class=secnum>7.4</span> endOfLife</a></li><li><span class=item-toggle-none></span><a href=event-types.html#sec-event-type-endofdistribution title=endOfDistribution><span class=secnum>7.5</span> endOfDistribution</a></li><li><span class=item-toggle-none></span><a href=event-types.html#sec-event-type-endofmarketing title=endOfMarketing><span class=secnum>7.6</span> endOfMarketing</a></li><li><span class=item-toggle-none></span><a href=event-types.html#sec-event-type-supersededby title=supersededBy><span class=secnum>7.7</span> supersededBy</a></li><li><span class=item-toggle-none></span><a href=event-types.html#sec-event-type-componentrenamed title=componentRenamed><span class=secnum>7.8</span> componentRenamed</a></li><li><span class=item-toggle-none></span><a href=event-types.html#sec-event-type-withdrawn title=withdrawn><span class=secnum>7.9</span> withdrawn</a></li></ol></li><li><span class=item-toggle>+</span><a href=event-categories.html#sec-event-categories title="Event categories"><span class=secnum>8</span> Event categories</a><ol class=toc><li><span class=item-toggle-none></span><a href=event-categories.html#sec-version-events title="Version events"><span class=secnum>8.1</span> Version events</a></li><li><span class=item-toggle-none></span><a href=event-categories.html#sec-component-events title="Component events"><span class=secnum>8.2</span> Component events</a></li><li><span class=item-toggle-none></span><a href=event-categories.html#sec-meta-events title="Meta events"><span class=secnum>8.3</span> Meta events</a></li></ol></li><li><span class=item-toggle-none></span><a href=event-processing-rules.html#sec-event-processing-rules title="Event processing rules"><span class=secnum>9</span> Event processing rules</a></li><li><span class=item-toggle>+</span><a href=pagination.html#sec-pagination title=Pagination><span class=secnum>10</span> Pagination</a><ol class=toc><li><span class=item-toggle-none></span><a href=pagination.html#sec-pagination-rules title="Pagination rules"><span class=secnum>10.1</span> Pagination rules</a></li><li><span class=item-toggle-none></span><a href=pagination.html#sec-cle-index-schema title="CLE index schema"><span class=secnum>10.2</span> CLE index schema</a></li><li><span class=item-toggle-none></span><a href=pagination.html#sec-processing-paginated-files title="Processing paginated CLE files"><span class=secnum>10.3</span> Processing paginated CLE files</a></li></ol></li><li><span class=item-toggle>+</span><a href=use-cases.html#sec-use-cases title="Use cases"><span class=secnum>11</span> Use cases</a><ol class=toc><li><span class=item-toggle-none></span><a href=use-cases.html#sec-supported-use-cases title="v1.0.0 Supported use cases"><span class=secnum>11.1</span> v1.0.0 Supported use cases</a></li><li><span class=item-toggle-none></span><a href=use-cases.html#sec-future-use-cases title="Future use cases"><span class=secnum>11.2</span> Future use cases</a></li></ol></li><li><span class=item-toggle>+</span><a href=vers.html#sec-vers title="Version Range (VERS) specification (inlined)"><span class=secnum>Annex A <span class=annex-kind>(normative)</span></span> Version Range (VERS) specification (inlined)</a><ol class=toc><li><span class=item-toggle-none></span><a href=vers.html#sec-vers-range-spec title="Version range specifier"><span class=secnum>A.1</span> Version range specifier</a></li><li><span class=item-toggle>+</span><a href=vers.html#sec-vers-using-vers title="Using version range specifiers"><span class=secnum>A.2</span> Using version range specifiers</a><ol class=toc><li><span class=item-toggle-none></span><a href=vers.html#sec-vers-examples title=Examples><span class=secnum>A.2.1</span> Examples</a></li><li><span class=item-toggle-none></span><a href=vers.html#sec-vers-uri-scheme title="URI scheme"><span class=secnum>A.2.2</span> URI scheme</a></li><li><span class=item-toggle-none></span><a href=vers.html#sec-vers-constraint title="<version-constraint>"><span class=secnum>A.2.3</span> <code>&lt;version-constraint></code></a></li></ol></li><li><span class=item-toggle-none></span><a href=vers.html#sec-vers-normalised-representation-validation title="Normalized, canonical representation and validation"><span class=secnum>A.3</span> Normalized, canonical representation and validation</a></li><li><span class=item-toggle>+</span><a href=vers.html#sec-vers-parsing-validating-range title="Parsing and validating version range specifiers"><span class=secnum>A.4</span> Parsing and validating version range specifiers</a><ol class=toc><li><span class=item-toggle-none></span><a href=vers.html#sec-vers-constraints title="Version constraints simplification"><span class=secnum>A.4.1</span> Version constraints simplification</a></li><li><span class=item-toggle-none></span><a href=vers.html#sec-vers-checking-range title="Checking if a version is contained within a range"><span class=secnum>A.4.2</span> Checking if a version is contained within a range</a></li><li><span class=item-toggle-none></span><a href=vers.html#sec-version-notes title="Notes and caveats"><span class=secnum>A.4.3</span> Notes and caveats</a></li></ol></li><li><span class=item-toggle-none></span><a href=vers.html#sec-vers-known-schemes title="Some of the known versioning schemes"><span class=secnum>A.5</span> Some of the known versioning schemes</a></li><li><span class=item-toggle-none></span><a href=vers.html#sec-vers-implementations title=Implementations><span class=secnum>A.6</span> Implementations</a></li><li><span class=item-toggle-none></span><a href=vers.html#sec-vers-related title="Related efforts and alternative"><span class=secnum>A.7</span> Related efforts and alternative</a></li><li><span class=item-toggle>+</span><a href=vers.html#sec-vers-why-not-reuse title="Why not reuse existing version range notations?"><span class=secnum>A.8</span> Why not reuse existing version range notations?</a><ol class=toc><li><span class=item-toggle-none></span><a href=vers.html#sec-vers-why-not-osv title="Why not use the OSV Ranges?"><span class=secnum>A.8.1</span> Why not use the OSV Ranges?</a></li><li><span class=item-toggle-none></span><a href=vers.html#vers-why-not-cve title="Why not use the CVE v5 API Ranges?"><span class=secnum>A.8.2</span> Why not use the CVE v5 API Ranges?</a></li><li><span class=item-toggle-none></span><a href=vers.html#sec-why-not-nvd title="Why not use the NVD CPE Ranges?"><span class=secnum>A.8.3</span> Why not use the NVD CPE Ranges?</a></li><li><span class=item-toggle-none></span><a href=vers.html#sec-vers-why-not-semver title="Why not use node-semver ranges?"><span class=secnum>A.8.4</span> Why not use node-semver ranges?</a></li><li><span class=item-toggle-none></span><a href=vers.html#sec-vers-why-not-pep title="Why not use Python PEP-0440 ranges?"><span class=secnum>A.8.5</span> Why not use Python PEP-0440 ranges?</a></li><li><span class=item-toggle-none></span><a href=vers.html#sec-vers-wny-not-rubygems title="Why not use RubyGems requirements notation?"><span class=secnum>A.8.6</span> Why not use RubyGems requirements notation?</a></li><li><span class=item-toggle-none></span><a href=vers.html#sec-vers-why-not-fewer title="Why not use fewer comparators with only =, >= and <?"><span class=secnum>A.8.7</span> Why not use fewer comparators with only =, >= and &lt;?</a></li><li><span class=item-toggle-none></span><a href=vers.html#sec-why-not-richer title="Why not use richer comparators such as tilde, caret and star?"><span class=secnum>A.8.8</span> Why not use richer comparators such as tilde, caret and star?</a></li><li><span class=item-toggle-none></span><a href=vers.html#sec-vers-why-not-math title="Why not use mathematical interval notation for ranges?"><span class=secnum>A.8.9</span> Why not use mathematical interval notation for ranges?</a></li></ol></li><li><span class=item-toggle-none></span><a href=vers.html#sec-vers-references title=References><span class=secnum>A.9</span> References</a></li><li><span class=item-toggle-none></span><a href=vers.html#sec-vers-license title=License><span class=secnum>A.10</span> License</a></li></ol></li><li><span class=item-toggle-none></span><a href=example.html#sec-example title="Example CLE document"><span class=secnum>Annex B <span class=annex-kind>(informative)</span></span> Example CLE document</a></li><li><span class=item-toggle-none></span><a href=colophon.html#sec-colophon title=Colophon>Colophon</a></li><li><span class=item-toggle-none></span><a href=copyright-and-software-license.html#sec-copyright-and-software-license title="Copyright & Software License">Copyright & Software License</a></li></ol></div></div>
+<div id=menu-spacer class=menu-spacer></div>
+<div id=menu-toggle><svg height=54 style=width:100%;height:100%;stroke:currentColor viewBox="0 0 120 120" width=54 xmlns=http://www.w3.org/2000/svg>
+      <title>Menu</title>
+      <path d="M30,60 h60  M30,30 m0,5 h60  M30,90 m0,-5 h60" stroke-linecap=round stroke-width=10></path>
+    </svg></div>
+<div id=shortcuts-help>
+<ul>
+  <li><span>Toggle shortcuts help</span><code>?</code></li>
+  <li><span>Toggle "can call user code" annotations</span><code>u</code></li>
+  <li><span>Toggle early exit annotations</span><code>e</code></li>
+<li><span>Navigate to/from multipage</span><code>m</code></li>
+  <li><span>Jump to search box</span><code>/</code></li>
+  <li><span>Toggle pinning of the current clause</span><code>p</code></li>
+  <li><span>Jump to the <i>n</i><sup>th</sup> pin</span><code>1-9</code></li>
+  <li><span>Jump to the 10<sup>th</sup> pin</span><code>0</code></li>
+  <li><span>Jump to the most recent link target</span><code>`</code></li>
+</ul>
+<fieldset>
+  <legend>Multipage preference</legend>
+  <button data-set-multipage-preference="" disabled type=button>No preference</button>
+  <button data-set-multipage-preference=single-page disabled type=button>Always single-page</button>
+  <button data-set-multipage-preference=multi-page disabled type=button>Always multi-page</button>
+</fieldset></div><div id=spec-container><emu-annex id=sec-vers normative="">
+  <h1><span class=secnum>Annex A <span class=annex-kind>(normative)</span></span> Version Range (VERS) specification (inlined)</h1>
+
+  <p>This specification is a new syntax for dependency and vulnerable version ranges.</p>
+
+  <emu-annex id=sec-vers-range-spec>
+    <h1><span class=secnum>A.1</span> Version range specifier</h1>
+
+    <p>A version range specifier (aka. "vers") is a URI string using the <code>vers</code> URI-scheme with this syntax:</p>
+
+    <pre>    vers:&lt;versioning-scheme>/&lt;version-constraint>|&lt;version-constraint>|...
+    </pre>
+
+    <p>
+      For example, to define a set of versions that contains either version <code>1.2.3</code>, or any versions greater than or equal to <code>2.0.0</code> but less than <code>5.0.0</code> using the <code>node-semver</code> versioning scheme used with the <code>npm</code> Package-URL type, the version range specifier will be:
+    </p>
+
+    <pre>vers:npm@1.2.3|≥=2.0.0|&lt;5.0.0</pre>
+
+    <p>
+      <code>vers</code> is the URI-scheme and is an acronym for "VErsion Range Specifier". It has been selected because it is short, obviously about version and available for a future formal URI-scheme registration at IANA. The pipe "|" is used as a simple separator between `&lt;version-constraint>`. Each `&lt;version-constraint>` in this pipe-separated list contains a comparator and a version:
+    </p>
+
+    <pre>&lt;comparator:version></pre>
+
+    <p>This list of <code>&lt;version-constraint></code> are signposts in the version timeline of a package that specify version intervals.</p>
+
+    <p>A <code>&lt;version></code> satisfies a version range specifier if it is contained within any of the intervals defined by these <code>&lt;version-constraint></code>.</p>
+  </emu-annex>
+
+  <emu-annex id=sec-vers-using-vers>
+    <h1><span class=secnum>A.2</span> Using version range specifiers</h1>
+
+    <p><code>vers</code> primary usage is to test if a version is within a range.</p>
+
+    <p>A version is within a version range if falls in any of the intervals defined by a range. Otherwise, the version is outside of the version range.</p>
+
+    <p>Some important usages derived from this include:</p>
+
+    <ul>
+      <li><b>Resolving a version range specifier to a list of concrete versions.</b> In this case, the input is one or more known versions of a package. Each version is then tested to check if it lies within or outside the range. For example, given a vulnerability and the <code>vers</code> describing the vulnerable versions of a package, this process is used to determine if an existing package version is vulnerable.</li>
+      <li><b>Selecting one of several versions that are within a range.</b> In this case, given several versions that are within a range and several packages that express package dependencies qualified by a version range, a package management tool will determine and select the set of package versions that satisfy all the version ranges constraints of all dependencies. This usually requires deploying heuristics and algorithms (possibly complex such as sat solvers) that are ecosystem- and tool-specific and outside of the scope for this specification; yet <code>vers</code> could be used in tandem with <code>purl</code> to provide an input to this dependencies resolution process.</li>
+    </ul>
+
+    <emu-annex id=sec-vers-examples>
+      <h1><span class=secnum>A.2.1</span> Examples</h1>
+
+      <p>A single version in an npm package dependency:</p>
+
+      <ul>
+        <li>originally seen as a dependency on version "1.2.3" in a package.json manifest</li>
+        <li>the version range spec is: <code>vers:npm/1.2.3</code></li>
+      </ul>
+
+      <p>A list of versions, enumerated:</p>
+
+      <ul>
+        <li><code>vers:pypi/0.0.0|0.0.1|0.0.2|0.0.3|1.0|2.0pre1</code></li>
+      </ul>
+
+      <p>A complex statement about a vulnerability in a "maven" package that affects multiple branches each with their own fixed versions at <a href=https://repo1.maven.org/maven2/org/apache/tomee/apache-tomee/ >https://repo1.maven.org/maven2/org/apache/tomee/apache-tomee/</a> Note how the constraints are sorted:</p>
+
+      <ul>
+        <li>"affects Apache TomEE 8.0.0-M1 - 8.0.1, Apache TomEE 7.1.0 - 7.1.2, Apache TomEE 7.0.0-M1 - 7.0.7, Apache TomEE 1.0.0-beta1 - 1.7.5."</li>
+        <li>a normalized version range spec is: <code>vers:maven/>=1.0.0-beta1|&lt;=1.7.5|>=7.0.0-M1|&lt;=7.0.7|>=7.1.0|&lt;=7.1.2|>=8.0.0-M1|&lt;=8.0.1</code></li>
+        <li>alternatively, four <code>vers</code> express the same range, using one <code>vers</code> for each vulnerable "branches":
+          <ul>
+            <li><code>vers:tomee/>=1.0.0-beta1|&lt;=1.7.5</code></li>
+            <li><code>vers:tomee/>=7.0.0-M1|&lt;=7.0.7</code></li>
+            <li><code>vers:tomee/>=7.1.0|&lt;=7.1.2</code></li>
+            <li><code>vers:tomee/>=8.0.0-M1|&lt;=8.0.1</code></li>
+          </ul>
+        </li>
+      </ul>
+
+      <p>Converting RubyGems custom syntax for dependency on gem. Note how the pessimistic version constraint is expanded:</p>
+
+      <ul>
+        <li><code>'library', '~> 2.2.0', '!= 2.2.1'</code></li>
+        <li>the version range spec is: <code>vers:gem/>=2.2.0|!= 2.2.1|&lt;2.3.0</code></li>
+      </ul>
+    </emu-annex>
+
+    <emu-annex id=sec-vers-uri-scheme>
+      <h1><span class=secnum>A.2.2</span> URI scheme</h1>
+
+      <p>The <code>vers</code> URI scheme is an acronym for "VErsion Range Specifier". It has been selected because it is short, obviously about version and available for a future formal registration for this URI-scheme at the IANA registry.</p>
+
+      <p>The URI scheme is followed by a colon ":".</p>
+
+      <h3><code>&lt;versioning-scheme></code></h3>
+
+      <p>The <code>&lt;versioning-scheme></code> (such as <code>npm</code>, <code>deb</code>, etc.) determines:</p>
+
+      <ul>
+        <li>the specific notation and conventions used for a version string encoded in this scheme. Versioning schemes often specify a version segments separator and the meaning of each version segment, such as [major.minor.patch] in semver.</li>
+        <li>how two versions are compared as greater or lesser to determine if a version is within or outside a range.</li>
+        <li>how a versioning scheme-specific range notation can be transformed in the <code>vers</code> simplified notation defined here.</li>
+      </ul>
+
+      <p>By convention the versioning scheme <b>should</b> be the same as the <code>Package-URL</code> package type for a given package ecosystem. It is OK to have other schemes beyond the purl type. A scheme could be specific to a single package name.</p>
+
+      <p>The <code>&lt;versioning-scheme></code> is followed by a slash "/".</p>
+    </emu-annex>
+
+    <emu-annex id=sec-vers-constraint>
+      <h1><span class=secnum>A.2.3</span> <code>&lt;version-constraint></code></h1>
+
+      <p>After the <code>&lt;versioning-scheme></code> and "/" there are one or more <code>&lt;version-constraint></code> separated by a pipe "|". The pipe "|" has no special meaning beside being a separator.</p>
+
+      <p>Each <code>&lt;version-constraint></code> of this list is either a single <code>&lt;version></code> as in <code>1.2.3</code> for example or the combination of a <code>&lt;comparator></code> and a <code>&lt;version></code> as in <code>>=2.0.0</code> using this syntax:</p>
+
+      <pre><code>&lt;comparator>&lt;version></code></pre>
+
+      <p>A single version means that a version equal to this version satisfies the range spec. Equality is based on the equality of two normalized version strings according to their versioning scheme. For most schemes, this is a simple string equality. But schemes can specify normalization and rules for equality such as <code>pypi</code> with PEP440.</p>
+
+      <p>The special star "*" comparator matches any version. It must be used <b>alone</b> exclusive of any other constraint and must not be followed by a version. For example "vers:deb/*" represents all the versions of a Debian package. This includes past, current and possible future versions.</p>
+
+      <p>Otherwise, the <code>&lt;comparator></code> is one of these comparison operators:</p>
+
+      <ul>
+        <li>"!=": Version exclusion or inequality comparator. This means a version must not be equal to the provided version that must be excluded from the range. For example: "!=1.2.3" means that version "1.2.3" is excluded.</li>
+        <li>"&lt;", "&lt;=": Lesser than or lesser-or-equal version comparators point to all versions less than or equal to the provided version. For example "&lt;=1.2.3" means less than or equal to "1.2.3".</li>
+        <li>">", ">=": Greater than or greater-or-equal version comparators point to all versions greater than or equal to the provided version. For example ">=1.2.3" means greater than or equal to "1.2.3".</li>
+      </ul>
+
+      <p>The <code>&lt;versioning-scheme></code> defines:</p>
+
+      <ul>
+        <li>how to compare two version strings using these comparators, and</li>
+        <li>the structure of a version string such as "1.2.3" if any. For instance, the <code>semver</code> specification for version numbers defines a version as composed primarily of three dot-separated numeric segments named major, minor and patch.</li>
+      </ul>
+    </emu-annex>
+  </emu-annex>
+
+  <emu-annex id=sec-vers-normalised-representation-validation>
+    <h1><span class=secnum>A.3</span> Normalized, canonical representation and validation</h1>
+
+    <p>The construction and validation rules are designed such that a <code>vers</code> is easier to read and understand by humans and straightforward to process by tools, attempting to avoid the creation of empty or impossible version ranges.</p>
+
+    <ul>
+      <li>Spaces are not significant and removed in a canonical form. For example "&lt;1.2.3|>=2.0" and " &lt; 1.2. 3 | > = 2 . 0" are equivalent.</li>
+      <li>A version range specifier contains only printable ASCII letters, digits and punctuation.</li>
+      <li>The URI scheme and versioning scheme are always lowercase as in <code>vers:npm</code>.</li>
+      <li>The versions are case-sensitive, and a versioning scheme may specify its own case sensitivity.</li>
+      <li>If a <code>version</code> in a <code>&lt;version-constraint></code> contains separator or comparator characters (i.e. <code>>&lt;=!*|</code>), it must be quoted using the URL quoting rules. This should be rare in practice.</li>
+    </ul>
+
+    <p>The list of <code>&lt;version-constraint>s</code> of a range are signposts in the version timeline of a package. With these few and simple validation rules, we can avoid the creation of most empty or impossible version ranges:</p>
+
+    <ul>
+      <li><b>Constraints are sorted by version</b>. The canonical ordering is the versions order. The ordering of <code>&lt;version-constraint></code> is not significant otherwise but this sort order is needed when checking if a version is contained in a range.</li>
+      <li><b>Versions are unique</b>. Each <code>version</code> must be unique in a range and can occur only once in any <code>&lt;version-constraint></code> of a range specifier, irrespective of its comparators. Tools must report an error for duplicated versions.</li>
+      <li><b>There is only one star</b>: "*" must only occur once and alone in a range, without any other constraint or version.</li>
+    </ul>
+
+    <p>Starting from a de-duplicated and sorted list of constraints, these extra rules apply to the comparators of any two contiguous constraints to be valid:</p>
+
+    <ul>
+      <li>"!=" constraint can be followed by a constraint using any comparator, i.e., any of "=", "!=", ">", ">=", "&lt;", "&lt;=" as comparator (or no constraint).</li>
+    </ul>
+
+    <p>Ignoring all constraints with "!=" comparators:</p>
+
+    <ul>
+      <li>A "=" constraint must be followed only by a constraint with one of "=", ">", ">=" as comparator (or no constraint).</li>
+    </ul>
+
+    <p>And ignoring all constraints with "=" or "!=" comparators, the sequence of constraint comparators must be an alternation of greater and lesser comparators:</p>
+
+    <ul>
+      <li>"&lt;" and "&lt;=" must be followed by one of ">", ">=" (or no constraint).</li>
+      <li>">" and ">=" must be followed by one of "&lt;", "&lt;=" (or no constraint).</li>
+    </ul>
+
+    <p>Tools must report an error for such invalid ranges.</p>
+  </emu-annex>
+
+  <emu-annex id=sec-vers-parsing-validating-range>
+    <h1><span class=secnum>A.4</span> Parsing and validating version range specifiers</h1>
+
+    <p>To parse a version range specifier string:</p>
+
+    <ul>
+      <li>Remove all spaces and tabs.</li>
+      <li>Start from left, and split once on colon ":".</li>
+      <li>The left hand side is the URI-scheme that must be lowercase.
+        <ul>
+          <li>Tools must validate that the URI-scheme value is <code>vers</code>.</li>
+        </ul>
+      </li>
+      <li>The right hand side is the specifier.</li>
+      <li>Split the specifier from left once on a slash "/".</li>
+      <li>The left hand side is the <code>&lt;versioning-scheme></code> that must be lowercase. Tools should validate that the <code>&lt;versioning-scheme></code> is a known scheme.</li>
+      <li>The right hand side is a list of one or more constraints. Tools must validate that this constraints string is not empty ignoring spaces.</li>
+      <li>If the constraints string is equal to "*", the <code>&lt;version-constraint></code> is "*". Parsing is done and no further processing is needed for this <code>vers</code>. A tool should report an error if there are extra characters beyond "*".</li>
+      <li>Strip leading and trailing pipes "|" from the constraints string.</li>
+      <li>Split the constraints on pipe "|". The result is a list of <code>&lt;version-constraint></code>. Consecutive pipes must be treated as one and leading and trailing pipes ignored.</li>
+      <li>For each <code>&lt;version-constraint></code>:
+        <ul>
+          <li>Determine if the <code>&lt;version-constraint></code> starts with one of the two comparators:
+            <ul>
+              <li>If it starts with ">=", then the comparator is ">=".</li>
+              <li>If it starts with "&lt;=", then the comparator is "&lt;=".</li>
+              <li>If it starts with "!=", then the comparator is "!=".</li>
+              <li>If it starts with "&lt;", then the comparator is "&lt;".</li>
+              <li>If it starts with ">", then the comparator is ">".</li>
+              <li>Remove the comparator from <code>&lt;version-constraint></code> string start. The remaining string is the version.</li>
+            </ul>
+          </li>
+          <li>Otherwise the version is the full <code>&lt;version-constraint></code> string (which implies an equality comparator of "=")</li>
+          <li>Tools should validate and report an error if the version is empty.</li>
+          <li>If the version contains a percent "%" character, apply URL quoting rules to unquote this string.</li>
+          <li>Append the parsed (comparator, version) to the constraints list.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <p>Finally:</p>
+
+    <ul>
+      <li>The results are the <code>&lt;versioning-scheme></code> and the list of <code>&lt;comparator, version></code> constraints.</li>
+    </ul>
+
+    <p>Tools should optionally validate and simplify the list of <code>&lt;comparator, version></code> constraints once parsing is complete:</p>
+
+    <ul>
+      <li>Sort and validate the list of constraints.</li>
+      <li>Simplify the list of constraints.</li>
+    </ul>
+
+    <emu-annex id=sec-vers-constraints>
+      <h1><span class=secnum>A.4.1</span> Version constraints simplification</h1>
+
+      <p>Tools can simplify a list of <code>&lt;version-constraint></code> using this approach:</p>
+
+      <p>These pairs of contiguous constraints with these comparators are valid:</p>
+
+      <ul>
+        <li>!= followed by anything</li>
+        <li>=, &lt;, or &lt;= followed by =, !=, >, or >=</li>
+        <li>>, or >= followed by !=, &lt;, or &lt;=</li>
+      </ul>
+
+      <p>These pairs of contiguous constraints with these comparators are redundant and invalid (ignoring any != since they can show up anywhere):</p>
+
+      <ul>
+        <li>=, &lt; or &lt;= followed by &lt; or &lt;=: this is the same as &lt; or &lt;=</li>
+        <li>> or >= followed by =, > or >=: this is the same as > or >=</li>
+      </ul>
+
+      <p>A procedure to remove redundant constraints can be:</p>
+
+      <ul>
+        <li>Start from a list of constraints of comparator and version, sorted by version and where each version occurs only once in any constraint.</li>
+        <li>If the constraints list contains a single constraint (star, equal or anything) return this list and simplification is finished.</li>
+        <li>Split the constraints list in two sub lists:
+          <ul>
+            <li>a list of "unequal constraints" where the comparator is "!="</li>
+            <li>a remainder list of "constraints" where the comparator is not "!="</li>
+          </ul>
+        </li>
+        <li>If the remainder list of "constraints" is empty, return the "unequal constraints" list and simplification is finished.</li>
+        <li>Iterate over the constraints list, considering the current and next contiguous constraints, and the previous constraint (e.g., before current) if it exists:
+          <ul>
+            <li>If current comparator is ">" or ">=" and next comparator is "=", ">" or ">=", discard next constraint</li>
+            <li>If current comparator is "=", "&lt;" or "&lt;=" and next comparator is &lt;" or &lt;=", discard current constraint. Previous constraint becomes current if it exists.</li>
+            <li>If there is a previous constraint:
+              <ul>
+                <li>If previous comparator is ">" or ">=" and current comparator is "=", ">" or ">=", discard current constraint</li>
+                <li>If previous comparator is "=", "&lt;" or "&lt;=" and current comparator is &lt;" or &lt;=", discard previous constraint</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>Concatenate the "unequal constraints" list and the filtered "constraints" list</li>
+        <li>Sort by version and return.</li>
+      </ul>
+    </emu-annex>
+
+    <emu-annex id=sec-vers-checking-range>
+      <h1><span class=secnum>A.4.2</span> Checking if a version is contained within a range</h1>
+
+      <p>To check if a "tested version" is contained within a version range:</p>
+
+      <ul>
+        <li>Start from a parsed a version range specifier with:
+          <ul>
+            <li>a versioning scheme</li>
+            <li>a list of constraints of comparator and version, sorted by version and where each version occurs only once in any constraint.</li>
+          </ul>
+        </li>
+        <li>If the constraint list contains only one item and the comparator is "*", then the "tested version" is IN the range. Check is finished.</li>
+        <li>Select the version equality and comparison procedures suitable for this versioning scheme and use these for all version comparisons performed below.</li>
+        <li>If the "tested version" is equal to the any of the constraint versions where the constraint comparator is for equality (any of "=", "&lt;=", or ">=") then the "tested version" is in the range. Check is finished.</li>
+        <li>If the "tested version" is equal to the any of the constraint versions where the constraint comparator is "=!" then the "tested version" is NOT in the range. Check is finished.</li>
+        <li>Split the constraint list in two sub lists:
+          <ul>
+            <li>a first list where the comparator is "=" or "!="</li>
+            <li>a second list where the comparator is neither "=" nor "!="</li>
+          </ul>
+        </li>
+        <li>Iterate over the current and next contiguous constraints pairs (aka. pairwise) in the second list.</li>
+        <li>For each current and next constraint:
+          <ul>
+            <li>If this is the first iteration and current comparator is "&lt;" or &lt;=" and the "tested version" is less than the current version then the "tested version" is IN the range. Check is finished.</li>
+            <li>If this is the last iteration and next comparator is ">" or >=" and the "tested version" is greater than the next version then the "tested version" is IN the range. Check is finished.</li>
+            <li>If current comparator is ">" or >=" and next comparator is "&lt;" or &lt;=" and the "tested version" is greater than the current version and the "tested version" is less than the next version then the "tested version" is IN the range. Check is finished.</li>
+            <li>If current comparator is "&lt;" or &lt;=" and next comparator is ">" or >=" then these versions are out the range. Continue to the next iteration.</li>
+          </ul>
+        </li>
+        <li>Reaching here without having finished the check before means that the "tested version" is NOT in the range.</li>
+      </ul>
+    </emu-annex>
+
+    <emu-annex id=sec-version-notes>
+      <h1><span class=secnum>A.4.3</span> Notes and caveats</h1>
+
+      <ul>
+        <li>Comparing versions from two different versioning schemes is an error. Even though there may be some similarities between the <code>semver</code> version of an npm and the <code>deb</code> version of its Debian packaging, the way versions are compared specific to each versioning scheme and may be different. Tools should report an error in this case.</li>
+        <li>All references to sorting or ordering of version constraints means sorting by version. And sorting by versions always implies using the versioning scheme-specified version comparison and ordering.</li>
+      </ul>
+    </emu-annex>
+  </emu-annex>
+
+  <emu-annex id=sec-vers-known-schemes>
+    <h1><span class=secnum>A.5</span> Some of the known versioning schemes</h1>
+
+    <p>These are a few known versioning schemes for some common Package-URL types (aka. <code>ecosystem</code>).</p>
+
+    <ul>
+      <li><b>deb</b>: Debian and Ubuntu <a href=https://www.debian.org/doc/debian-policy/ch-relationships.html>https://www.debian.org/doc/debian-policy/ch-relationships.html</a> Debian uses these comparators: &lt;&lt;, &lt;=, =, >= and >>.</li>
+      <li><b>rpm</b>: RPM distros <a href=https://rpm-software-management.github.io/rpm/manual/dependencies.html>https://rpm-software-management.github.io/rpm/manual/dependencies.html</a> A simplified rmpvercmp version comparison routine is used by Arch Linux Pacman.</li>
+      <li><b>gem</b>: RubyGems <a href=https://guides.rubygems.org/patterns/#semantic-versioning>https://guides.rubygems.org/patterns/#semantic-versioning</a> which is similar to <code>node-semver</code> for its syntax, but does not use semver versions.</li>
+      <li><b>npm</b>: npm uses node-semver which is based on semver with its own range notation <a href=https://github.com/npm/node-semver#ranges>https://github.com/npm/node-semver#ranges</a> A similar but different scheme is used by Rust <a href=https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html>https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html</a> and several other package types may use <code>node-semver</code>-like ranges. But most of these related schemes are not strictly the same as what is implemented in <code>node-semver</code>. For instance PHP <code>composer</code> may need its own scheme as this is not strictly <code>node-semver</code>.</li>
+      <li><b>composer</b>: PHP <a href=https://getcomposer.org/doc/articles/versions.md>https://getcomposer.org/doc/articles/versions.md</a></li>
+      <li><b>pypi</b>: Python <a href=https://www.python.org/dev/peps/pep-0440/ >https://www.python.org/dev/peps/pep-0440/</a></li>
+      <li><b>cpan</b>: Perl <a href=https://perlmaven.com/how-to-compare-version-numbers-in-perl-and-for-cpan-modules>https://perlmaven.com/how-to-compare-version-numbers-in-perl-and-for-cpan-modules</a></li>
+      <li><b>golang</b>: Go modules <a href=https://golang.org/ref/mod#versions>https://golang.org/ref/mod#versions</a> use <code>semver</code> versions with a specific minimum version resolution algorithm.</li>
+      <li><b>maven</b>: Apache Maven supports a math interval notation which is rarely seen in practice <a href=http://maven.apache.org/enforcer/enforcer-rules/versionRanges.html>http://maven.apache.org/enforcer/enforcer-rules/versionRanges.html</a></li>
+      <li><b>nuget</b>: NuGet <a href=https://docs.microsoft.com/en-us/nuget/concepts/package-versioning#version-ranges>https://docs.microsoft.com/en-us/nuget/concepts/package-versioning#version-ranges</a> Note that Apache Maven and NuGet are following a similar approach with a math-derived intervals syntax as in <a href=https://en.wikipedia.org/wiki/Interval_(mathematics)>https://en.wikipedia.org/wiki/Interval_(mathematics)</a></li>
+      <li><b>gentoo</b>: Gentoo <a href=https://wiki.gentoo.org/wiki/Version_specifier>https://wiki.gentoo.org/wiki/Version_specifier</a></li>
+      <li><b>alpine</b>: Alpine linux <a href=https://gitlab.alpinelinux.org/alpine/apk-tools/-/blob/master/src/version.c>https://gitlab.alpinelinux.org/alpine/apk-tools/-/blob/master/src/version.c</a> which is using Gentoo-like conventions.</li>
+    </ul>
+
+    <p>These are generic schemes, to use sparingly for special cases:</p>
+
+    <ul>
+      <li><b>generic</b>: a generic version comparison algorithm (which will be specified later, likely based on a split on any wholly alpha or wholly numeric segments and dealing with digit and string comparisons, like is done in libversion)</li>
+      <li><b>none</b>: a generic versioning scheme for a range containing no version. <code>vers:none/*</code> is the only valid vers form for this scheme.</li>
+      <li><b>all</b>: a generic versioning scheme for a range containing all versions. <code>vers:all/*</code> is the only valid vers form for this scheme.</li>
+      <li><b>intdot</b>: a generic versioning scheme that allows version components to be specified as integers separated by dots, e.g. <code>10.234.5.12</code>. Versions specified in this scheme consist of ASCII digits only, formatted with only non-negative integers, and ignoring leading zeros. Interpretation of the version should stop at the first character that is not a digit or a dot.</li>
+      <li><b>lexicographic</b>: a generic versioning scheme that compares versions based on lexicographic order, interpreted as UTF-8. Strings should be compared bytewise as unsigned bytes without normalization. UTF-8 encoding is defined in https://datatracker.ietf.org/doc/html/rfc3629.</li>
+      <li><b>semver</b>: a generic scheme that uses the same syntax as <code>semver</code>. It follows the MAJOR.MINOR.PATCH format and is defined in the Semantic Versioning Specification 2.0.0, see <a href=https://semver.org/spec/v2.0.0.html>https://semver.org/spec/v2.0.0.html</a>.</li>
+      <li><b>datetime</b>: a generic scheme that uses a timestamp for comparison. The timestamp must adhere to RFC3339, section 5.6, see <a href=https://www.rfc-editor.org/rfc/rfc3339#section-5.6>https://www.rfc-editor.org/rfc/rfc3339#section-5.6</a>.</li>
+    </ul>
+
+    <p>A separate document will provide details for each versioning scheme and:</p>
+
+    <ul>
+      <li>how to convert its native range notation to the <code>vers</code> notation and back.</li>
+      <li>how to compare and sort two versions in a range.</li>
+    </ul>
+
+    <p>This versioning schemes document will also explain how to convert CVE and OSV ranges to <code>vers</code>.</p>
+  </emu-annex>
+
+  <emu-annex id=sec-vers-implementations>
+    <h1><span class=secnum>A.6</span> Implementations</h1>
+
+    <ul>
+      <li>Python: <a href=https://github.com/nexB/univers>https://github.com/nexB/univers</a></li>
+      <li>Java: <a href=https://github.com/nscuro/versatile>https://github.com/nscuro/versatile</a></li>
+      <li>Yours!</li>
+    </ul>
+  </emu-annex>
+
+  <emu-annex id=sec-vers-related>
+    <h1><span class=secnum>A.7</span> Related efforts and alternative</h1>
+
+    <ul>
+      <li>CUDF defines a generic range notation similar to Debian and integer version numbers from the sequence of versions for universal dependencies resolution <a href=https://www.mancoosi.org/cudf/primer/ >https://www.mancoosi.org/cudf/primer/</a></li>
+      <li>OSV is an "Open source vulnerability DB and triage service." It defines vulnerable version range semantics using a minimal set of comparators for use with package "ecosystem" and version range "type". <a href=https://github.com/google/osv>https://github.com/google/osv</a></li>
+      <li>libversion is a library for general purpose version comparison using a unified procedure designed to work with many package types. <a href=https://github.com/repology/libversion>https://github.com/repology/libversion</a></li>
+      <li>unified-range is a library for uniform version ranges based on the Maven version range spec. It supports Apache Maven and npm ranges <a href=https://github.com/snyk/unified-range>https://github.com/snyk/unified-range</a></li>
+      <li>dephell specifier is a library to parse and evaluate version ranges and "work with version specifiers (can parse PEP-440, SemVer, Ruby, NPM, Maven)" <a href=https://github.com/dephell/dephell_specifier>https://github.com/dephell/dephell_specifier</a></li>
+    </ul>
+  </emu-annex>
+
+  <emu-annex id=sec-vers-why-not-reuse>
+    <h1><span class=secnum>A.8</span> Why not reuse existing version range notations?</h1>
+
+    <p>Most existing version range notations are tied to a specific version string syntax and are therefore not readily applicable to other contexts. For example, the use of elements such as tilde and caret ranges in RubyGems, npm or Dart notations implies that a certain structure exists in the version string (semver or semver- like). The inclusion of these additional comparators is a result of the history and evolution in a given package ecosystem to address specific needs.</p>
+
+    <p>In practice, the unified and reduced set of comparators and syntax defined for <code>vers</code> has been designed such that all these notations can be converted to a <code>vers</code> and back from a <code>vers</code> to the original notation.</p>
+
+    <p>In contrast, this would not be possible with existing notations. For instance, the Python notation may not work with npm semver versions and reciprocally.</p>
+
+    <p>There are likely to be a few rare cases where round tripping from and to <code>vers</code> may not be possible, and in any case round tripping to and from <code>vers</code> should produce equivalent results and even if not strictly the same original strings.</p>
+
+    <p>Another issue with existing version range notations is that they are primarily designed for dependencies and not for vulnerable ranges. In particular, a vulnerability may exist for multiple "version branches" of a given package such as with Django 2.x and 3.x. Several version range notations have difficulties to communicate these as typically all the version constraints must be satisfied. In contrast, a vulnerability can affect multiple disjoint version ranges of a package and any version satisfying these constraints would be vulnerable: it may not be possible to express this with a notation designed exclusively for dependent versions resolution.</p>
+
+    <p>Finally, one of the goals of this spec is to be a compact yet obvious Package-URL companion for version ranges. Several existing and closely related notations designed for vulnerable ranges are verbose specifications designed for use in API with larger JSON documents.</p>
+
+    <emu-annex id=sec-vers-why-not-osv>
+      <h1><span class=secnum>A.8.1</span> Why not use the OSV Ranges?</h1>
+
+      <p>See:</p>
+
+      <ul>
+        <li><a href=https://ossf.github.io/osv-schema/ >https://ossf.github.io/osv-schema/</a></li>
+      </ul>
+
+      <p><code>vers</code> and the OSSF OSV schema vulnerable ranges are equivalent and <code>vers</code> provides a compact range notation while OSV provides a more verbose JSON notation.</p>
+
+      <p><code>vers</code> borrows the design from and was informed by the OSV schema spec and its authors.</p>
+
+      <p>OSV uses a minimalist set of only three comparators:</p>
+
+      <ul>
+        <li>"=" to enumerate versions,</li>
+        <li>">=" for the version that introduced a vulnerability, and</li>
+        <li>"&lt;" for the version that fixed a vulnerability.</li>
+      </ul>
+
+      <p>OSV Ranges support neither ">" nor "!=" comparators making it difficult to express some ranges that must exclude a version. This may not be an issue for most vulnerable ranges yet:</p>
+
+      <ul>
+        <li>this makes it difficult or impossible to precisely express certain dependency and vulnerable ranges when a version must be excluded and the set of existing versions is not yet known,</li>
+        <li>this make some ranges more verbose such as with the CVE v5 API ranges notation that can include their upper limit and would need two constraints.</li>
+      </ul>
+
+      <p>Another high level difference between the two specifications is the codes used to qualify a range package "ecosystem" value that resembles closely the Package-URL package "type" used in <code>vers</code>. This spec will provide a strict mapping between the OSV ecosystem and the <code>vers</code> versioning schemes values.</p>
+    </emu-annex>
+
+    <emu-annex id=vers-why-not-cve>
+      <h1><span class=secnum>A.8.2</span> Why not use the CVE v5 API Ranges?</h1>
+
+      <p>See:</p>
+
+      <ul>
+        <li><a href=https://github.com/CVEProject/cve-schema/blob/master/schema/v5.0/CVE_JSON_5.0_schema.json#L303>https://github.com/CVEProject/cve-schema/blob/master/schema/v5.0/CVE_JSON_5.0_schema.json#L303</a></li>
+        <li><a href=https://github.com/CVEProject/cve-schema/blob/master/schema/v5.0/CVE_JSON_5.0_schema.json#L123>https://github.com/CVEProject/cve-schema/blob/master/schema/v5.0/CVE_JSON_5.0_schema.json#L123</a></li>
+      </ul>
+
+      <p>The version 5 of the CVE JSON data format defines version ranges with a starting version, a versionType, and an upper limit for the version range as lessThan or lessThanOrEqual or as an enumeration of versions. The versionType and the package collectionURL possible values are only indicative and left out of this specification and both seem strictly equivalent to the Package-URL "type" on the one hand and the<code>vers</code> versioning scheme on the other hand.</p>
+
+      <p>The semantics and expressiveness of each range are similar and <code>vers</code> provides a compact notation rather than a more verbose JSON notation. <code>vers</code> supports strictly the conversion of any CVE v5 range to its notation and further provides a concrete list of well known versioning schemes. <code>vers</code> design was informed by the CVE v5 API schema spec and its authors.</p>
+
+      <p>When CVE v5 becomes active, this spec will provide a strict mapping between the CVE <code>versionType</code> and the <code>vers</code> versioning schemes values. Furthermore, this spec and the Package-URL "types" should be updated accordingly to provide a mapping with the upcoming CVE <code>collectionURL</code> that will be effectively used.</p>
+
+      <p>There is one issue with CVE v5: it introduces a new trailing "*" notation that does not exist in most version ranges notations and may not be computable easily in many cases. The description of the "lessThan" property is:</p>
+
+      <blockquote>
+        <p>The non-inclusive upper limit of the range. This is the least version NOT in the range. The usual version syntax is expanded to allow a pattern to end in an asterisk (<emu-val>), indicating an arbitrarily large number in the version ordering. For example, {version: 1.0 lessThan: 1.</emu-val>} would describe the entire 1.X branch for most range kinds, and {version: 2.0, lessThan: *} describes all versions starting at 2.0, including 3.0, 5.1, and so on.</p>
+      </blockquote>
+
+      <p>The conversion to <code>vers</code> range should be:</p>
+
+      <ul>
+        <li>with a version 1.0 and "lessThan": "*", the <code>vers</code> equivalent is: <code>>=1.0</code>.</li>
+        <li>with a version 1.0 and "lessThan": "2.*", the <code>vers</code> equivalent can be computed for <code>semver</code> versions as <code>>=1.0|&lt;2</code> but this is not accurate because the versioning schemes have different rules. For instance, pre-release may be treated in some case as part of the v1. branch and in some other cases as part of the v2. branch. It is not clear if with "2.*" the CVE v5 spec means:
+          <ul>
+            <li><code>&lt;2</code></li>
+            <li>or something that excludes any version string that starts with <code>2.</code></li>
+          </ul>
+        </li>
+      </ul>
+
+      <p>And in this case, with the expression "lessThan": "2.*" using a <code>semver</code> version, it is not clear if <code>2.0.0-alpha</code> is "lessThan"; semver sorts it before <code>2.0</code> and after <code>1.0</code>, e.g., in <code>semver</code> <code>2.0.0-alpha</code> is "less than" <code>2</code>.</p>
+    </emu-annex>
+
+    <emu-annex id=sec-why-not-nvd>
+      <h1><span class=secnum>A.8.3</span> Why not use the NVD CPE Ranges?</h1>
+
+      <p>See:</p>
+
+      <ul>
+        <li><a href=https://nvd.nist.gov/vuln/vulnerability-detail-pages#divRange>https://nvd.nist.gov/vuln/vulnerability-detail-pages#divRange</a></li>
+        <li><a href=https://nvd.nist.gov/developers/vulnerabilities#divResponse>https://nvd.nist.gov/developers/vulnerabilities#divResponse</a></li>
+        <li><a href=https://csrc.nist.gov/schema/nvd/feed/1.1/nvd_cve_feed_json_1.1.schema>https://csrc.nist.gov/schema/nvd/feed/1.1/nvd_cve_feed_json_1.1.schema</a></li>
+      </ul>
+
+      <p>The version ranges notation defined in the JSON schema of the CVE API payload uses these four fields: <code>versionStartIncluding</code>, <code>versionStartExcluding</code>, <code>versionEndIncluding</code> and <code>versionEndExcluding</code>. For example:</p>
+
+      <pre><code>"versionStartIncluding": "7.3.0",
+"versionEndExcluding": "7.3.31",
+"versionStartExcluding" : "9.0.0",
+"versionEndIncluding" : "9.0.46",</code></pre>
+
+      <p>In addition to these ranges, the NVD publishes a list of concrete CPEs with versions resolved for a range with daily updates at <a href=https://nvd.nist.gov/vuln/data-feeds#cpeMatch>https://nvd.nist.gov/vuln/data-feeds#cpeMatch</a></p>
+
+      <p>Note that the NVD CVE configuration is a complex specification that goes well beyond version ranges and is used to match comprehensive configurations across multiple products and version ranges. <code>vers</code> focus is exclusively versions.</p>
+
+      <p>In contrast with <code>vers</code> compact notation, the NVD JSON notation is more verbose, yet <code>vers</code> supports strictly the conversion of any CPE range.</p>
+    </emu-annex>
+
+    <emu-annex id=sec-vers-why-not-semver>
+      <h1><span class=secnum>A.8.4</span> Why not use node-semver ranges?</h1>
+
+      <p>See:</p>
+
+      <ul>
+        <li><a href=https://github.com/npm/node-semver#ranges>https://github.com/npm/node-semver#ranges</a></li>
+      </ul>
+
+      <p>The node-semver spec is similar to but much more complex than this spec. This is an AND of ORs constraints with a few practical issues:</p>
+
+      <ul>
+        <li>A space means "AND", therefore white spaces are significant. Having significant white spaces in a string makes normalization more complicated and may be a source of confusion if you remove the spaces from the string. <code>vers</code> avoids the ambiguity of spaces by ignoring them.</li>
+        <li>The advanced range syntax has grown to be rather complex using hyphen ranges, stars ranges, carets and tilde constructs that are all tied to the JavaScript and npm ways of handling versions in their ecosystem and are bound furthermore to the semver semantics and its npm implementation. These are not readily reusable elsewhere. The multiple comparators and modifiers make the notation grammar more complex to parse and process for a machine and harder to read for human.</li>
+      </ul>
+
+      <p>Notations that are directly derived from node-semver as used in Rust and PHP Composer have the same issues.</p>
+    </emu-annex>
+
+    <emu-annex id=sec-vers-why-not-pep>
+      <h1><span class=secnum>A.8.5</span> Why not use Python PEP-0440 ranges?</h1>
+
+      <p>See:</p>
+
+      <ul>
+        <li><a href=https://www.python.org/dev/peps/pep-0440/#version-specifiers>https://www.python.org/dev/peps/pep-0440/#version-specifiers</a></li>
+      </ul>
+
+      <p>The Python pep-0440 "Version Identification and Dependency Specification" provides a comprehensive specification for Python package versioning and a notation for "version specifiers" to express the version constraints of dependencies.</p>
+
+      <p>This specification is similar to this <code>vers</code> spec, with more operators and aspects specific to the versions used only in the Python ecosystem.</p>
+
+      <ul>
+        <li>In particular pep-0440 uses tilde, triple equal and wildcard star operators that are specific to how two Python versions are compared.</li>
+        <li>The comma separator between constraints is a logical "AND" rather than an "OR". The "OR" does not exist in the syntax making some version ranges harder to express, in particular for vulnerabilities that may affect several exact versions or ranges for multiple parallel release branches. Ranges such as "Django 1.2 or later, or Django 2.2 or later or Django 3.2 or later" are difficult to express without an "OR" logic.</li>
+      </ul>
+    </emu-annex>
+
+    <emu-annex id=sec-vers-wny-not-rubygems>
+      <h1><span class=secnum>A.8.6</span> Why not use RubyGems requirements notation?</h1>
+
+      <p>See:</p>
+
+      <ul>
+        <li><a href=https://guides.rubygems.org/patterns/#declaring-dependencies>https://guides.rubygems.org/patterns/#declaring-dependencies</a></li>
+      </ul>
+
+      <p>The RubyGems specification suggests but does not enforce using semver. It uses operators similar to the <code>node-semver</code> spec with the difference of the "<emu-const>>" aka. pessimistic operator vs. a plain "</emu-const>" tilde used in node-semver. This operator implies some semver-like versioning, yet gem versions are not strictly semver. This makes the notation complex to implement and impractical to reuse in places that do not use the same Ruby-specific semver-like semantics.</p>
+    </emu-annex>
+
+    <emu-annex id=sec-vers-why-not-fewer>
+      <h1><span class=secnum>A.8.7</span> Why not use fewer comparators with only =, >= and &lt;?</h1>
+
+      <p>For instance, the OSV schema adopts a reduced set of only three comparators:</p>
+
+      <ul>
+        <li>"=" is implied when used to enumerate vulnerable versions</li>
+        <li>">=" (greater or equal) is for the version that introduces a vulnerability</li>
+        <li>"&lt;" (lesser) is for the version that fixes a vulnerability</li>
+      </ul>
+
+      <p>This approach is simpler and works well for most vulnerable ranges but it faces limitations when converting from other notations:</p>
+
+      <ul>
+        <li>">" cannot be converted reliably to ">=" unless you know all the versions and these will never change.</li>
+        <li>"&lt;=" cannot be converted reliably to "&lt;" unless you know all the versions and these will never change.</li>
+        <li>"!=" cannot be converted reliably: there is no ">" comparator to create an unequal equivalent of ">&lt;"; and a combo of ">=" and "&lt;" is not equivalent to inequality unless you know all the versions and these will never change.</li>
+      </ul>
+    </emu-annex>
+
+    <emu-annex id=sec-why-not-richer>
+      <h1><span class=secnum>A.8.8</span> Why not use richer comparators such as tilde, caret and star?</h1>
+
+      <p>Some existing notations such as used with npm, gem, python, or composer provide syntactic shorthand such as:</p>
+
+      <ul>
+        <li>a "pessimistic operator" using tilde, <emu-const>> or =</emu-const> as in "<emu-const>1.3" or "</emu-const>>1.2.3"</li>
+        <li>a caret ^ prefix as in "^ 1.2"</li>
+        <li>using a star in a version segment as in "1.2.*"</li>
+        <li>dash-separated ranges as in "1.2 - 1.4"</li>
+        <li>arbitrary string equality such as "===1.2"</li>
+      </ul>
+
+      <p>Most of these notations can be converted without loss to the <code>vers</code> notation. Furthermore these notations typically assume a well defined version string structure specific to their package ecosystem and are not reusable in another ecosystem that would not use the exact same version conventions.</p>
+
+      <p>For instance, the tilde and caret notations demand that you can reliably infer the next version (aka. "bump") from a given version; this is possible only if the versioning scheme supports this operation reliably for all its accepted versions.</p>
+    </emu-annex>
+
+    <emu-annex id=sec-vers-why-not-math>
+      <h1><span class=secnum>A.8.9</span> Why not use mathematical interval notation for ranges?</h1>
+
+      <p>Apache Maven and NuGet use a mathematical interval notation with comma-separated "[", "]", "(" and ")" to declare version ranges.</p>
+
+      <p>All other known range notations use the more common ">", "&lt;", and "=" as comparators. <code>vers</code> adopts this familiar approach.</p></emu-annex>
+  </emu-annex>
+
+  <emu-annex id=sec-vers-references>
+    <h1><span class=secnum>A.9</span> References</h1>
+
+    <p>Here are some of the discussions that led to the creation of this specification:</p>
+
+    <ul>
+      <li><a href=https://github.com/package-url/purl-spec/issues/66>https://github.com/package-url/purl-spec/issues/66</a></li>
+      <li><a href=https://github.com/package-url/purl-spec/issues/84>https://github.com/package-url/purl-spec/issues/84</a></li>
+      <li><a href=https://github.com/package-url/purl-spec/pull/93>https://github.com/package-url/purl-spec/pull/93</a></li>
+      <li><a href=https://github.com/nexB/vulnerablecode/issues/119>https://github.com/nexB/vulnerablecode/issues/119</a></li>
+      <li><a href=https://github.com/nexB/vulnerablecode/issues/140>https://github.com/nexB/vulnerablecode/issues/140</a></li>
+      <li><a href=https://github.com/nexB/univers/pull/11>https://github.com/nexB/univers/pull/11</a></li>
+    </ul>
+  </emu-annex>
+
+  <emu-annex id=sec-vers-license>
+    <h1><span class=secnum>A.10</span> License</h1>
+
+    <p>This document is licensed under the MIT license</p>
+  </emu-annex>
+</emu-annex></div></body></html>

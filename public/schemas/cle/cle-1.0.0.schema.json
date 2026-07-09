@@ -1,0 +1,444 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://tc54.org/schemas/cle/cle-1.0.0.schema.json",
+    "title": "Common Lifecycle Enumeration (CLE)",
+    "description": "The CLE provides a standardized format for communicating software component lifecycle events in a machine-readable format.",
+    "type": "object",
+    "$defs": {
+        "eventBase": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "A unique, auto-incrementing integer identifier for the event.",
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "type": {
+                    "description": "The type of lifecycle event. Must be one of the defined Event Types.",
+                    "enum": [
+                        "released",
+                        "endOfDevelopment",
+                        "endOfSupport",
+                        "endOfLife",
+                        "endOfDistribution",
+                        "endOfMarketing",
+                        "supersededBy",
+                        "componentRenamed",
+                        "withdrawn"
+                    ]
+                },
+                "effective": {
+                    "description": "The time when the event takes effect, as an ISO 8601 formatted timestamp in UTC.",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "published": {
+                    "description": "The time when the event was first published, as an ISO 8601 formatted timestamp in UTC",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "version": {},
+                "license": {},
+                "versions": {},
+                "supportId": {},
+                "supersededByVersion": {},
+                "identifiers": {},
+                "description": {},
+                "references": {},
+                "eventId": {},
+                "reason": {}
+            },
+            "required": [
+                "id",
+                "type",
+                "effective",
+                "published"
+            ],
+            "additionalProperties": false
+        },
+        "eventReleased": {
+            "type": "object",
+            "properties": {
+                "id": {},
+                "type": {},
+                "effective": {},
+                "published": {},
+                "version": {
+                    "description": "The version string of the released component.",
+                    "type": "string"
+                },
+                "license": {
+                    "description": "License identifier that summarizes the license as declared in the component's metadata.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "version"
+            ],
+            "additionalProperties": false
+        },
+        "eventEndOfDevelopmentSupport": {
+            "type": "object",
+            "properties": {
+                "id": {},
+                "type": {},
+                "effective": {},
+                "published": {},
+                "versions": {
+                    "description": "Array of version specifications per Annex A.",
+                    "$ref": "#/$defs/versions"
+                },
+                "supportId": {
+                    "description": "Reference to a support policy defined in the definitions section.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "versions",
+                "supportId"
+            ],
+            "additionalProperties": false
+        },
+        "eventEndOfLifeDistributionMarketing": {
+            "type": "object",
+            "properties": {
+                "id": {},
+                "type": {},
+                "effective": {},
+                "published": {},
+                "versions": {
+                    "description": "Array of version specifications per Annex A.",
+                    "$ref": "#/$defs/versions"
+                }
+            },
+            "required": [
+                "versions"
+            ],
+            "additionalProperties": false
+        },
+        "eventSupersededBy": {
+            "type": "object",
+            "properties": {
+                "id": {},
+                "type": {},
+                "effective": {},
+                "published": {},
+                "supersededByVersion": {
+                    "description": "Plain version string that supersedes it.",
+                    "type": "string"
+                },
+                "versions": {
+                    "description": "Array of version specifications per Annex A.",
+                    "$ref": "#/$defs/versions"
+                }
+            },
+            "required": [
+                "supersededByVersion"
+            ],
+            "additionalProperties": false
+        },
+        "eventComponentRenamed": {
+            "type": "object",
+            "properties": {
+                "id": {},
+                "type": {},
+                "effective": {},
+                "published": {},
+                "identifiers": {
+                    "description": "Array of identifier objects specifying the new identifiers for the component.",
+                    "$ref": "#/$defs/identifiers"
+                },
+                "description": {
+                    "description": "Human-readable description of the event.",
+                    "type": "string"
+                },
+                "references": {
+                    "description": "List of URLs to supporting documentation.",
+                    "type": "array",
+                    "uniqueItems": true,
+                    "minItems": 1,
+                    "items": {
+                        "type": "string",
+                        "format": "iri"
+                    }
+                }
+            },
+            "required": [
+                "identifiers"
+            ],
+            "additionalProperties": false
+        },
+        "eventWithdrawn": {
+            "type": "object",
+            "properties": {
+                "id": {},
+                "type": {},
+                "effective": {},
+                "published": {},
+                "eventId": {
+                    "description": "The ID of the event being withdrawn.",
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "references": {
+                    "description": "List of URLs to supporting documentation.",
+                    "type": "array",
+                    "uniqueItems": true,
+                    "minItems": 1,
+                    "items": {
+                        "type": "string",
+                        "format": "iri"
+                    }
+                },
+                "reason": {
+                    "description": "Human-readable explanation for why the event is being withdrawn.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "eventId"
+            ],
+            "additionalProperties": false
+        },
+        "event": {
+            "allOf": [
+                {
+                    "$ref": "#/$defs/eventBase"
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "type": {
+                                "const": "released"
+                            }
+                        }
+                    },
+                    "then": {
+                        "$ref": "#/$defs/eventReleased"
+                    }
+                },
+                {
+                    "if": {
+                        "anyOf": [
+                            {
+                                "properties": {
+                                    "type": {
+                                        "const": "endOfDevelopment"
+                                    }
+                                }
+                            },
+                            {
+                                "properties": {
+                                    "type": {
+                                        "const": "endOfSupport"
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    "then": {
+                        "$ref": "#/$defs/eventEndOfDevelopmentSupport"
+                    }
+                },
+                {
+                    "if": {
+                        "anyOf": [
+                            {
+                                "properties": {
+                                    "type": {
+                                        "const": "endOfLife"
+                                    }
+                                }
+                            },
+                            {
+                                "properties": {
+                                    "type": {
+                                        "const": "endOfDistribution"
+                                    }
+                                }
+                            },
+                            {
+                                "properties": {
+                                    "type": {
+                                        "const": "endOfMarketing"
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    "then": {
+                        "$ref": "#/$defs/eventEndOfLifeDistributionMarketing"
+                    }
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "type": {
+                                "const": "supersededBy"
+                            }
+                        }
+                    },
+                    "then": {
+                        "$ref": "#/$defs/eventSupersededBy"
+                    }
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "type": {
+                                "const": "componentRenamed"
+                            }
+                        }
+                    },
+                    "then": {
+                        "$ref": "#/$defs/eventComponentRenamed"
+                    }
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "type": {
+                                "const": "withdrawn"
+                            }
+                        }
+                    },
+                    "then": {
+                        "$ref": "#/$defs/eventWithdrawn"
+                    }
+                }
+            ]
+        },
+        "support": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "Unique identifier for the support policy.",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "Human readable description of the policy.",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "URL to detailed documentation about this support policy.",
+                    "type": "string",
+                    "format": "iri"
+                }
+            },
+            "required": [
+                "id",
+                "description"
+            ],
+            "additionalProperties": false
+        },
+        "versions": {
+            "description": "Array of version specifications per Annex A.",
+            "type": "array",
+            "uniqueItems": true,
+            "minItems": 1,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "range": {
+                        "description": "Version specification per Annex A.",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "range"
+                ],
+                "additionalProperties": false
+            }
+        },
+        "identifiers": {
+            "description": "Array of identifier objects specifying the new identifiers for the component.",
+            "type": "array",
+            "uniqueItems": true,
+            "minItems": 1,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "description": "The identifier scheme (e.g., PURL for Package-URL).",
+                        "type": "string"
+                    },
+                    "value": {
+                        "description": "The value of the identifier, corresponding to the type.",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "type",
+                    "value"
+                ],
+                "additionalProperties": false
+            }
+        }
+    },
+    "properties": {
+        "$schema": {
+            "description": "URI identifying the JSON Schema document that describes the version of the CLE schema to use.",
+            "type": "string",
+            "format": "uri"
+        },
+        "identifier": {
+            "description": "Component identifier(s) in the PURL format. When an array is provided, each identifier alias must identify the exact same bits from the same software but distributed differently.",
+            "type": [
+                "string",
+                "array"
+            ],
+            "uniqueItems": true,
+            "minItems": 1,
+            "items": {
+                "type": "string"
+            }
+        },
+        "updatedAt": {
+            "description": "ISO 8601 timestamp indicating when this CLE document was last updated.",
+            "type": "string",
+            "format": "date-time"
+        },
+        "events": {
+            "type": "array",
+            "uniqueItems": true,
+            "minItems": 1,
+            "description": "Ordered array of Event objects representing the component's lifecycle events. Must be ordered by ID in descending order (newest events with highest IDs first).",
+            "items": {
+                "$ref": "#/$defs/event"
+            },
+            "additionalProperties": false
+        },
+        "definitions": {
+            "description": "Container for reusable policy definitions that can be referenced throughout the document.",
+            "type": "object",
+            "properties": {
+                "support": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "minItems": 1,
+                    "items": {
+                        "$ref": "#/$defs/support"
+                    }
+                }
+            },
+            "additionalProperties": false
+        },
+        "index": {
+            "description": "URL pointing to the index file that lists all CLE pages for this component. Only allowed to be present when pagination is used.",
+            "type": "string",
+            "format": "iri"
+        },
+        "next": {
+            "description": "URL pointing to the next CLE page containing newer events (higher event IDs).",
+            "type": "string",
+            "format": "iri"
+        }
+    },
+    "required": [
+        "$schema",
+        "identifier",
+        "updatedAt",
+        "events"
+    ],
+    "additionalProperties": false
+}

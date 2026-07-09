@@ -1,0 +1,186 @@
+<!doctype html><html lang="en-GB-oxendict">
+<head><meta name="viewport" content="width=device-width, initial-scale=1"><meta charset="utf-8"><meta property="og:image" content="https://tc39.es/ecmarkup/ecma-logo.png"><meta property="og:title" content="Package-URL (PURL) specification"><meta property="og:description" content="Introduction
+  Software ecosystems have evolved into highly interconnected networks of components, packages, and dependencies. Managing this complexity demands a robust, uniform mechanism to identify and track software packages across diverse ecosystems and tools. Package-URL (PURL) was developed">
+<link rel="icon" href="../img/favicon.ico">
+<link rel="stylesheet" href="../assets/css/ecmarkup.css"><link rel="stylesheet" href="../assets/css/print.css" media="print"><style>
+  pre:has(> code) {
+    margin-block: 0;
+  }
+
+  pre code {
+    white-space: pre-wrap;
+    word-break: break-word;
+    padding: 0 !important;
+  }
+
+  code.pattern {
+    font-weight: normal !important;
+  }
+
+  @supports (color-scheme: dark) {
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --foreground-color: #111;
+        --background-color: #fff;
+
+        --link-foreground-color: #206ca7;
+        --link-hover-foreground-color: #239dee;
+
+        --user-code-foreground-color: brown;
+
+        --var-foreground-color: #218379;
+
+        --referenced0-background-color: #ffff6c;
+        --referenced1-background-color: #ffa4a8;
+        --referenced2-background-color: #96e885;
+        --referenced3-background-color: #3eeed2;
+        --referenced4-background-color: #eacfb6;
+        --referenced5-background-color: #82ddff;
+        --referenced6-background-color: #ffbcf2;
+
+        --note-background-color: #e9fbe9;
+        --note-border-color: #52e052;
+        --note-editor-border-color: #faa;
+
+        --nt-link-foreground-color: #333;
+
+        --production-rhs-background-color: #f0f0f0;
+        --production-rhs-border-color: #888;
+
+        --params-foreground-color: #2aa198;
+        --opt-foreground-color: #b58900;
+
+        --title-foreground-color: #f60;
+
+        --caption-foreground-color: #555555;
+
+        --table-header-background-color: #eeeeee;
+
+        --highlight-background-color-start: rgba(249, 241, 172, 1);
+        --highlight-background-color-end: rgba(249, 241, 172, 0);
+
+        --highlight-background-color: rgba(249, 241, 172, 1);
+
+        --ins-background-color: #e0f8e0;
+        --ins-border-color: #396;
+
+        --del-background-color: #fee;
+
+        --control-foreground-color: #eee;
+        --control-dimmed-foreground-color: #666;
+        --control-background-color: #ddd;
+        --control-dark-background-color: #ccc;
+        --control-border-color: #aaa;
+        --control-light-border-color: #bbb;
+        --control-shortcut-background-color: #eee;
+        --control-shortcut-shadow-color: #ccc;
+        --control-dialog-fade-color: rgba(255, 255, 255, 0.6);
+
+        --control-link-foreground-color: #1567a2;
+
+        --control-input-background-color: #bbb;
+        --control-input-border-color: #999;
+
+        --menu-header-background-color: #bbb;
+        --menu-revealed-link-foreground-color: #206ca7;
+        --menu-unpin-hover-foreground-color: #bb1212;
+
+        --menu-trace-list-foreground-color: #999;
+        --menu-trace-list-background-color: #222;
+
+        --toolbox-tail-background-outside-color: rgba(0, 0, 0, 0);
+        --toolbox-tail-border-outside-color: rgba(204, 204, 204, 0);
+
+        --normative-optional-background-color: #ffeedd;
+        --normative-optional-border-color: #ff6600;
+
+        --attributes-tag-foreground-color: #884400;
+
+        --figure-background: #fff;
+      }
+    }
+  }
+</style>
+<style media="print">
+  a[data-print-href]::after {
+    content: none;
+  }
+
+  #sec-schemas pre {
+    break-inside: auto;
+  }
+
+  p.properties + p, ol {
+    break-before: avoid;
+  }
+
+  /* First edition (2025-specific) changes, reassess in future editions */
+  #sec--name-definition-requirement p.properties + p {
+    break-after: avoid;
+  }
+</style>
+<title>Package-URL (PURL) specification</title><script src="../assets/js/multipage.js?cache=jL7TSay7" defer=""></script><script src="../assets/js/ecmarkup.js?cache=i-g-sGlG" defer=""></script><style>
+    @media print {
+      @page :left {
+        @bottom-right {
+          content: '© Ecma International 2025';
+        }
+      }
+      @page :right {
+        @bottom-left {
+          content: '© Ecma International 2025';
+        }
+      }
+      @page :first {
+        @bottom-left {
+          content: '';
+        }
+        @bottom-right {
+          content: '';
+        }
+      }
+      @page :blank {
+        @bottom-left {
+          content: '';
+        }
+        @bottom-right {
+          content: '';
+        }
+      }
+    }
+    </style><style>
+      @import url("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/base16/solarized-light.min.css");
+      @import url("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/a11y-dark.min.css") (prefers-color-scheme: dark);
+    </style><link rel="canonical" href="../#sec-normative-references"></head>
+<body><div id="menu"><div id="menu-search"><input type="text" id="menu-search-box" placeholder="Search..."><div id="menu-search-results" class="inactive"></div></div><div id="menu-pins"><div class="menu-pane-header">Pins<button class="unpin-all">clear</button></div><ul id="menu-pins-list"></ul></div><div class="menu-pane-header">Table of Contents</div><div id="menu-toc"><ol class="toc"><li><span class="item-toggle-none"></span><a href="./#sec-intro" title="Introduction">Introduction</a></li><li><span class="item-toggle-none"></span><a href="scope.html#sec-scope" title="Scope"><span class="secnum">1</span> Scope</a></li><li><span class="item-toggle-none"></span><a href="conformance.html#sec-conformance" title="Conformance"><span class="secnum">2</span> Conformance</a></li><li><span class="item-toggle-none"></span><a href="normative-references.html#sec-normative-references" title="Normative references"><span class="secnum">3</span> Normative references</a></li><li><span class="item-toggle-none"></span><a href="overview.html#sec-overview" title="Overview"><span class="secnum">4</span> Overview</a></li><li><span class="item-toggle">+</span><a href="purl-specification.html#sec-purl-specification" title="Package-URL specification"><span class="secnum">5</span> Package-URL specification</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="purl-specification.html#sec-purl-specification-purl-is-a-url" title="A PURL is a URL"><span class="secnum">5.1</span> A PURL is a URL</a></li><li><span class="item-toggle-none"></span><a href="purl-specification.html#sec-purl-specification-permitted-characters" title="Permitted characters"><span class="secnum">5.2</span> Permitted characters</a></li><li><span class="item-toggle-none"></span><a href="purl-specification.html#sec-purl-specification-separator-characters" title="Separator characters"><span class="secnum">5.3</span> Separator characters</a></li><li><span class="item-toggle-none"></span><a href="purl-specification.html#sec-purl-specification-character-encoding" title="Character encoding"><span class="secnum">5.4</span> Character encoding</a></li><li><span class="item-toggle-none"></span><a href="purl-specification.html#sec-purl-specification-case-folding" title="Case folding"><span class="secnum">5.5</span> Case folding</a></li><li><span class="item-toggle">+</span><a href="purl-specification.html#sec-purl-specification-component-rules" title="Rules for each PURL component"><span class="secnum">5.6</span> Rules for each PURL component</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="purl-specification.html#sec-purl-specification-rules-scheme" title="Scheme"><span class="secnum">5.6.1</span> Scheme</a></li><li><span class="item-toggle-none"></span><a href="purl-specification.html#sec-purl-specification-rules-type" title="Type"><span class="secnum">5.6.2</span> Type</a></li><li><span class="item-toggle-none"></span><a href="purl-specification.html#sec-purl-specification-rules-namespace" title="Namespace"><span class="secnum">5.6.3</span> Namespace</a></li><li><span class="item-toggle-none"></span><a href="purl-specification.html#sec-purl-specification-rules-name" title="Name"><span class="secnum">5.6.4</span> Name</a></li><li><span class="item-toggle-none"></span><a href="purl-specification.html#sec-purl-specification-rules-version" title="Version"><span class="secnum">5.6.5</span> Version</a></li><li><span class="item-toggle-none"></span><a href="purl-specification.html#sec-purl-specification-rules-qualifiers" title="Qualifiers"><span class="secnum">5.6.6</span> Qualifiers</a></li><li><span class="item-toggle-none"></span><a href="purl-specification.html#sec-purl-specification-rules-subpath" title="Subpath"><span class="secnum">5.6.7</span> Subpath</a></li></ol></li></ol></li><li><span class="item-toggle">+</span><a href="purl-type-schema.html#sec-purl-type-schema" title="Package-URL Type Definition Schema"><span class="secnum">6</span> Package-URL Type Definition Schema</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--type" title="PURL type"><span class="secnum">6.1</span> PURL type</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--type-name" title="Type name"><span class="secnum">6.2</span> Type name</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--description" title="Description"><span class="secnum">6.3</span> Description</a></li><li><span class="item-toggle">+</span><a href="purl-type-schema.html#sec--repository" title="Repository"><span class="secnum">6.4</span> Repository</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--repository-use-repository" title="Use repository"><span class="secnum">6.4.1</span> Use repository</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--repository-default-repository-url" title="Default repository URL"><span class="secnum">6.4.2</span> Default repository URL</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--repository-note" title="Note"><span class="secnum">6.4.3</span> Note</a></li></ol></li><li><span class="item-toggle">+</span><a href="purl-type-schema.html#sec--namespace-definition" title="Namespace definition"><span class="secnum">6.5</span> Namespace definition</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--namespace-definition-requirement" title="Namespace requirement"><span class="secnum">6.5.1</span> Namespace requirement</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--namespace-definition-requirement-1" title="Component optional requirement"><span class="secnum">6.5.2</span> Component optional requirement</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--namespace-definition-requirement-2" title="Component required requirement"><span class="secnum">6.5.3</span> Component required requirement</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--namespace-definition-requirement-3" title="Component prohibited requirement"><span class="secnum">6.5.4</span> Component prohibited requirement</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--namespace-definition-permitted-characters" title="Permitted characters in this PURL component"><span class="secnum">6.5.5</span> Permitted characters in this PURL component</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--namespace-definition-case-sensitive" title="Case sensitive"><span class="secnum">6.5.6</span> Case sensitive</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--namespace-definition-normalization-rules" title="Normalization rules"><span class="secnum">6.5.7</span> Normalization rules</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--namespace-definition-native-name" title="Native name"><span class="secnum">6.5.8</span> Native name</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--namespace-definition-note" title="Note"><span class="secnum">6.5.9</span> Note</a></li></ol></li><li><span class="item-toggle">+</span><a href="purl-type-schema.html#sec--name-definition" title="Name definition"><span class="secnum">6.6</span> Name definition</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--name-definition-requirement" title="Name component requirement"><span class="secnum">6.6.1</span> Name component requirement</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--name-definition-requirement-1" title="Component required requirement"><span class="secnum">6.6.2</span> Component required requirement</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--name-definition-permitted-characters" title="Permitted characters in this PURL component"><span class="secnum">6.6.3</span> Permitted characters in this PURL component</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--name-definition-case-sensitive" title="Case sensitive"><span class="secnum">6.6.4</span> Case sensitive</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--name-definition-normalization-rules" title="Normalization rules"><span class="secnum">6.6.5</span> Normalization rules</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--name-definition-native-name" title="Native name"><span class="secnum">6.6.6</span> Native name</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--name-definition-note" title="Note"><span class="secnum">6.6.7</span> Note</a></li></ol></li><li><span class="item-toggle">+</span><a href="purl-type-schema.html#sec--version-definition" title="Version definition"><span class="secnum">6.7</span> Version definition</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--version-definition-requirement" title="Version requirement"><span class="secnum">6.7.1</span> Version requirement</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--version-definition-requirement-1" title="Component optional requirement"><span class="secnum">6.7.2</span> Component optional requirement</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--version-definition-permitted-characters" title="Permitted characters in this PURL component"><span class="secnum">6.7.3</span> Permitted characters in this PURL component</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--version-definition-case-sensitive" title="Case sensitive"><span class="secnum">6.7.4</span> Case sensitive</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--version-definition-normalization-rules" title="Normalization rules"><span class="secnum">6.7.5</span> Normalization rules</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--version-definition-native-name" title="Native name"><span class="secnum">6.7.6</span> Native name</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--version-definition-note" title="Note"><span class="secnum">6.7.7</span> Note</a></li></ol></li><li><span class="item-toggle">+</span><a href="purl-type-schema.html#sec--qualifiers-definition" title="Qualifiers definition"><span class="secnum">6.8</span> Qualifiers definition</a><ol class="toc"><li><span class="item-toggle">+</span><a href="purl-type-schema.html#sec--qualifiers-definition-" title="Qualifiers definition"><span class="secnum">6.8.1</span> Qualifiers definition</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--qualifiers-definition-key" title="Qualifier key"><span class="secnum">6.8.1.1</span> Qualifier key</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--qualifiers-definition-requirement" title="Qualifier key requirement"><span class="secnum">6.8.1.2</span> Qualifier key requirement</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--qualifiers-definition-requirement-1" title="Component optional requirement"><span class="secnum">6.8.1.3</span> Component optional requirement</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--qualifiers-definition-requirement-2" title="Component required requirement"><span class="secnum">6.8.1.4</span> Component required requirement</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--qualifiers-definition-description" title="Description"><span class="secnum">6.8.1.5</span> Description</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--qualifiers-definition-default-value" title="Default value"><span class="secnum">6.8.1.6</span> Default value</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--qualifiers-definition-native-name" title="Native name"><span class="secnum">6.8.1.7</span> Native name</a></li></ol></li></ol></li><li><span class="item-toggle">+</span><a href="purl-type-schema.html#sec--subpath-definition" title="Subpath definition"><span class="secnum">6.9</span> Subpath definition</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--subpath-definition-requirement" title="Subpath requirement"><span class="secnum">6.9.1</span> Subpath requirement</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--subpath-definition-requirement-1" title="Component optional requirement"><span class="secnum">6.9.2</span> Component optional requirement</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--subpath-definition-permitted-characters" title="Permitted characters in this PURL component"><span class="secnum">6.9.3</span> Permitted characters in this PURL component</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--subpath-definition-case-sensitive" title="Case sensitive"><span class="secnum">6.9.4</span> Case sensitive</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--subpath-definition-normalization-rules" title="Normalization rules"><span class="secnum">6.9.5</span> Normalization rules</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--subpath-definition-native-name" title="Native name"><span class="secnum">6.9.6</span> Native name</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--subpath-definition-note" title="Note"><span class="secnum">6.9.7</span> Note</a></li></ol></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--examples" title="PURL examples"><span class="secnum">6.10</span> PURL examples</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--note" title="Note"><span class="secnum">6.11</span> Note</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--reference-urls" title="Reference URLs"><span class="secnum">6.12</span> Reference URLs</a></li></ol></li><li><span class="item-toggle-none"></span><a href="schemas.html#sec-schemas" title="PURL Type Definition"><span class="secnum">Annex A <span class="annex-kind">(normative)</span></span> PURL Type Definition</a></li><li><span class="item-toggle-none"></span><a href="bibliography.html#sec-bibliography" title="Bibliography">Bibliography</a></li><li><span class="item-toggle-none"></span><a href="colophon.html#sec-colophon" title="Colophon">Colophon</a></li><li><span class="item-toggle-none"></span><a href="copyright-and-software-license.html#sec-copyright-and-software-license" title="Copyright &amp; Software License">Copyright &amp; Software License</a></li></ol></div></div>
+<div id="menu-spacer" class="menu-spacer"></div>
+<div id="menu-toggle"><svg xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%; stroke:currentColor" viewBox="0 0 120 120" width="54" height="54">
+      <title>Menu</title>
+      <path stroke-width="10" stroke-linecap="round" d="M30,60 h60  M30,30 m0,5 h60  M30,90 m0,-5 h60"></path>
+    </svg></div>
+<div id="shortcuts-help">
+<ul>
+  <li><span>Toggle shortcuts help</span><code>?</code></li>
+  <li><span>Toggle "can call user code" annotations</span><code>u</code></li>
+<li><span>Navigate to/from multipage</span><code>m</code></li>
+  <li><span>Jump to search box</span><code>/</code></li>
+  <li><span>Toggle pinning of the current clause</span><code>p</code></li>
+  <li><span>Jump to the <i>n</i><sup>th</sup> pin</span><code>1-9</code></li>
+  <li><span>Jump to the 10<sup>th</sup> pin</span><code>0</code></li>
+  <li><span>Jump to the most recent link target</span><code>`</code></li>
+</ul></div><div id='spec-container'><emu-clause id="sec-normative-references">
+  <h1><span class="secnum">3</span> Normative references</h1>
+  <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+  <p>
+    ECMA-262, <i>ECMAScript® language specification</i><br>
+    <a href="https://ecma-international.org/publications-and-standards/standards/ecma-262/">https://ecma-international.org/publications-and-standards/standards/ecma-262/</a>
+  </p>
+  <p>
+    RFC 3986, <i>Uniform Resource Identifier (URI): Generic Syntax</i><br>
+    <a href="https://datatracker.ietf.org/doc/html/rfc3986">https://datatracker.ietf.org/doc/html/rfc3986</a>
+  </p>
+  <p>
+    The Unicode Standard<br>
+    <a href="https://www.unicode.org/versions/latest/">https://www.unicode.org/versions/latest/</a>
+  </p>
+</emu-clause></div></body>

@@ -1,0 +1,1750 @@
+<!doctype html>
+<html lang="en-GB-oxendict"><head><meta name="viewport" content="width=device-width, initial-scale=1"><meta charset="utf-8"><meta property="og:image" content="https://tc39.es/ecmarkup/ecma-logo.png"><meta property="og:title" content="Package-URL (PURL) specification"><meta property="og:description" content="Introduction
+  Software ecosystems have evolved into highly interconnected networks of components, packages, and dependencies. Managing this complexity demands a robust, uniform mechanism to identify and track software packages across diverse ecosystems and tools. Package-URL (PURL) was developed">
+<link rel="icon" href="img/favicon.ico">
+<link rel="stylesheet" href="assets/css/ecmarkup.css"><link rel="stylesheet" href="assets/css/print.css" media="print"><style>
+  pre:has(> code) {
+    margin-block: 0;
+  }
+
+  pre code {
+    white-space: pre-wrap;
+    word-break: break-word;
+    padding: 0 !important;
+  }
+
+  code.pattern {
+    font-weight: normal !important;
+  }
+
+  @supports (color-scheme: dark) {
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --foreground-color: #111;
+        --background-color: #fff;
+
+        --link-foreground-color: #206ca7;
+        --link-hover-foreground-color: #239dee;
+
+        --user-code-foreground-color: brown;
+
+        --var-foreground-color: #218379;
+
+        --referenced0-background-color: #ffff6c;
+        --referenced1-background-color: #ffa4a8;
+        --referenced2-background-color: #96e885;
+        --referenced3-background-color: #3eeed2;
+        --referenced4-background-color: #eacfb6;
+        --referenced5-background-color: #82ddff;
+        --referenced6-background-color: #ffbcf2;
+
+        --note-background-color: #e9fbe9;
+        --note-border-color: #52e052;
+        --note-editor-border-color: #faa;
+
+        --nt-link-foreground-color: #333;
+
+        --production-rhs-background-color: #f0f0f0;
+        --production-rhs-border-color: #888;
+
+        --params-foreground-color: #2aa198;
+        --opt-foreground-color: #b58900;
+
+        --title-foreground-color: #f60;
+
+        --caption-foreground-color: #555555;
+
+        --table-header-background-color: #eeeeee;
+
+        --highlight-background-color-start: rgba(249, 241, 172, 1);
+        --highlight-background-color-end: rgba(249, 241, 172, 0);
+
+        --highlight-background-color: rgba(249, 241, 172, 1);
+
+        --ins-background-color: #e0f8e0;
+        --ins-border-color: #396;
+
+        --del-background-color: #fee;
+
+        --control-foreground-color: #eee;
+        --control-dimmed-foreground-color: #666;
+        --control-background-color: #ddd;
+        --control-dark-background-color: #ccc;
+        --control-border-color: #aaa;
+        --control-light-border-color: #bbb;
+        --control-shortcut-background-color: #eee;
+        --control-shortcut-shadow-color: #ccc;
+        --control-dialog-fade-color: rgba(255, 255, 255, 0.6);
+
+        --control-link-foreground-color: #1567a2;
+
+        --control-input-background-color: #bbb;
+        --control-input-border-color: #999;
+
+        --menu-header-background-color: #bbb;
+        --menu-revealed-link-foreground-color: #206ca7;
+        --menu-unpin-hover-foreground-color: #bb1212;
+
+        --menu-trace-list-foreground-color: #999;
+        --menu-trace-list-background-color: #222;
+
+        --toolbox-tail-background-outside-color: rgba(0, 0, 0, 0);
+        --toolbox-tail-border-outside-color: rgba(204, 204, 204, 0);
+
+        --normative-optional-background-color: #ffeedd;
+        --normative-optional-border-color: #ff6600;
+
+        --attributes-tag-foreground-color: #884400;
+
+        --figure-background: #fff;
+      }
+    }
+  }
+</style>
+<style media="print">
+  a[data-print-href]::after {
+    content: none;
+  }
+
+  #sec-schemas pre {
+    break-inside: auto;
+  }
+
+  p.properties + p, ol {
+    break-before: avoid;
+  }
+
+  /* First edition (2025-specific) changes, reassess in future editions */
+  #sec--name-definition-requirement p.properties + p {
+    break-after: avoid;
+  }
+</style>
+<title>Package-URL (PURL) specification</title><script src="assets/js/ecmarkup.js?cache=i-g-sGlG" defer=""></script><style>
+    @media print {
+      @page :left {
+        @bottom-right {
+          content: '© Ecma International 2025';
+        }
+      }
+      @page :right {
+        @bottom-left {
+          content: '© Ecma International 2025';
+        }
+      }
+      @page :first {
+        @bottom-left {
+          content: '';
+        }
+        @bottom-right {
+          content: '';
+        }
+      }
+      @page :blank {
+        @bottom-left {
+          content: '';
+        }
+        @bottom-right {
+          content: '';
+        }
+      }
+    }
+    </style><style>
+      @import url("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/base16/solarized-light.min.css");
+      @import url("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/a11y-dark.min.css") (prefers-color-scheme: dark);
+    </style></head><body><div id="shortcuts-help">
+<ul>
+  <li><span>Toggle shortcuts help</span><code>?</code></li>
+  <li><span>Toggle "can call user code" annotations</span><code>u</code></li>
+<li><span>Navigate to/from multipage</span><code>m</code></li>
+  <li><span>Jump to search box</span><code>/</code></li>
+  <li><span>Toggle pinning of the current clause</span><code>p</code></li>
+  <li><span>Jump to the <i>n</i><sup>th</sup> pin</span><code>1-9</code></li>
+  <li><span>Jump to the 10<sup>th</sup> pin</span><code>0</code></li>
+  <li><span>Jump to the most recent link target</span><code>`</code></li>
+</ul></div><div id="menu-toggle"><svg xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%; stroke:currentColor" viewBox="0 0 120 120" width="54" height="54">
+      <title>Menu</title>
+      <path stroke-width="10" stroke-linecap="round" d="M30,60 h60  M30,30 m0,5 h60  M30,90 m0,-5 h60"></path>
+    </svg></div><div id="menu-spacer" class="menu-spacer"></div><div id="menu"><div id="menu-search"><input type="text" id="menu-search-box" placeholder="Search..."><div id="menu-search-results" class="inactive"></div></div><div id="menu-pins"><div class="menu-pane-header">Pins<button class="unpin-all">clear</button></div><ul id="menu-pins-list"></ul></div><div class="menu-pane-header">Table of Contents</div><div id="menu-toc"><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-intro" title="Introduction">Introduction</a></li><li><span class="item-toggle-none"></span><a href="#sec-scope" title="Scope"><span class="secnum">1</span> Scope</a></li><li><span class="item-toggle-none"></span><a href="#sec-conformance" title="Conformance"><span class="secnum">2</span> Conformance</a></li><li><span class="item-toggle-none"></span><a href="#sec-normative-references" title="Normative references"><span class="secnum">3</span> Normative references</a></li><li><span class="item-toggle-none"></span><a href="#sec-overview" title="Overview"><span class="secnum">4</span> Overview</a></li><li><span class="item-toggle">+</span><a href="#sec-purl-specification" title="Package-URL specification"><span class="secnum">5</span> Package-URL specification</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-purl-specification-purl-is-a-url" title="A PURL is a URL"><span class="secnum">5.1</span> A PURL is a URL</a></li><li><span class="item-toggle-none"></span><a href="#sec-purl-specification-permitted-characters" title="Permitted characters"><span class="secnum">5.2</span> Permitted characters</a></li><li><span class="item-toggle-none"></span><a href="#sec-purl-specification-separator-characters" title="Separator characters"><span class="secnum">5.3</span> Separator characters</a></li><li><span class="item-toggle-none"></span><a href="#sec-purl-specification-character-encoding" title="Character encoding"><span class="secnum">5.4</span> Character encoding</a></li><li><span class="item-toggle-none"></span><a href="#sec-purl-specification-case-folding" title="Case folding"><span class="secnum">5.5</span> Case folding</a></li><li><span class="item-toggle">+</span><a href="#sec-purl-specification-component-rules" title="Rules for each PURL component"><span class="secnum">5.6</span> Rules for each PURL component</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-purl-specification-rules-scheme" title="Scheme"><span class="secnum">5.6.1</span> Scheme</a></li><li><span class="item-toggle-none"></span><a href="#sec-purl-specification-rules-type" title="Type"><span class="secnum">5.6.2</span> Type</a></li><li><span class="item-toggle-none"></span><a href="#sec-purl-specification-rules-namespace" title="Namespace"><span class="secnum">5.6.3</span> Namespace</a></li><li><span class="item-toggle-none"></span><a href="#sec-purl-specification-rules-name" title="Name"><span class="secnum">5.6.4</span> Name</a></li><li><span class="item-toggle-none"></span><a href="#sec-purl-specification-rules-version" title="Version"><span class="secnum">5.6.5</span> Version</a></li><li><span class="item-toggle-none"></span><a href="#sec-purl-specification-rules-qualifiers" title="Qualifiers"><span class="secnum">5.6.6</span> Qualifiers</a></li><li><span class="item-toggle-none"></span><a href="#sec-purl-specification-rules-subpath" title="Subpath"><span class="secnum">5.6.7</span> Subpath</a></li></ol></li></ol></li><li><span class="item-toggle">+</span><a href="#sec-purl-type-schema" title="Package-URL Type Definition Schema"><span class="secnum">6</span> Package-URL Type Definition Schema</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec--type" title="PURL type"><span class="secnum">6.1</span> PURL type</a></li><li><span class="item-toggle-none"></span><a href="#sec--type-name" title="Type name"><span class="secnum">6.2</span> Type name</a></li><li><span class="item-toggle-none"></span><a href="#sec--description" title="Description"><span class="secnum">6.3</span> Description</a></li><li><span class="item-toggle">+</span><a href="#sec--repository" title="Repository"><span class="secnum">6.4</span> Repository</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec--repository-use-repository" title="Use repository"><span class="secnum">6.4.1</span> Use repository</a></li><li><span class="item-toggle-none"></span><a href="#sec--repository-default-repository-url" title="Default repository URL"><span class="secnum">6.4.2</span> Default repository URL</a></li><li><span class="item-toggle-none"></span><a href="#sec--repository-note" title="Note"><span class="secnum">6.4.3</span> Note</a></li></ol></li><li><span class="item-toggle">+</span><a href="#sec--namespace-definition" title="Namespace definition"><span class="secnum">6.5</span> Namespace definition</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec--namespace-definition-requirement" title="Namespace requirement"><span class="secnum">6.5.1</span> Namespace requirement</a></li><li><span class="item-toggle-none"></span><a href="#sec--namespace-definition-requirement-1" title="Component optional requirement"><span class="secnum">6.5.2</span> Component optional requirement</a></li><li><span class="item-toggle-none"></span><a href="#sec--namespace-definition-requirement-2" title="Component required requirement"><span class="secnum">6.5.3</span> Component required requirement</a></li><li><span class="item-toggle-none"></span><a href="#sec--namespace-definition-requirement-3" title="Component prohibited requirement"><span class="secnum">6.5.4</span> Component prohibited requirement</a></li><li><span class="item-toggle-none"></span><a href="#sec--namespace-definition-permitted-characters" title="Permitted characters in this PURL component"><span class="secnum">6.5.5</span> Permitted characters in this PURL component</a></li><li><span class="item-toggle-none"></span><a href="#sec--namespace-definition-case-sensitive" title="Case sensitive"><span class="secnum">6.5.6</span> Case sensitive</a></li><li><span class="item-toggle-none"></span><a href="#sec--namespace-definition-normalization-rules" title="Normalization rules"><span class="secnum">6.5.7</span> Normalization rules</a></li><li><span class="item-toggle-none"></span><a href="#sec--namespace-definition-native-name" title="Native name"><span class="secnum">6.5.8</span> Native name</a></li><li><span class="item-toggle-none"></span><a href="#sec--namespace-definition-note" title="Note"><span class="secnum">6.5.9</span> Note</a></li></ol></li><li><span class="item-toggle">+</span><a href="#sec--name-definition" title="Name definition"><span class="secnum">6.6</span> Name definition</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec--name-definition-requirement" title="Name component requirement"><span class="secnum">6.6.1</span> Name component requirement</a></li><li><span class="item-toggle-none"></span><a href="#sec--name-definition-requirement-1" title="Component required requirement"><span class="secnum">6.6.2</span> Component required requirement</a></li><li><span class="item-toggle-none"></span><a href="#sec--name-definition-permitted-characters" title="Permitted characters in this PURL component"><span class="secnum">6.6.3</span> Permitted characters in this PURL component</a></li><li><span class="item-toggle-none"></span><a href="#sec--name-definition-case-sensitive" title="Case sensitive"><span class="secnum">6.6.4</span> Case sensitive</a></li><li><span class="item-toggle-none"></span><a href="#sec--name-definition-normalization-rules" title="Normalization rules"><span class="secnum">6.6.5</span> Normalization rules</a></li><li><span class="item-toggle-none"></span><a href="#sec--name-definition-native-name" title="Native name"><span class="secnum">6.6.6</span> Native name</a></li><li><span class="item-toggle-none"></span><a href="#sec--name-definition-note" title="Note"><span class="secnum">6.6.7</span> Note</a></li></ol></li><li><span class="item-toggle">+</span><a href="#sec--version-definition" title="Version definition"><span class="secnum">6.7</span> Version definition</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec--version-definition-requirement" title="Version requirement"><span class="secnum">6.7.1</span> Version requirement</a></li><li><span class="item-toggle-none"></span><a href="#sec--version-definition-requirement-1" title="Component optional requirement"><span class="secnum">6.7.2</span> Component optional requirement</a></li><li><span class="item-toggle-none"></span><a href="#sec--version-definition-permitted-characters" title="Permitted characters in this PURL component"><span class="secnum">6.7.3</span> Permitted characters in this PURL component</a></li><li><span class="item-toggle-none"></span><a href="#sec--version-definition-case-sensitive" title="Case sensitive"><span class="secnum">6.7.4</span> Case sensitive</a></li><li><span class="item-toggle-none"></span><a href="#sec--version-definition-normalization-rules" title="Normalization rules"><span class="secnum">6.7.5</span> Normalization rules</a></li><li><span class="item-toggle-none"></span><a href="#sec--version-definition-native-name" title="Native name"><span class="secnum">6.7.6</span> Native name</a></li><li><span class="item-toggle-none"></span><a href="#sec--version-definition-note" title="Note"><span class="secnum">6.7.7</span> Note</a></li></ol></li><li><span class="item-toggle">+</span><a href="#sec--qualifiers-definition" title="Qualifiers definition"><span class="secnum">6.8</span> Qualifiers definition</a><ol class="toc"><li><span class="item-toggle">+</span><a href="#sec--qualifiers-definition-" title="Qualifiers definition"><span class="secnum">6.8.1</span> Qualifiers definition</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec--qualifiers-definition-key" title="Qualifier key"><span class="secnum">6.8.1.1</span> Qualifier key</a></li><li><span class="item-toggle-none"></span><a href="#sec--qualifiers-definition-requirement" title="Qualifier key requirement"><span class="secnum">6.8.1.2</span> Qualifier key requirement</a></li><li><span class="item-toggle-none"></span><a href="#sec--qualifiers-definition-requirement-1" title="Component optional requirement"><span class="secnum">6.8.1.3</span> Component optional requirement</a></li><li><span class="item-toggle-none"></span><a href="#sec--qualifiers-definition-requirement-2" title="Component required requirement"><span class="secnum">6.8.1.4</span> Component required requirement</a></li><li><span class="item-toggle-none"></span><a href="#sec--qualifiers-definition-description" title="Description"><span class="secnum">6.8.1.5</span> Description</a></li><li><span class="item-toggle-none"></span><a href="#sec--qualifiers-definition-default-value" title="Default value"><span class="secnum">6.8.1.6</span> Default value</a></li><li><span class="item-toggle-none"></span><a href="#sec--qualifiers-definition-native-name" title="Native name"><span class="secnum">6.8.1.7</span> Native name</a></li></ol></li></ol></li><li><span class="item-toggle">+</span><a href="#sec--subpath-definition" title="Subpath definition"><span class="secnum">6.9</span> Subpath definition</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec--subpath-definition-requirement" title="Subpath requirement"><span class="secnum">6.9.1</span> Subpath requirement</a></li><li><span class="item-toggle-none"></span><a href="#sec--subpath-definition-requirement-1" title="Component optional requirement"><span class="secnum">6.9.2</span> Component optional requirement</a></li><li><span class="item-toggle-none"></span><a href="#sec--subpath-definition-permitted-characters" title="Permitted characters in this PURL component"><span class="secnum">6.9.3</span> Permitted characters in this PURL component</a></li><li><span class="item-toggle-none"></span><a href="#sec--subpath-definition-case-sensitive" title="Case sensitive"><span class="secnum">6.9.4</span> Case sensitive</a></li><li><span class="item-toggle-none"></span><a href="#sec--subpath-definition-normalization-rules" title="Normalization rules"><span class="secnum">6.9.5</span> Normalization rules</a></li><li><span class="item-toggle-none"></span><a href="#sec--subpath-definition-native-name" title="Native name"><span class="secnum">6.9.6</span> Native name</a></li><li><span class="item-toggle-none"></span><a href="#sec--subpath-definition-note" title="Note"><span class="secnum">6.9.7</span> Note</a></li></ol></li><li><span class="item-toggle-none"></span><a href="#sec--examples" title="PURL examples"><span class="secnum">6.10</span> PURL examples</a></li><li><span class="item-toggle-none"></span><a href="#sec--note" title="Note"><span class="secnum">6.11</span> Note</a></li><li><span class="item-toggle-none"></span><a href="#sec--reference-urls" title="Reference URLs"><span class="secnum">6.12</span> Reference URLs</a></li></ol></li><li><span class="item-toggle-none"></span><a href="#sec-schemas" title="PURL Type Definition"><span class="secnum">Annex A <span class="annex-kind">(normative)</span></span> PURL Type Definition</a></li><li><span class="item-toggle-none"></span><a href="#sec-bibliography" title="Bibliography">Bibliography</a></li><li><span class="item-toggle-none"></span><a href="#sec-colophon" title="Colophon">Colophon</a></li><li><span class="item-toggle-none"></span><a href="#sec-copyright-and-software-license" title="Copyright &amp; Software License">Copyright &amp; Software License</a></li></ol></div></div><div id="spec-container"><h1 class="shortname"><span class="status">Standard</span> ECMA-xxx</h1><h1 class="version">1st Edition / December 2025</h1><h1 class="title">Package-URL (PURL) specification</h1>
+<p><img src="img/ecma-logo.svg" id="ecma-logo" alt="Ecma International logo"></p>
+<div id="metadata-block">
+  <h1>About this specification</h1>
+  <p>The document at <a href="https://tc54.org/ecmaXXX/">https://tc54.org/ecmaXXX/</a> is the most accurate and up-to-date Package-URL specification.</p>
+  <p>This document is available as <a href="">a single page</a> and as <a href="multipage/">multiple pages</a>.</p>
+  <h1>Contributing to this specification</h1>
+  <p>This specification is developed on GitHub with the help of the Package-URL community. There are a number of ways to contribute to the development of this specification:</p>
+  <ul>
+    <li>GitHub Repository: <a href="https://github.com/Ecma-TC54/ECMA-xxx-PURL">https://github.com/Ecma-TC54/ECMA-xxx-PURL</a></li>
+    <li>Issues: <a href="https://github.com/Ecma-TC54/ECMA-xxx-PURL/issues">All Issues</a>, <a href="https://github.com/Ecma-TC54/ECMA-xxx-PURL/issues/new">File a New Issue</a></li>
+    <li>Pull Requests: <a href="https://github.com/Ecma-TC54/ECMA-xxx-PURL/pulls">All Pull Requests</a>, <a href="https://github.com/Ecma-TC54/ECMA-xxx-PURL/pulls/new">Create a New Pull Request</a></li>
+    <li>
+      Editors:
+      <ul>
+        <li><a href="mailto:jmhoran@aboutcode.org">John Horan</a></li>
+        <li><a href="mailto:mjherzog@aboutcode.org">Michael Herzog</a></li>
+        <li><a href="mailto:pombredanne@aboutcode.org">Philippe Ombredanne</a></li>
+        <li><a href="mailto:steve.springett@owasp.org">Steve Springett</a></li>
+      </ul>
+    </li>
+    <li>
+      Community:
+      <ul>
+        <li>Chat: <a href="https://cyclonedx.slack.com/archives/C06KTE3BWEB">Slack Channel</a></li>
+      </ul>
+    </li>
+  </ul>
+  <p>Refer to the <emu-xref href="#sec-colophon" id="_ref_0"><a href="#sec-colophon">colophon</a></emu-xref> for more information on how this document was created.</p>
+</div>
+
+<emu-intro id="sec-intro">
+  <h1>Introduction</h1>
+  <p>Software ecosystems have evolved into highly interconnected networks of components, packages, and dependencies. Managing this complexity demands a robust, uniform mechanism to identify and track software packages across diverse ecosystems and tools. Package-URL (PURL) was developed to address this challenge by providing a simple, consistent, and flexible approach to identifying software packages with precision and clarity.</p>
+  <p>PURL introduces a standardized URL-based syntax that uniquely identifies software packages, independent of their ecosystem or distribution channel. Unlike traditional identification methods, PURL embeds critical metadata directly into its structure, enabling efficient, accurate package identification at scale. This standardization ensures interoperability between tools and ecosystems, fostering greater collaboration and reducing ambiguity in software supply chain management.</p>
+  <p>Challenges addressed by PURL:</p>
+  <ul>
+    <li><strong>Ambiguity in Package Identification:</strong> With diverse naming conventions across ecosystems, identifying software packages reliably has historically been a challenge. PURL eliminates this ambiguity by creating a universal identifier with a predictable structure.</li>
+    <li><strong>Cross-Ecosystem Interoperability:</strong> Developers, organizations, and tools often work across multiple ecosystems, each with its own package management systems. PURL harmonizes these differences, enabling seamless interoperability.</li>
+    <li><strong>Enhanced Traceability and Risk Management:</strong> In an era where supply chain security is critical, PURL provides the foundation for identifying and tracing packages to their origins, dependencies, and potential vulnerabilities.</li>
+    <li><strong>Tooling and Automation:</strong> By standardizing package identification, PURL simplifies tooling development, automation, and integration for tasks such as software composition analysis, vulnerability management, and license compliance.</li>
+  </ul>
+  <p>As software supply chain security becomes a global priority, formalizing PURL as an international standard ensures its adoption and consistent implementation. Standardization under Ecma International Technical Committee 54 (TC54) positions PURL as a foundational building block for secure, transparent, and efficient software ecosystems worldwide.</p>
+  <p>By enabling a universally recognized and implementable specification, PURL aligns with global efforts to improve the security, reliability, and accountability of software supply chains. Its adoption ensures that organizations and developers can rely on a common language to manage software packages across the diverse and rapidly evolving software landscape.</p>
+  <p class="adoption-info">This Ecma Standard was developed by Technical Committee 54 and was adopted by the General Assembly of December 2025.</p>
+</emu-intro>
+
+<emu-clause id="sec-scope">
+  <h1><span class="secnum">1</span> Scope</h1>
+  <p>This Standard defines the Package-URL (PURL) syntax for identifying software packages independently from their ecosystem or distribution channel. PURL is used to identify software packages across software supply chains supporting many use cases, identifying software packages in Software Bills of Materials, vulnerability databases, vulnerability advisories, vulnerability disclosures and exploitability reports, and managing software package dependencies.</p>
+  <p>A PURL is a valid URL and URI composed of seven components to identify a software package. The PURL type component defines the ecosystem-specific structure and meaning for the other PURL components. This Standard specifies the syntax for PURLs and the schema for defining PURL types, but it does not include any specific PURL type definitions, such as maven, pypi or npm.</p>
+</emu-clause>
+
+<emu-clause id="sec-conformance">
+  <h1><span class="secnum">2</span> Conformance</h1>
+  <p>A conforming implementation of Package-URL (PURL) shall fully implement and support all elements defined within this Standard, including the syntax, components, and semantic requirements for constructing and interpreting valid PURLs.</p>
+  <p>A conforming implementation of PURL shall adhere to the syntax defined in this Standard, ensuring that all PURLs are parsed, constructed, and validated according to the prescribed rules. The implementation shall provide full support for ecosystem-agnostic behaviour, enabling PURLs to function consistently and reliably across diverse environments.</p>
+  <p>All required components of a PURL, such as the scheme, type, and name, shall be present and validated according to the rules defined in this Standard. Additionally, optional components, including qualifiers and subpaths, shall be handled appropriately if provided, in full compliance with their specified behaviours.</p>
+  <p>Implementations shall ensure that equivalent PURLs are consistently resolved to the same canonical representation. This includes strict adherence to normalisation and equivalence rules. Furthermore, implementations shall process URI encoding and decoding for PURL components according to the standards outlined in RFC 3986.</p>
+  <p>Invalid PURLs that fail to conform to the specification shall be identified and rejected by any conforming implementation. This guarantees the integrity and reliability of PURLs in all supported contexts.</p>
+  <p>A conforming implementation of PURL may extend its functionality by providing ecosystem-specific validation, processing, or metadata handling, as long as these extensions do not violate the core specification. Additionally, implementations may offer auxiliary tools or features, such as utilities for constructing or validating PURLs, provided they align with the standard's requirements.</p>
+  <p>A conforming implementation shall not redefine or alter the core syntax, components, or semantics defined by this Standard. Any prohibited extensions explicitly identified in the specification shall not be implemented. Furthermore, behaviours that compromise the interoperability of PURLs across tools, platforms, or ecosystems are strictly disallowed.</p>
+</emu-clause>
+
+<emu-clause id="sec-normative-references">
+  <h1><span class="secnum">3</span> Normative references</h1>
+  <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+  <p>
+    ECMA-262, <i>ECMAScript® language specification</i><br>
+    <a href="https://ecma-international.org/publications-and-standards/standards/ecma-262/">https://ecma-international.org/publications-and-standards/standards/ecma-262/</a>
+  </p>
+  <p>
+    RFC 3986, <i>Uniform Resource Identifier (URI): Generic Syntax</i><br>
+    <a href="https://datatracker.ietf.org/doc/html/rfc3986">https://datatracker.ietf.org/doc/html/rfc3986</a>
+  </p>
+  <p>
+    The Unicode Standard<br>
+    <a href="https://www.unicode.org/versions/latest/">https://www.unicode.org/versions/latest/</a>
+  </p>
+</emu-clause>
+
+<emu-clause id="sec-overview">
+  <h1><span class="secnum">4</span> Overview</h1>
+  <p>This Clause contains a non-normative overview of the Package-URL specification.</p>
+  <p>The Package-URL (PURL) specification defines a lightweight, universal syntax for identifying software packages. By leveraging a URL-based format, PURL provides a consistent and interoperable mechanism for referencing software packages across a wide range of ecosystems and tools. Its design addresses the challenges of ambiguity, inconsistency, and fragmentation in software package identification, enabling better interoperability and traceability in modern software supply chains.</p>
+  <p>This Standard focuses on the core aspects of PURL, including its syntax, required components, optional attributes, and conformance requirements. It does not cover ecosystem-specific types or extensions such as PURL Version Ranges (VERS). However, the flexibility of PURL allows it to be extended to meet the needs of diverse package ecosystems without compromising its universal applicability.</p>
+  <p>The primary audience for this Standard includes developers, tool implementers, and organisations involved in software composition analysis, dependency management, and supply chain security. PURL is foundational to a variety of use cases, from software bill of materials (SBOM) generation and license compliance to vulnerability tracking and software artefact exchange.</p>
+  <p>While this document serves as the authoritative reference for implementing PURL, it is complemented by various ecosystem-specific guidance documents, examples, and related standards. These resources provide additional context and practical insights for leveraging PURL effectively.</p>
+  <p>This overview is non-normative and serves to provide context for the specification’s intent, purpose, and audience. For detailed requirements and conformance criteria, refer to the normative clauses of this Standard.</p>
+</emu-clause>
+
+<emu-clause id="sec-purl-specification">
+  <h1><span class="secnum">5</span> Package-URL specification</h1>
+  <p>PURL stands for <strong>Package-URL</strong>.</p>
+  <p>A PURL is a URL composed of seven components:</p>
+  <pre>    <code lang="plaintext">
+      scheme:type/namespace/name@version?qualifiers#subpath
+    </code>
+  </pre>
+
+  <p>Components are separated by a specific character for unambiguous parsing.</p>
+
+  <emu-table><figure><figcaption>Table 1: Components of a PURL</figcaption>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Requirement</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody><tr>
+        <td>scheme</td>
+        <td>Required</td>
+        <td>The URL scheme with the constant value of "pkg". One of the primary reasons for this single scheme is to facilitate the future official registration of the "pkg" scheme for Package-URLs.</td>
+      </tr>
+      <tr>
+        <td>type</td>
+        <td>Required</td>
+        <td>The package "type" or package "protocol" such as maven, npm, nuget, gem, pypi, etc.</td>
+      </tr>
+      <tr>
+        <td>namespace</td>
+        <td>Optional</td>
+        <td>A name prefix such as a Maven groupid, a Docker image owner, a GitHub user or organization. Namespace is type-specific.</td>
+      </tr>
+      <tr>
+        <td>name</td>
+        <td>Required</td>
+        <td>The name of the package.</td>
+      </tr>
+      <tr>
+        <td>version</td>
+        <td>Optional</td>
+        <td>The version of the package.</td>
+      </tr>
+      <tr>
+        <td>qualifiers</td>
+        <td>Optional</td>
+        <td>Qualifier data for a package such as OS, architecture, repository, etc. Qualifiers are type-specific.</td>
+      </tr>
+      <tr>
+        <td>subpath</td>
+        <td>Optional</td>
+        <td>Subpath within a package, relative to the package root.</td>
+      </tr>
+    </tbody></table>
+  </figure></emu-table>
+
+  <p>Components are designed such that they form a hierarchy from the most significant on the left to the least significant components on the right.</p>
+  <p>A PURL shall not contain a URL Authority, i.e. there is no support for <code>username</code>, <code>password</code>, <code>host</code> and <code>port</code> components. A <code>namespace</code> segment may sometimes look like a <code>host</code>, but its interpretation is specific to a <code>type</code>.</p>
+
+  <emu-example caption="Debian"><figure><figcaption>Example 1 (Informative): Debian</figcaption>
+    <pre><code>pkg:deb/debian/curl@7.50.3-1?arch=i386&amp;distro=jessie</code></pre>
+  </figure></emu-example>
+  <emu-example caption="Maven"><figure><figcaption>Example 2 (Informative): Maven</figcaption>
+    <pre><code>pkg:maven/org.apache.xmlgraphics/batik-anim@1.9.1?packaging=sources</code></pre>
+  </figure></emu-example>
+  <emu-example caption="Node Package Manager (NPM)"><figure><figcaption>Example 3 (Informative): Node Package Manager (NPM)</figcaption>
+    <pre><code>pkg:npm/foobar@12.3.1</code></pre>
+  </figure></emu-example>
+
+  <emu-clause id="sec-purl-specification-purl-is-a-url">
+    <h1><span class="secnum">5.1</span> A PURL is a URL</h1>
+    <ul>
+      <li>A PURL is a valid URL and URI that conforms to the URL definitions or specifications at:
+        <ul>
+          <li>https://tools.ietf.org/html/rfc3986</li>
+          <li>https://en.wikipedia.org/wiki/URL#Syntax</li>
+          <li>https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax</li>
+          <li>https://url.spec.whatwg.org/</li>
+        </ul>
+      </li>
+      <li>A PURL is a valid URL because it is a locator even though it has no Authority URL component: each type has a default repository location when defined.</li>
+      <li>The PURL components are mapped to these URL components:
+        <ul>
+          <li>PURL <code>scheme</code>: this is a URL <code>scheme</code> with a constant value: <code>pkg</code></li>
+          <li>PURL <code>type</code>, <code>namespace</code>, <code>name</code> and <code>version</code> components: these are collectively mapped to a URL <code>path</code></li>
+          <li>PURL <code>qualifiers</code>: this maps to a URL <code>query</code></li>
+          <li>PURL <code>subpath</code>: this is a URL <code>fragment</code></li>
+        </ul>
+      </li>In a PURL, there is no support for a URL Authority (e.g. no <code>username</code>, <code>password</code>, <code>host</code> and <code>port</code> components).
+      <li>Special URL schemes as defined in https://url.spec.whatwg.org/ such as <code>file://</code>, <code>https://</code>, <code>http://</code> and <code>ftp://</code> are not valid PURL types. They are valid URL or URI schemes but they are not a valid PURL scheme. They may be used to reference URLs in separate attributes outside of a PURL or in a PURL qualifier.</li>
+      <li>Version control system (VCS) URLs such <code>git://</code>, <code>svn://</code>, <code>hg://</code> or as defined in Python pip or SPDX download locations are not valid PURL types. They are valid URL or URI schemes but they are not a valid PURL scheme. They are a closely related, compact and uniform way to reference VCS URLs. They may be used as references in separate attributes outside of a PURL or in a PURL qualifier.</li>
+    </ul>
+  </emu-clause>
+  <emu-clause id="sec-purl-specification-permitted-characters">
+    <h1><span class="secnum">5.2</span> Permitted characters</h1>
+    <p>A canonical PURL is composed of these permitted ASCII characters:</p>
+    <ul>
+      <li>the Alphanumeric Characters: <code>A to Z</code>, <code>a to z</code>, <code>0 to 9</code></li>
+      <li>the Punctuation Characters: <code>.-_~</code> (period '.', dash '-', underscore '_' and tilde '~')</li>
+      <li>the Percent Character: <code>%</code> (percent sign '%')</li>
+      <li>the Separator Characters <code>:/@?=&amp;#</code> (colon ':', slash '/', at sign '@', question mark '?', equal sign '=', ampersand '&amp;' and hash sign '#')</li>
+    </ul>
+  </emu-clause>
+  <emu-clause id="sec-purl-specification-separator-characters">
+    <h1><span class="secnum">5.3</span> Separator characters</h1>
+    <p>This is how each of the Separator Characters is used:</p>
+    <ul>
+      <li>':' (colon) is the separator between <code>scheme</code> and <code>type</code></li>
+      <li>'/' (slash) is the separator between <code>type</code>, <code>namespace</code> and <code>name</code></li>
+      <li>'/' (slash) is the separator between <code>subpath</code> segments</li>
+      <li>'@' (at sign) is the separator between <code>name</code> and <code>version</code></li>
+      <li>'?' (question mark) is the separator before <code>qualifiers</code></li>
+      <li>'=' (equals) is the separator between a <code>key</code> and a <code>value</code> of a <code>qualifier</code></li>
+      <li>'&amp;' (ampersand) is the separator between <code>qualifiers</code> (each being a <code>key=value</code> pair)</li>
+      <li>'#' (hash sign) is the separator before <code>subpath</code></li>
+    </ul>
+  </emu-clause>
+  <emu-clause id="sec-purl-specification-character-encoding">
+    <h1><span class="secnum">5.4</span> Character encoding</h1>
+    <ul>
+      <li>In the <emu-xref href="#sec-purl-specification-component-rules" title="" id="_ref_1"><a href="#sec-purl-specification-component-rules">Rules for each PURL component</a></emu-xref> clause, each component defines when and how to apply percent-encoding and decoding to its content.</li>
+      <li>When percent-encoding is required by a component definition, the component string shall first be encoded as UTF-8.</li>
+      <li>In the component string, each "data octet" shall be replaced by the percent-encoded "character triplet" applying the percent-encoding mechanism defined in <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.1">RFC 3986 section 2.1</a>, including the RFC definition of "data octet" and "character triplet", and using these definitions for RFC's "allowed set" and "delimiters":
+        <ul>
+          <li>"allowed set" is composed of the Alphanumeric Characters and the Punctuation Characters</li>
+          <li>"delimiters" is composed of the Separator Characters</li>
+        </ul>
+      </li>
+      <li>The following characters shall not be percent-encoded:
+        <ul>
+          <li>the Alphanumeric Characters</li>
+          <li>the Punctuation Characters</li>
+          <li>the Separator Characters when being used as PURL separators</li>
+          <li>the colon ':', whether used as a Separator Character or otherwise</li>
+          <li>the percent sign '%' when used to represent a percent-encoded character</li>
+        </ul>
+      </li>
+      <li>Where the space ' ' is permitted, it shall be percent-encoded as '%20'.</li>
+      <li>With the exception of the percent-encoding mechanism, the rules regarding percent-encoding are defined by this Standard alone.</li>
+    </ul>
+  </emu-clause>
+
+  <emu-clause id="sec-purl-specification-case-folding">
+    <h1><span class="secnum">5.5</span> Case folding</h1>
+    <p>References to "lowercase" in this Standard refer to the <strong>culture-invariant</strong> full case mapping defined in <a href="https://www.unicode.org/versions/Unicode16.0.0/core-spec/chapter-3/#G34078">Section 3.13.2 of the Unicode Standard</a>.</p>
+    <p>When applied to the ASCII character set, this operation converts uppercase Latin letters (<code>A to Z</code>) to their corresponding lowercase forms (<code>a to z</code>). All other ASCII characters remain unchanged.</p>
+  </emu-clause>
+
+  <emu-clause id="sec-purl-specification-component-rules">
+    <h1><span class="secnum">5.6</span> Rules for each PURL component</h1>
+    <p>A PURL string is an ASCII URL string composed of seven components. Except as expressly stated otherwise in this Clause, each component:</p>
+    <ul>
+      <li>may be composed of any of the characters defined in the <emu-xref href="#sec-purl-specification-permitted-characters" title="" id="_ref_2"><a href="#sec-purl-specification-permitted-characters">Permitted characters</a></emu-xref> clause</li>
+      <li>shall be encoded as defined in the <emu-xref href="#sec-purl-specification-character-encoding" title="" id="_ref_3"><a href="#sec-purl-specification-character-encoding">Character encoding</a></emu-xref> clause</li>
+    </ul>
+    <p>The "lowercase" rules are defined in the <emu-xref href="#sec-purl-specification-case-folding" title="" id="_ref_4"><a href="#sec-purl-specification-case-folding">Case folding</a></emu-xref> clause.</p>
+    <p>The rules for each component are:</p>
+    <emu-clause id="sec-purl-specification-rules-scheme">
+      <h1><span class="secnum">5.6.1</span> Scheme</h1>
+      <ul>
+        <li>The <code>scheme</code> is a constant with the value "pkg".</li>
+        <li>The <code>scheme</code> shall be followed by an unencoded colon ':'.</li>
+        <li>PURL parsers shall accept URLs where the <code>scheme</code> and colon ':' are followed by one or more slash '/' characters, such as 'pkg://', and shall ignore and remove all such '/' characters.</li>
+      </ul>
+    </emu-clause>
+    <emu-clause id="sec-purl-specification-rules-type">
+      <h1><span class="secnum">5.6.2</span> Type</h1>
+      <ul>
+        <li>The package <code>type</code> shall be composed only of ASCII letters and numbers, period '.', and dash '-'.</li>
+        <li>The <code>type</code> shall start with an ASCII letter.</li>
+        <li>The <code>type</code> shall not be percent-encoded.</li>
+        <li>The <code>type</code> is case insensitive. The canonical form is lowercase.</li>
+      </ul>
+    </emu-clause>
+    <emu-clause id="sec-purl-specification-rules-namespace">
+      <h1><span class="secnum">5.6.3</span> Namespace</h1>
+      <ul>
+        <li>The <code>namespace</code> is optional, unless required by the package's <code>type</code> definition.</li>
+        <li>If present, the <code>namespace</code> may contain one or more segments, separated by a single unencoded slash '/' character.</li>
+        <li>All leading and trailing slashes '/' are not significant and should be stripped in the canonical form. They are not part of the <code>namespace</code>.</li>
+        <li>Each <code>namespace</code> segment shall be a percent-encoded string.</li>
+        <li>When percent-decoded, a segment:
+          <ul>
+            <li>shall not contain any slash '/' characters</li>
+            <li>shall not be empty</li>
+            <li>may contain any Unicode character other than '/' unless the package's <code>type</code> definition provides otherwise</li>
+          </ul>
+        </li>
+        <li>A URL host or Authority shall not be used as a <code>namespace</code>. Use instead a <code>repository_url</code> qualifier. Note however, that for some types, the <code>namespace</code> may look like a host.</li>
+      </ul>
+    </emu-clause>
+    <emu-clause id="sec-purl-specification-rules-name">
+      <h1><span class="secnum">5.6.4</span> Name</h1>
+      <ul>
+        <li>The <code>name</code> is prefixed by a single slash '/' separator when the <code>namespace</code> is not empty.</li>
+        <li>All leading and trailing slashes '/' are not significant and should be stripped in the canonical form. They are not part of the <code>name</code>.</li>
+        <li>A <code>name</code> shall be a percent-encoded string.</li>
+        <li>When percent-decoded, a <code>name</code> may contain any Unicode character unless the package's <code>type</code> definition provides otherwise.</li>
+      </ul>
+    </emu-clause>
+    <emu-clause id="sec-purl-specification-rules-version">
+      <h1><span class="secnum">5.6.5</span> Version</h1>
+      <ul>
+        <li>The <code>version</code> is prefixed by a '@' separator when not empty.</li>
+        <li>This '@' is not part of the <code>version</code>.</li>
+        <li>A <code>version</code> shall be a percent-encoded string.</li>
+        <li>When percent-decoded, a <code>version</code> may contain any Unicode character unless the package's <code>type</code> definition provides otherwise.</li>
+        <li>A <code>version</code> is a plain and opaque string.</li>
+      </ul>
+    </emu-clause>
+    <emu-clause id="sec-purl-specification-rules-qualifiers">
+      <h1><span class="secnum">5.6.6</span> Qualifiers</h1>
+      <ul>
+        <li>The <code>qualifiers</code> component shall be prefixed by an unencoded question mark '?' separator when not empty. This '?' separator is not part of the <code>qualifiers</code> component.</li>
+        <li>The <code>qualifiers</code> component is composed of one or more <code>key=value</code> pairs. Multiple <code>key=value</code> pairs shall be separated by an unencoded ampersand '&amp;'. This '&amp;' separator is not part of an individual <code>qualifier</code>.</li>
+        <li>A <code>key</code> and <code>value</code> shall be separated by the unencoded equal sign '=' character. This '=' separator is not part of the <code>key</code> or <code>value</code>.</li>
+        <li>A <code>value</code> shall not be an empty string: a <code>key=value</code> pair with an empty <code>value</code> is the same as if no <code>key=value</code> pair exists for this <code>key</code>.</li>
+        <li>For each <code>key=value</code> pair:
+          <ul>
+            <li>The <code>key</code> shall be composed only of lowercase ASCII letters and numbers, period '.', dash '-' and underscore '_'.</li>
+            <li>A <code>key</code> shall start with an ASCII letter.</li>
+            <li>A <code>key</code> shall not be percent-encoded.</li>
+            <li>Each <code>key</code> shall be unique among all the keys of the <code>qualifiers</code> component.</li>
+            <li>A <code>value</code> may contain any Unicode character and all characters shall be encoded as described in the <emu-xref href="#sec-purl-specification-character-encoding" title="" id="_ref_5"><a href="#sec-purl-specification-character-encoding">Character encoding</a></emu-xref> clause.</li>
+          </ul>
+        </li>
+      </ul>
+    </emu-clause>
+    <emu-clause id="sec-purl-specification-rules-subpath">
+      <h1><span class="secnum">5.6.7</span> Subpath</h1>
+      <ul>
+        <li>The <code>subpath</code> string is prefixed by a '#' separator when not empty.</li>
+        <li>The '#' is not part of the <code>subpath</code>.</li>
+        <li>The <code>subpath</code> contains zero or more segments, separated by slash '/'.</li>
+        <li>Leading and trailing slashes '/' are not significant and should be stripped in the canonical form.</li>
+        <li>Each <code>subpath</code> segment shall be a percent-encoded string.</li>
+        <li>When percent-decoded, a segment:
+          <ul>
+            <li>shall not contain any slash '/' characters</li>
+            <li>shall not be empty</li>
+            <li>shall not be any of '..' or '.'</li>
+            <li>may contain any Unicode character other than '/' unless the package's <code>type</code> definition provides otherwise</li>
+          </ul>
+        </li>
+        <li>The <code>subpath</code> shall be interpreted as relative to the root of the package.</li>
+      </ul>
+    </emu-clause>
+  </emu-clause>
+</emu-clause>
+
+<emu-clause id="sec-purl-type-schema">
+  <h1><span class="secnum">6</span> Package-URL Type Definition Schema</h1>
+  <p>
+    The PURL Type Definition JSON Schema is the reference data model that is used to define PURL types in a structured way.
+    Each PURL type is specified in a JSON document that matches this schema. These JSON documents are then used to
+    generate PURL type documentation and to support PURL libraries and tools so that they can more easily parse, build,
+    and validate PURLs by type in a consistent and standardized manner across programing languages and technology stacks.
+  </p>
+  <p class="properties">
+    <strong>Location:</strong> /<br>
+    <strong>Type:</strong> Object
+  </p>
+  <p>Schema to specify a Package-URL (PURL) type as a structured definition.</p>
+  <emu-table><figure><figcaption>Table 2: Properties for the root object</figcaption>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Type</th>
+          <th>Requirement</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody><tr>
+        <td>type</td>
+        <td>String</td>
+        <td>Required</td>
+        <td>The type string for this Package-URL type.</td>
+      </tr>
+      <tr>
+        <td>type_name</td>
+        <td>String</td>
+        <td>Required</td>
+        <td>The name for this PURL type.</td>
+      </tr>
+      <tr>
+        <td>description</td>
+        <td>String</td>
+        <td>Required</td>
+        <td>The description of this PURL type.</td>
+      </tr>
+      <tr>
+        <td>repository</td>
+        <td>Object</td>
+        <td>Required</td>
+        <td>The package repository usage for this PURL type.</td>
+      </tr>
+      <tr>
+        <td>namespace_definition</td>
+        <td>Array</td>
+        <td>Required</td>
+        <td>Definition of the namespace component for this PURL type. The PURL namespace component shall be required, optional or prohibited for a specific PURL type definition.</td>
+      </tr>
+      <tr>
+        <td>name_definition</td>
+        <td>Array</td>
+        <td>Required</td>
+        <td>Definition of the name component for this PURL type. The PURL name component is required for all PURL type definitions.</td>
+      </tr>
+      <tr>
+        <td>version_definition</td>
+        <td>Array</td>
+        <td>Optional</td>
+        <td>Definition of the version component for this PURL type. The PURL version component is optional for a specific PURL type definition.</td>
+      </tr>
+      <tr>
+        <td>qualifiers_definition</td>
+        <td>Array</td>
+        <td>Optional</td>
+        <td>Definition of the qualifiers specific to this PURL type. The PURL qualifiers component is optional for a specific PURL type, but a qualifiers key or keys may be required for a specific PURL type.</td>
+      </tr>
+      <tr>
+        <td>subpath_definition</td>
+        <td>Array</td>
+        <td>Optional</td>
+        <td>The definition for the subpath for this PURL type. The PURL subpath component is optional for a specific PURL type definition.</td>
+      </tr>
+      <tr>
+        <td>examples</td>
+        <td>Array</td>
+        <td>Required</td>
+        <td>Example of valid, canonical PURLs for this package type.</td>
+      </tr>
+      <tr>
+        <td>note</td>
+        <td>String</td>
+        <td>Optional</td>
+        <td>Note about this PURL type.</td>
+      </tr>
+      <tr>
+        <td>reference_urls</td>
+        <td>Array</td>
+        <td>Optional</td>
+        <td>Optional list of informational reference URLs about this PURL type.</td>
+      </tr>
+    </tbody></table>
+  </figure></emu-table>
+
+  <emu-clause id="sec--type">
+    <h1><span class="secnum">6.1</span> PURL type</h1>
+    <p class="properties"><strong>Location:</strong> /type<br>
+      <strong>Property:</strong> type (Required)<br>
+      <strong>Type:</strong> String<br>
+      <strong>Pattern Constraint:</strong> <code class="pattern">^[a-z][a-z0-9-\.]+$</code></p>
+    <p>The type string for this Package-URL type.</p>
+    <emu-example><figure><figcaption>Example 1 (Informative)</figcaption> maven</figure></emu-example>
+    <emu-example><figure><figcaption>Example 2 (Informative)</figcaption> npm</figure></emu-example>
+    <emu-example><figure><figcaption>Example 3 (Informative)</figcaption> pypi</figure></emu-example>
+  </emu-clause>
+
+  <emu-clause id="sec--type-name">
+    <h1><span class="secnum">6.2</span> Type name</h1>
+    <p class="properties"><strong>Location:</strong> /type_name<br>
+      <strong>Property:</strong> type_name (Required)<br>
+      <strong>Type:</strong> String</p>
+    <p>The name for this PURL type.</p>
+    <emu-example><figure><figcaption>Example 1 (Informative)</figcaption> Apache Maven</figure></emu-example>
+    <emu-example><figure><figcaption>Example 2 (Informative)</figcaption> Python Package</figure></emu-example>
+  </emu-clause>
+
+  <emu-clause id="sec--description">
+    <h1><span class="secnum">6.3</span> Description</h1>
+    <p class="properties"><strong>Location:</strong> /description<br>
+      <strong>Property:</strong> description (Required)<br>
+      <strong>Type:</strong> String</p>
+    <p>The description of this PURL type.</p>
+  </emu-clause>
+
+  <emu-clause id="sec--repository">
+    <h1><span class="secnum">6.4</span> Repository</h1>
+    <p class="properties"><strong>Location:</strong> /repository<br>
+      <strong>Property:</strong> repository (Required)<br>
+      <strong>Type:</strong> Object</p>
+    <p>The package repository usage for this PURL type.</p>
+    <emu-table><figure><figcaption>Table 3: Properties for the repository object</figcaption>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Type</th>
+            <th>Requirement</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody><tr>
+          <td>use_repository</td>
+          <td>Boolean</td>
+          <td>Required</td>
+          <td><code>true</code> if this PURL type uses a public package repository.</td>
+        </tr>
+        <tr>
+          <td>default_repository_url</td>
+          <td>String</td>
+          <td>Optional</td>
+          <td>The default public repository URL for this PURL type.</td>
+        </tr>
+        <tr>
+          <td>note</td>
+          <td>String</td>
+          <td>Optional</td>
+          <td>Extra note text.</td>
+        </tr>
+      </tbody></table>
+    </figure></emu-table>
+
+    <emu-clause id="sec--repository-use-repository">
+      <h1><span class="secnum">6.4.1</span> Use repository</h1>
+      <p class="properties"><strong>Location:</strong> /repository/use_repository<br>
+        <strong>Property:</strong> use_repository (Required)<br>
+        <strong>Type:</strong> Boolean</p>
+      <p><code>true</code> if this PURL type uses a public package repository.</p>
+    </emu-clause>
+
+    <emu-clause id="sec--repository-default-repository-url">
+      <h1><span class="secnum">6.4.2</span> Default repository URL</h1>
+      <p class="properties"><strong>Location:</strong> /repository/default_repository_url<br>
+        <strong>Property:</strong> default_repository_url (Optional)<br>
+        <strong>Type:</strong> String<br>
+        <strong>Format:</strong> URI as specified in <a href="https://www.ietf.org/rfc/rfc3986.html">RFC 3986</a></p>
+      <p>The default public repository URL for this PURL type.</p>
+    </emu-clause>
+
+    <emu-clause id="sec--repository-note">
+      <h1><span class="secnum">6.4.3</span> Note</h1>
+      <p class="properties"><strong>Location:</strong> /repository/note<br>
+        <strong>Property:</strong> note (Optional)<br>
+        <strong>Type:</strong> String</p>
+      <p>Extra note text.</p>
+    </emu-clause>
+  </emu-clause>
+
+  <emu-clause id="sec--namespace-definition">
+    <h1><span class="secnum">6.5</span> Namespace definition</h1>
+    <p class="properties"><strong>Location:</strong> /namespace_definition<br>
+      <strong>Property:</strong> namespace_definition (Required)<br>
+      <strong>Type:</strong> Object</p>
+    <p>Definition of the namespace component for this PURL type. The PURL namespace component shall be required, optional or prohibited for a specific PURL type definition.</p>
+
+    <emu-table><figure><figcaption>Table 4: Properties for the namespace_definition object</figcaption>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Type</th>
+            <th>Requirement</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody><tr>
+          <td>requirement</td>
+          <td>Array</td>
+          <td>Required</td>
+          <td>States that the PURL namespace component is optional, required or prohibited for a PURL type.</td>
+        </tr>
+        <tr>
+          <td>permitted_characters</td>
+          <td>String</td>
+          <td>Optional</td>
+          <td>A regular expression (<a href="https://ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a> dialect) defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</td>
+        </tr>
+        <tr>
+          <td>case_sensitive</td>
+          <td>Boolean</td>
+          <td>Optional</td>
+          <td><code>true</code> if this PURL component is case sensitive. If <code>false</code>, the canonical form shall be lowercased.</td>
+        </tr>
+        <tr>
+          <td>normalization_rules</td>
+          <td>Array</td>
+          <td>Optional</td>
+          <td>List of rules to normalize this component for this PURL type. These are plain text, unstructured rules as some require programming and cannot be enforced only with a schema. Tools are expected to apply these rules programmatically.</td>
+        </tr>
+        <tr>
+          <td>native_name</td>
+          <td>String</td>
+          <td>Optional</td>
+          <td>The native name of this PURL component in the package ecosystem. For instance, the 'namespace' for the 'maven' type is 'groupId', and 'scope' for the 'npm' PURL type.</td>
+        </tr>
+        <tr>
+          <td>note</td>
+          <td>String</td>
+          <td>Optional</td>
+          <td>Extra note text.</td>
+        </tr>
+      </tbody></table>
+    </figure></emu-table>
+
+    <emu-clause id="sec--namespace-definition-requirement">
+      <h1><span class="secnum">6.5.1</span> Namespace requirement</h1>
+      <p class="properties"><strong>Location:</strong> /namespace_definition/requirement<br>
+        <strong>Property:</strong> requirement (Required)<br>
+        <strong>Type:</strong> String</p>
+      <p>States that the PURL namespace component is optional, required or prohibited for a PURL type.</p>
+      <p><em>Shall be one of:</em></p>
+      <ol>
+        <li>Component optional requirement</li>
+        <li>Component required requirement</li>
+        <li>Component prohibited requirement</li>
+      </ol>
+    </emu-clause>
+
+    <emu-clause id="sec--namespace-definition-requirement-1">
+      <h1><span class="secnum">6.5.2</span> Component optional requirement</h1>
+      <p class="properties"><strong>Type:</strong> String<br>
+        <strong>Constant:</strong> optional</p>
+      <p>States that this PURL component is optional for a PURL type.</p>
+    </emu-clause>
+
+    <emu-clause id="sec--namespace-definition-requirement-2">
+      <h1><span class="secnum">6.5.3</span> Component required requirement</h1>
+      <p class="properties"><strong>Type:</strong> String<br>
+        <strong>Constant:</strong> required</p>
+      <p>States that this PURL component is required for a PURL type.</p>
+    </emu-clause>
+
+    <emu-clause id="sec--namespace-definition-requirement-3">
+      <h1><span class="secnum">6.5.4</span> Component prohibited requirement</h1>
+      <p class="properties"><strong>Type:</strong> String<br>
+        <strong>Constant:</strong> prohibited</p>
+      <p>States that this PURL component is prohibited for a PURL type.</p>
+    </emu-clause>
+
+    <emu-clause id="sec--namespace-definition-permitted-characters">
+      <h1><span class="secnum">6.5.5</span> Permitted characters in this PURL component</h1>
+      <p class="properties"><strong>Location:</strong> /namespace_definition/permitted_characters<br>
+        <strong>Property:</strong> permitted_characters (Optional)<br>
+        <strong>Type:</strong> String<br>
+        <strong>Format:</strong> A regular expression dialect defined by <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a></p>
+      <p>A regular expression (<a href="https://ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a> dialect) defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</p>
+    </emu-clause>
+
+    <emu-clause id="sec--namespace-definition-case-sensitive">
+      <h1><span class="secnum">6.5.6</span> Case sensitive</h1>
+      <p class="properties"><strong>Location:</strong> /namespace_definition/case_sensitive<br>
+        <strong>Property:</strong> case_sensitive (Optional)<br>
+        <strong>Type:</strong> Boolean<br>
+        <strong>Default Value:</strong> <code>true</code></p>
+      <p><code>true</code> if this PURL component is case sensitive. If <code>false</code>, the canonical form shall be lowercased.</p>
+    </emu-clause>
+
+    <emu-clause id="sec--namespace-definition-normalization-rules">
+      <h1><span class="secnum">6.5.7</span> Normalization rules</h1>
+      <p class="properties"><strong>Location:</strong> /namespace_definition/normalization_rules<br>
+        <strong>Property:</strong> normalization_rules (Optional)<br>
+        <strong>Type:</strong> array (of String)</p>
+      <p>List of rules to normalize this component for this PURL type. These are plain text, unstructured rules as some require programming and cannot be enforced only with a schema. Tools are expected to apply these rules programmatically. Each item of this array shall be a string.</p>
+      <p><em>All items shall be unique.</em></p>
+    </emu-clause>
+
+    <emu-clause id="sec--namespace-definition-native-name">
+      <h1><span class="secnum">6.5.8</span> Native name</h1>
+      <p class="properties"><strong>Location:</strong> /namespace_definition/native_name<br>
+        <strong>Property:</strong> native_name (Optional)<br>
+        <strong>Type:</strong> String</p>
+      <p>The native name of this PURL component in the package ecosystem. For instance, the 'namespace' for the 'maven' type is 'groupId', and 'scope' for the 'npm' PURL type.</p>
+    </emu-clause>
+
+    <emu-clause id="sec--namespace-definition-note">
+      <h1><span class="secnum">6.5.9</span> Note</h1>
+      <p class="properties"><strong>Location:</strong> /namespace_definition/note<br>
+        <strong>Property:</strong> note (Optional)<br>
+        <strong>Type:</strong> String</p>
+      <p>Extra note text.</p>
+    </emu-clause>
+  </emu-clause>
+
+  <emu-clause id="sec--name-definition">
+    <h1><span class="secnum">6.6</span> Name definition</h1>
+    <p class="properties"><strong>Location:</strong> /name_definition<br>
+      <strong>Property:</strong> name_definition (Required)<br>
+      <strong>Type:</strong> Object</p>
+    <p>Definition of the name component for this PURL type. The PURL name component is required for all PURL type definitions.</p>
+
+    <emu-table><figure><figcaption>Table 5: Properties for the name_definition object</figcaption>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Type</th>
+            <th>Requirement</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody><tr>
+          <td>requirement</td>
+          <td>Array</td>
+          <td>Required</td>
+          <td>States that the PURL name component is always required.</td>
+        </tr>
+        <tr>
+          <td>permitted_characters</td>
+          <td>String</td>
+          <td>Optional</td>
+          <td>A regular expression (<a href="https://ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a> dialect) defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</td>
+        </tr>
+        <tr>
+          <td>case_sensitive</td>
+          <td>Boolean</td>
+          <td>Optional</td>
+          <td><code>true</code> if this PURL component is case sensitive. If <code>false</code>, the canonical form shall be lowercased.</td>
+        </tr>
+        <tr>
+          <td>normalization_rules</td>
+          <td>Array</td>
+          <td>Optional</td>
+          <td>List of rules to normalize this component for this PURL type. These are plain text, unstructured rules as some require programming and cannot be enforced only with a schema. Tools are expected to apply these rules programmatically.</td>
+        </tr>
+        <tr>
+          <td>native_name</td>
+          <td>String</td>
+          <td>Optional</td>
+          <td>The native name of this PURL component in the package ecosystem. For instance, the 'namespace' for the 'maven' type is 'groupId', and 'scope' for the 'npm' PURL type.</td>
+        </tr>
+        <tr>
+          <td>note</td>
+          <td>String</td>
+          <td>Optional</td>
+          <td>Extra note text.</td>
+        </tr>
+      </tbody></table>
+    </figure></emu-table>
+
+    <emu-clause id="sec--name-definition-requirement">
+      <h1><span class="secnum">6.6.1</span> Name component requirement</h1>
+      <p class="properties"><strong>Location:</strong> /name_definition/requirement<br>
+        <strong>Property:</strong> requirement (Required)<br>
+        <strong>Type:</strong> String</p>
+      <p>States that the PURL name component is always required.</p>
+      <p><em>Shall be one of:</em></p>
+      <ol>
+        <li>Component required requirement</li>
+      </ol>
+    </emu-clause>
+
+    <emu-clause id="sec--name-definition-requirement-1">
+      <h1><span class="secnum">6.6.2</span> Component required requirement</h1>
+      <p class="properties"><strong>Type:</strong> String<br>
+        <strong>Constant:</strong> required</p>
+      <p>States that this PURL component is required for a PURL type.</p>
+    </emu-clause>
+
+    <emu-clause id="sec--name-definition-permitted-characters">
+      <h1><span class="secnum">6.6.3</span> Permitted characters in this PURL component</h1>
+      <p class="properties"><strong>Location:</strong> /name_definition/permitted_characters<br>
+        <strong>Property:</strong> permitted_characters (Optional)<br>
+        <strong>Type:</strong> String<br>
+        <strong>Format:</strong> A regular expression dialect defined by <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a></p>
+      <p>A regular expression (<a href="https://ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a> dialect) defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</p>
+    </emu-clause>
+
+    <emu-clause id="sec--name-definition-case-sensitive">
+      <h1><span class="secnum">6.6.4</span> Case sensitive</h1>
+      <p class="properties"><strong>Location:</strong> /name_definition/case_sensitive<br>
+        <strong>Property:</strong> case_sensitive (Optional)<br>
+        <strong>Type:</strong> Boolean<br>
+        <strong>Default Value:</strong> <code>true</code></p>
+      <p><code>true</code> if this PURL component is case sensitive. If <code>false</code>, the canonical form shall be lowercased.</p>
+    </emu-clause>
+
+    <emu-clause id="sec--name-definition-normalization-rules">
+      <h1><span class="secnum">6.6.5</span> Normalization rules</h1>
+      <p class="properties"><strong>Location:</strong> /name_definition/normalization_rules<br>
+        <strong>Property:</strong> normalization_rules (Optional)<br>
+        <strong>Type:</strong> array (of String)</p>
+      <p>List of rules to normalize this component for this PURL type. These are plain text, unstructured rules as some require programming and cannot be enforced only with a schema. Tools are expected to apply these rules programmatically. Each item of this array shall be a string.</p>
+      <p><em>All items shall be unique.</em></p>
+    </emu-clause>
+
+    <emu-clause id="sec--name-definition-native-name">
+      <h1><span class="secnum">6.6.6</span> Native name</h1>
+      <p class="properties"><strong>Location:</strong> /name_definition/native_name<br>
+        <strong>Property:</strong> native_name (Optional)<br>
+        <strong>Type:</strong> String</p>
+      <p>The native name of this PURL component in the package ecosystem. For instance, the 'namespace' for the 'maven' type is 'groupId', and 'scope' for the 'npm' PURL type.</p>
+    </emu-clause>
+
+    <emu-clause id="sec--name-definition-note">
+      <h1><span class="secnum">6.6.7</span> Note</h1>
+      <p class="properties"><strong>Location:</strong> /name_definition/note<br>
+        <strong>Property:</strong> note (Optional)<br>
+        <strong>Type:</strong> String</p>
+      <p>Extra note text.</p>
+    </emu-clause>
+  </emu-clause>
+
+  <emu-clause id="sec--version-definition">
+    <h1><span class="secnum">6.7</span> Version definition</h1>
+    <p class="properties"><strong>Location:</strong> /version_definition<br>
+      <strong>Property:</strong> version_definition (Optional)<br>
+      <strong>Type:</strong> Object</p>
+    <p>Definition of the version component for this PURL type. The PURL version component is optional for a specific PURL type definition.</p>
+
+    <emu-table><figure><figcaption>Table 6: Properties for the version_definition object</figcaption>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Type</th>
+            <th>Requirement</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody><tr>
+          <td>requirement</td>
+          <td>Array</td>
+          <td>Required</td>
+          <td>States that the PURL version is optional.</td>
+        </tr>
+        <tr>
+          <td>permitted_characters</td>
+          <td>String</td>
+          <td>Optional</td>
+          <td>A regular expression (<a href="https://ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a> dialect) defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</td>
+        </tr>
+        <tr>
+          <td>case_sensitive</td>
+          <td>Boolean</td>
+          <td>Optional</td>
+          <td><code>true</code> if this PURL component is case sensitive. If <code>false</code>, the canonical form shall be lowercased.</td>
+        </tr>
+        <tr>
+          <td>normalization_rules</td>
+          <td>Array</td>
+          <td>Optional</td>
+          <td>List of rules to normalize this component for this PURL type. These are plain text, unstructured rules as some require programming and cannot be enforced only with a schema. Tools are expected to apply these rules programmatically.</td>
+        </tr>
+        <tr>
+          <td>native_name</td>
+          <td>String</td>
+          <td>Optional</td>
+          <td>The native name of this PURL component in the package ecosystem. For instance, the 'namespace' for the 'maven' type is 'groupId', and 'scope' for the 'npm' PURL type.</td>
+        </tr>
+        <tr>
+          <td>note</td>
+          <td>String</td>
+          <td>Optional</td>
+          <td>Extra note text.</td>
+        </tr>
+      </tbody></table>
+    </figure></emu-table>
+
+    <emu-clause id="sec--version-definition-requirement">
+      <h1><span class="secnum">6.7.1</span> Version requirement</h1>
+      <p class="properties"><strong>Location:</strong> /version_definition/requirement<br>
+        <strong>Property:</strong> requirement (Required)<br>
+        <strong>Type:</strong> String</p>
+      <p>States that the PURL version is optional.</p>
+      <p><em>Shall be one of:</em></p>
+      <ol>
+        <li>Component optional requirement</li>
+      </ol>
+    </emu-clause>
+
+    <emu-clause id="sec--version-definition-requirement-1">
+      <h1><span class="secnum">6.7.2</span> Component optional requirement</h1>
+      <p class="properties"><strong>Type:</strong> String<br>
+        <strong>Constant:</strong> optional</p>
+      <p>States that this PURL component is optional for a PURL type.</p>
+    </emu-clause>
+
+    <emu-clause id="sec--version-definition-permitted-characters">
+      <h1><span class="secnum">6.7.3</span> Permitted characters in this PURL component</h1>
+      <p class="properties"><strong>Location:</strong> /version_definition/permitted_characters<br>
+        <strong>Property:</strong> permitted_characters (Optional)<br>
+        <strong>Type:</strong> String<br>
+        <strong>Format:</strong> A regular expression dialect defined by <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a></p>
+      <p>A regular expression (<a href="https://ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a> dialect) defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</p>
+    </emu-clause>
+
+    <emu-clause id="sec--version-definition-case-sensitive">
+      <h1><span class="secnum">6.7.4</span> Case sensitive</h1>
+      <p class="properties"><strong>Location:</strong> /version_definition/case_sensitive<br>
+        <strong>Property:</strong> case_sensitive (Optional)<br>
+        <strong>Type:</strong> Boolean<br>
+        <strong>Default Value:</strong> <code>true</code></p>
+      <p><code>true</code> if this PURL component is case sensitive. If <code>false</code>, the canonical form shall be lowercased.</p>
+    </emu-clause>
+
+    <emu-clause id="sec--version-definition-normalization-rules">
+      <h1><span class="secnum">6.7.5</span> Normalization rules</h1>
+      <p class="properties"><strong>Location:</strong> /version_definition/normalization_rules<br>
+        <strong>Property:</strong> normalization_rules (Optional)<br>
+        <strong>Type:</strong> array (of String)</p>
+      <p>List of rules to normalize this component for this PURL type. These are plain text, unstructured rules as some require programming and cannot be enforced only with a schema. Tools are expected to apply these rules programmatically. Each item of this array shall be a string.</p>
+      <p><em>All items shall be unique.</em></p>
+    </emu-clause>
+
+    <emu-clause id="sec--version-definition-native-name">
+      <h1><span class="secnum">6.7.6</span> Native name</h1>
+      <p class="properties"><strong>Location:</strong> /version_definition/native_name<br>
+        <strong>Property:</strong> native_name (Optional)<br>
+        <strong>Type:</strong> String</p>
+      <p>The native name of this PURL component in the package ecosystem. For instance, the 'namespace' for the 'maven' type is 'groupId', and 'scope' for the 'npm' PURL type.</p>
+    </emu-clause>
+
+    <emu-clause id="sec--version-definition-note">
+      <h1><span class="secnum">6.7.7</span> Note</h1>
+      <p class="properties"><strong>Location:</strong> /version_definition/note<br>
+        <strong>Property:</strong> note (Optional)<br>
+        <strong>Type:</strong> String</p>
+      <p>Extra note text.</p>
+    </emu-clause>
+  </emu-clause>
+
+  <emu-clause id="sec--qualifiers-definition">
+    <h1><span class="secnum">6.8</span> Qualifiers definition</h1>
+    <p class="properties"><strong>Location:</strong> /qualifiers_definition<br>
+      <strong>Property:</strong> qualifiers_definition (Optional)<br>
+      <strong>Type:</strong> Array</p>
+    <p>Definition of the qualifiers specific to this PURL type. The PURL qualifiers component is optional for a specific PURL type, but a qualifiers key or keys may be required for a specific PURL type. Each item of this array shall be a Qualifiers definition object.</p>
+
+    <emu-clause id="sec--qualifiers-definition-">
+      <h1><span class="secnum">6.8.1</span> Qualifiers definition</h1>
+      <p class="properties"><strong>Location:</strong> /qualifiers_definition/[]<br>
+        <strong>Type:</strong> Object</p>
+      <p>The definition of a qualifier specific to this PURL type.</p>
+
+      <emu-table><figure><figcaption>Table 7: Properties for the qualifiers_definition object</figcaption>
+        
+        <table>
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Type</th>
+              <th>Requirement</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody><tr>
+            <td>key</td>
+            <td>String</td>
+            <td>Required</td>
+            <td>The key for the qualifier.</td>
+          </tr>
+          <tr>
+            <td>requirement</td>
+            <td>Array</td>
+            <td>Optional</td>
+            <td>States that a PURL qualifier key is optional or required for a PURL type.</td>
+          </tr>
+          <tr>
+            <td>description</td>
+            <td>String</td>
+            <td>Required</td>
+            <td>The description of this qualifier.</td>
+          </tr>
+          <tr>
+            <td>default_value</td>
+            <td>String</td>
+            <td>Optional</td>
+            <td>The optional default value of this qualifier if not provided.</td>
+          </tr>
+          <tr>
+            <td>native_name</td>
+            <td>String</td>
+            <td>Optional</td>
+            <td>The equivalent native name for this qualifier key.</td>
+          </tr>
+        </tbody></table>
+      </figure></emu-table>
+
+      <emu-clause id="sec--qualifiers-definition-key">
+        <h1><span class="secnum">6.8.1.1</span> Qualifier key</h1>
+        <p class="properties"><strong>Location:</strong> /qualifiers_definition/[]/key<br>
+          <strong>Type:</strong> String</p>
+        <p>The key for the qualifier.</p>
+      </emu-clause>
+
+      <emu-clause id="sec--qualifiers-definition-requirement">
+        <h1><span class="secnum">6.8.1.2</span> Qualifier key requirement</h1>
+        <p class="properties"><strong>Location:</strong> /qualifiers_definition/[]/requirement<br>
+          <strong>Type:</strong> String</p>
+        <p>States that a PURL qualifier key is optional or required for a PURL type.</p>
+        <p><em>Shall be one of:</em></p>
+        <ol>
+          <li>Component optional requirement</li>
+          <li>Component required requirement</li>
+        </ol>
+      </emu-clause>
+
+      <emu-clause id="sec--qualifiers-definition-requirement-1">
+        <h1><span class="secnum">6.8.1.3</span> Component optional requirement</h1>
+        <p class="properties"><strong>Type:</strong> String<br>
+          <strong>Constant:</strong> optional</p>
+        <p>States that this PURL component is optional for a PURL type.</p>
+      </emu-clause>
+
+      <emu-clause id="sec--qualifiers-definition-requirement-2">
+        <h1><span class="secnum">6.8.1.4</span> Component required requirement</h1>
+        <p class="properties"><strong>Type:</strong> String<br>
+          <strong>Constant:</strong> required</p>
+        <p>States that this PURL component is required for a PURL type.</p>
+      </emu-clause>
+
+      <emu-clause id="sec--qualifiers-definition-description">
+        <h1><span class="secnum">6.8.1.5</span> Description</h1>
+        <p class="properties"><strong>Location:</strong> /qualifiers_definition/[]/description<br>
+          <strong>Type:</strong> String</p>
+        <p>The description of this qualifier.</p>
+      </emu-clause>
+
+      <emu-clause id="sec--qualifiers-definition-default-value">
+        <h1><span class="secnum">6.8.1.6</span> Default value</h1>
+        <p class="properties"><strong>Location:</strong> /qualifiers_definition/[]/default_value<br>
+          <strong>Type:</strong> String</p>
+        <p>The optional default value of this qualifier if not provided.</p>
+      </emu-clause>
+
+      <emu-clause id="sec--qualifiers-definition-native-name">
+        <h1><span class="secnum">6.8.1.7</span> Native name</h1>
+        <p class="properties"><strong>Location:</strong> /qualifiers_definition/[]/native_name<br>
+          <strong>Type:</strong> String</p>
+        <p>The equivalent native name for this qualifier key.</p>
+        <p><em>All items shall be unique.</em></p>
+      </emu-clause>
+    </emu-clause>
+  </emu-clause>
+
+  <emu-clause id="sec--subpath-definition">
+    <h1><span class="secnum">6.9</span> Subpath definition</h1>
+    <p class="properties"><strong>Location:</strong> /subpath_definition<br>
+      <strong>Property:</strong> subpath_definition (Optional)<br>
+      <strong>Type:</strong> Object</p>
+    <p>The definition for the subpath for this PURL type. The PURL subpath component is optional for a specific PURL type definition.</p>
+
+    <emu-table><figure><figcaption>Table 8: Properties for the subpath_definition object</figcaption>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Type</th>
+            <th>Requirement</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody><tr>
+          <td>requirement</td>
+          <td>Array</td>
+          <td>Required</td>
+          <td>States that the PURL subpath is optional.</td>
+        </tr>
+        <tr>
+          <td>permitted_characters</td>
+          <td>String</td>
+          <td>Optional</td>
+          <td>A regular expression (<a href="https://ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a> dialect) defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</td>
+        </tr>
+        <tr>
+          <td>case_sensitive</td>
+          <td>Boolean</td>
+          <td>Optional</td>
+          <td><code>true</code> if this PURL component is case sensitive. If <code>false</code>, the canonical form shall be lowercased.</td>
+        </tr>
+        <tr>
+          <td>normalization_rules</td>
+          <td>Array</td>
+          <td>Optional</td>
+          <td>List of rules to normalize this component for this PURL type. These are plain text, unstructured rules as some require programming and cannot be enforced only with a schema. Tools are expected to apply these rules programmatically.</td>
+        </tr>
+        <tr>
+          <td>native_name</td>
+          <td>String</td>
+          <td>Optional</td>
+          <td>The native name of this PURL component in the package ecosystem. For instance, the 'namespace' for the 'maven' type is 'groupId', and 'scope' for the 'npm' PURL type.</td>
+        </tr>
+        <tr>
+          <td>note</td>
+          <td>String</td>
+          <td>Optional</td>
+          <td>Extra note text.</td>
+        </tr>
+      </tbody></table>
+    </figure></emu-table>
+
+    <emu-clause id="sec--subpath-definition-requirement">
+      <h1><span class="secnum">6.9.1</span> Subpath requirement</h1>
+      <p class="properties"><strong>Location:</strong> /subpath_definition/requirement<br>
+        <strong>Property:</strong> requirement (Required)<br>
+        <strong>Type:</strong> String</p>
+      <p>States that the PURL subpath is optional.</p>
+      <p><em>Shall be one of:</em></p>
+      <ol>
+        <li>Component optional requirement</li>
+      </ol>
+    </emu-clause>
+
+    <emu-clause id="sec--subpath-definition-requirement-1">
+      <h1><span class="secnum">6.9.2</span> Component optional requirement</h1>
+      <p class="properties"><strong>Type:</strong> String<br>
+        <strong>Constant:</strong> optional</p>
+      <p>States that this PURL component is optional for a PURL type.</p>
+    </emu-clause>
+
+    <emu-clause id="sec--subpath-definition-permitted-characters">
+      <h1><span class="secnum">6.9.3</span> Permitted characters in this PURL component</h1>
+      <p class="properties"><strong>Location:</strong> /subpath_definition/permitted_characters<br>
+        <strong>Property:</strong> permitted_characters (Optional)<br>
+        <strong>Type:</strong> String<br>
+        <strong>Format:</strong> A regular expression dialect defined by <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a></p>
+      <p>A regular expression (<a href="https://ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a> dialect) defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</p>
+    </emu-clause>
+
+    <emu-clause id="sec--subpath-definition-case-sensitive">
+      <h1><span class="secnum">6.9.4</span> Case sensitive</h1>
+      <p class="properties"><strong>Location:</strong> /subpath_definition/case_sensitive<br>
+        <strong>Property:</strong> case_sensitive (Optional)<br>
+        <strong>Type:</strong> Boolean<br>
+        <strong>Default Value:</strong> <code>true</code></p>
+      <p><code>true</code> if this PURL component is case sensitive. If <code>false</code>, the canonical form shall be lowercased.</p>
+    </emu-clause>
+
+    <emu-clause id="sec--subpath-definition-normalization-rules">
+      <h1><span class="secnum">6.9.5</span> Normalization rules</h1>
+      <p class="properties"><strong>Location:</strong> /subpath_definition/normalization_rules<br>
+        <strong>Property:</strong> normalization_rules (Optional)<br>
+        <strong>Type:</strong> array (of String)</p>
+      <p>List of rules to normalize this component for this PURL type. These are plain text, unstructured rules as some require programming and cannot be enforced only with a schema. Tools are expected to apply these rules programmatically. Each item of this array shall be a string.</p>
+      <p><em>All items shall be unique.</em></p>
+    </emu-clause>
+
+    <emu-clause id="sec--subpath-definition-native-name">
+      <h1><span class="secnum">6.9.6</span> Native name</h1>
+      <p class="properties"><strong>Location:</strong> /subpath_definition/native_name<br>
+        <strong>Property:</strong> native_name (Optional)<br>
+        <strong>Type:</strong> String</p>
+      <p>The native name of this PURL component in the package ecosystem. For instance, the 'namespace' for the 'maven' type is 'groupId', and 'scope' for the 'npm' PURL type.</p>
+    </emu-clause>
+
+    <emu-clause id="sec--subpath-definition-note">
+      <h1><span class="secnum">6.9.7</span> Note</h1>
+      <p class="properties"><strong>Location:</strong> /subpath_definition/note<br>
+        <strong>Property:</strong> note (Optional)<br>
+        <strong>Type:</strong> String</p>
+      <p>Extra note text.</p>
+    </emu-clause>
+  </emu-clause>
+
+  <emu-clause id="sec--examples">
+    <h1><span class="secnum">6.10</span> PURL examples</h1>
+    <p class="properties"><strong>Location:</strong> /examples<br>
+      <strong>Property:</strong> examples (Required)<br>
+      <strong>Type:</strong> array (of String)<br>
+      <strong>Pattern Constraint:</strong> <code class="pattern">^pkg:[a-z][a-z0-9-\.]+/.*$</code></p>
+    <p>Example of valid, canonical PURLs for this package type. Each item of this array shall be a string.</p>
+    <p><em>All items shall be unique.</em></p>
+  </emu-clause>
+
+  <emu-clause id="sec--note">
+    <h1><span class="secnum">6.11</span> Note</h1>
+    <p class="properties"><strong>Location:</strong> /note<br>
+      <strong>Property:</strong> note (Optional)<br>
+      <strong>Type:</strong> String</p>
+    <p>Note about this PURL type.</p>
+  </emu-clause>
+
+  <emu-clause id="sec--reference-urls">
+    <h1><span class="secnum">6.12</span> Reference URLs</h1>
+    <p class="properties"><strong>Location:</strong> /reference_urls<br>
+      <strong>Property:</strong> reference_urls (Optional)<br>
+      <strong>Type:</strong> array (of String)<br>
+      <strong>Format:</strong> URI as specified in <a href="https://www.ietf.org/rfc/rfc3986.html">RFC 3986</a></p>
+    <p>Optional list of informational reference URLs about this PURL type. Each item of this array shall be a string.</p>
+    <p><em>All items shall be unique.</em></p>
+  </emu-clause>
+</emu-clause>
+
+<emu-annex normative="" id="sec-schemas">
+  <h1><span class="secnum">Annex A <span class="annex-kind">(normative)</span></span> PURL Type Definition</h1>
+  <p>This Annex provides a copy of the current Package-URL Type Definition Schema. The format is JSON Schema version <a href="https://json-schema.org/draft-07">draft-07</a>.</p>
+  <p>The schema shown below is available in electronic form at: <a href="https://github.com/package-url/purl-spec/blob/main/schemas/purl-type-definition.schema.json">https://github.com/package-url/purl-spec/blob/main/schemas/purl-type-definition.schema.json</a></p>
+  <pre><code class="language-json hljs"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"$schema"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"http://json-schema.org/draft-07/schema#"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"$id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://packageurl.org/schemas/purl-type-definition.schema-1.0.json"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Package-URL Type Definition"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Schema to specify a Package-URL (PURL) type as a structured definition."</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"object"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"additionalProperties"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"definitions"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"optional_requirement"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Component optional requirement"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"States that this PURL component is optional for a PURL type."</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"const"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"optional"</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"required_requirement"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Component required requirement"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"States that this PURL component is required for a PURL type."</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"const"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"required"</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"prohibited_requirement"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Component prohibited requirement"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"States that this PURL component is prohibited for a PURL type."</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"const"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"prohibited"</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"purl_component_definition"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"PURL component definition"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"PURL component definition properties that apply to most PURL components"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"object"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"properties"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"permitted_characters"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Permitted characters in this PURL component"</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"A regular expression (ECMA-262 dialect) defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification."</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"format"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"regex"</span>
+        <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"case_sensitive"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Case sensitive"</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"true if this PURL component is case sensitive. If false, the canonical form shall be lowercased."</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"boolean"</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"default"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span>
+        <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"normalization_rules"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Normalization rules"</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"List of rules to normalize this component for this PURL type. These are plain text, unstructured rules as some require programming and cannot be enforced only with a schema. Tools are expected to apply these rules programmatically."</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"array"</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"uniqueItems"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"items"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span>
+          <span class="hljs-punctuation">}</span>
+        <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"native_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Native name"</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"The native name of this PURL component in the package ecosystem. For instance, the 'namespace' for the 'maven' type is 'groupId', and 'scope' for the 'npm' PURL type."</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span>
+        <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"note"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Note"</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Extra note text."</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span>
+        <span class="hljs-punctuation">}</span>
+      <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"required"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-string">"$id"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-string">"type"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-string">"type_name"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-string">"description"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-string">"repository"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-string">"namespace_definition"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-string">"name_definition"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-string">"examples"</span>
+  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"properties"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"$schema"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"JSON schema"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Contains the URL of the JSON schema for Package-URL type definition."</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"const"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://packageurl.org/schemas/purl-type-definition.schema-1.0.json"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"format"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"uri"</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"$id"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"PURL type definition id"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"The unique identifier URI for this PURL type definition."</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"pattern"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"^https:\\/\\/packageurl\\.org/types/[a-z0-9-]+-definition\\.json$"</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"PURL type"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"The type string for this Package-URL type."</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"pattern"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"^[a-z][a-z0-9-\\.]+$"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"examples"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-string">"maven"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-string">"npm"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-string">"pypi"</span>
+      <span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"type_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Type name"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"The name for this PURL type."</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"examples"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-string">"Apache Maven"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-string">"Python Package"</span>
+      <span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Description"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"The description of this PURL type."</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"repository"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Repository"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"The package repository usage for this PURL type."</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"object"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"additionalProperties"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"required"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-string">"use_repository"</span>
+      <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"properties"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"use_repository"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Use repository"</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"true if this PURL type uses a public package repository."</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"boolean"</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"default"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span>
+        <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"default_repository_url"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Default repository URL"</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"The default public repository URL for this PURL type"</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"format"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"uri"</span>
+        <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"note"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Note"</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Extra note text."</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span>
+        <span class="hljs-punctuation">}</span>
+      <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"namespace_definition"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Namespace definition"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Definition of the namespace component for this PURL type. The PURL namespace component shall be required, optional or prohibited for a specific PURL type definition."</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"object"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"required"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-string">"requirement"</span>
+      <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"properties"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"requirement"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Namespace requirement"</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"States that the PURL namespace component is optional, required or prohibited for a PURL type."</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"oneOf"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+            <span class="hljs-punctuation">{</span>
+              <span class="hljs-attr">"$ref"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"#/definitions/optional_requirement"</span>
+            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-punctuation">{</span>
+              <span class="hljs-attr">"$ref"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"#/definitions/required_requirement"</span>
+            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-punctuation">{</span>
+              <span class="hljs-attr">"$ref"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"#/definitions/prohibited_requirement"</span>
+            <span class="hljs-punctuation">}</span>
+          <span class="hljs-punctuation">]</span>
+        <span class="hljs-punctuation">}</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"allOf"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">"$ref"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"#/definitions/purl_component_definition"</span>
+        <span class="hljs-punctuation">}</span>
+      <span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"name_definition"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Name definition"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Definition of the name component for this PURL type. The PURL name component is required for all PURL type definitions."</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"object"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"required"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-string">"requirement"</span>
+      <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"properties"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"requirement"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Name component requirement"</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"States that the PURL name component is always required."</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"oneOf"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+            <span class="hljs-punctuation">{</span>
+              <span class="hljs-attr">"$ref"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"#/definitions/required_requirement"</span>
+            <span class="hljs-punctuation">}</span>
+          <span class="hljs-punctuation">]</span>
+        <span class="hljs-punctuation">}</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"allOf"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">"$ref"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"#/definitions/purl_component_definition"</span>
+        <span class="hljs-punctuation">}</span>
+      <span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"version_definition"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Version definition"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Definition of the version component for this PURL type. The PURL version component is optional for a specific PURL type definition."</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"object"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"required"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-string">"requirement"</span>
+      <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"properties"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"requirement"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Version requirement"</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"States that the PURL version is optional."</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"oneOf"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+            <span class="hljs-punctuation">{</span>
+              <span class="hljs-attr">"$ref"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"#/definitions/optional_requirement"</span>
+            <span class="hljs-punctuation">}</span>
+          <span class="hljs-punctuation">]</span>
+        <span class="hljs-punctuation">}</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"allOf"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">"$ref"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"#/definitions/purl_component_definition"</span>
+        <span class="hljs-punctuation">}</span>
+      <span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"qualifiers_definition"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Qualifiers definition"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Definition of the qualifiers specific to this PURL type. The PURL qualifiers component is optional for a specific PURL type, but a qualifiers key or keys may be required for a specific PURL type."</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"array"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"additionalItems"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"uniqueItems"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"items"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Qualifiers definition"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"The definition of a qualifier specific to this PURL type."</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"object"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"additionalProperties"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"required"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+          <span class="hljs-string">"key"</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-string">"description"</span>
+        <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"properties"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">"key"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Qualifier key"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"The key for the qualifier."</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"requirement"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Qualifier key requirement"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"States that a PURL qualifier key is optional or required for a PURL type."</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"oneOf"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+              <span class="hljs-punctuation">{</span>
+                <span class="hljs-attr">"$ref"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"#/definitions/optional_requirement"</span>
+              <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+              <span class="hljs-punctuation">{</span>
+                <span class="hljs-attr">"$ref"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"#/definitions/required_requirement"</span>
+              <span class="hljs-punctuation">}</span>
+            <span class="hljs-punctuation">]</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Description"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"The description of this qualifier."</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"default_value"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Default value"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"The optional default value of this qualifier if not provided."</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"native_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Native name"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"The equivalent native name for this qualifier key."</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span>
+          <span class="hljs-punctuation">}</span>
+        <span class="hljs-punctuation">}</span>
+      <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"subpath_definition"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Subpath definition"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"The definition for the subpath for this PURL type. The PURL subpath component is optional for a specific PURL type definition."</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"object"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"required"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-string">"requirement"</span>
+      <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"properties"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"requirement"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Subpath requirement"</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"States that the PURL subpath is optional."</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"oneOf"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+            <span class="hljs-punctuation">{</span>
+              <span class="hljs-attr">"$ref"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"#/definitions/optional_requirement"</span>
+            <span class="hljs-punctuation">}</span>
+          <span class="hljs-punctuation">]</span>
+        <span class="hljs-punctuation">}</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"allOf"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">"$ref"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"#/definitions/purl_component_definition"</span>
+        <span class="hljs-punctuation">}</span>
+      <span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"examples"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"PURL examples"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Example of valid, canonical PURLs for this package type."</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"array"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"uniqueItems"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"minItems"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"items"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"pattern"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"^pkg:[a-z][a-z0-9-\\.]+/.*$"</span>
+      <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"note"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Note"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Note about this PURL type."</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"reference_urls"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Reference URLs"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Optional list of informational reference URLs about this PURL type."</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"array"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"uniqueItems"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"items"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"format"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"uri"</span>
+      <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span></code></pre>
+</emu-annex>
+
+<emu-annex id="sec-bibliography" back-matter="">
+  <h1>Bibliography</h1>
+  <ul>
+    <li>
+      ECMA-262, <i>ECMAScript® language specification</i>, 16<sup>th</sup> Edition. Annex A.8: Grammar Summary for Regular Expressions<br>
+      <a href="https://262.ecma-international.org/16.0/index.html#sec-regular-expressions">https://262.ecma-international.org/16.0/index.html#sec-regular-expressions</a>
+    </li>
+    <li>
+      ECMA-404, <i>The JSON data interchange syntax</i><br>
+      <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-404/">https://www.ecma-international.org/publications-and-standards/standards/ecma-404/</a>
+    </li>
+    <li>
+      INCITS 4-1986 [R2022], <i>Information Systems - Coded Character Sets - 7-Bit Standard Code for Information Interchange (7-Bit ASCII)</i><br>
+      <a href="https://webstore.ansi.org/standards/incits/incits1986r2022">https://webstore.ansi.org/standards/incits/incits1986r2022</a>
+    </li>
+    <li>
+      IETF Draft, March 2018, <i>JSON Schema Validation: A Vocabulary for Structural Validation of JSON (Draft-07)</i><br>
+      <a href="https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01">https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01</a>
+    </li>
+  </ul>
+</emu-annex>
+
+<emu-annex id="sec-colophon" back-matter="">
+  <h1>Colophon</h1>
+  <p>This Standard is authored on <a href="https://github.com/Ecma-TC54/ECMA-xxx-PURL">GitHub</a> in a plaintext source format called <a href="https://github.com/tc39/ecmarkup">Ecmarkup</a>. Ecmarkup is an HTML and Markdown dialect that provides a framework and toolset for authoring ECMA specifications in plaintext and processing the specification into a full-featured HTML rendering that follows the editorial conventions for this document. Ecmarkup builds on and integrates a number of other formats and technologies including <a href="https://github.com/rbuckton/grammarkdown">Grammarkdown</a> for defining syntax and <a href="https://github.com/tc39/ecmarkdown">Ecmarkdown</a> for authoring algorithm steps. PDF renderings of this Standard are produced using a print stylesheet which takes advantage of the CSS Paged Media specification and is converted using <a href="https://www.princexml.com/">PrinceXML</a>.</p>
+  <p>We extend our gratitude to TC39 for their exceptional work in developing Ecmarkup, which has greatly facilitated TC54's successful adoption of this tool for the preparation and maintenance of our technical specifications.</p>
+</emu-annex><emu-annex id="sec-copyright-and-software-license" back-matter="">
+        <h1>Copyright &amp; Software License</h1>
+        <p class="ECMAaddress">Ecma International</p>
+<p class="ECMAaddress">Rue du Rhone 114</p>
+<p class="ECMAaddress">CH-1204 Geneva</p>
+<p class="ECMAaddress">Tel: +41 22 849 6000</p>
+<p class="ECMAaddress">Fax: +41 22 849 6001</p>
+<p class="ECMAaddress">Web: <a href="https://ecma-international.org/">https://ecma-international.org/</a></p>
+
+        <div class="copyright-notice" id="copyright-notice"><h2>Copyright Notice</h2>
+<p>COPYRIGHT NOTICE</p>
+
+<p>© 2025 Ecma International</p>
+
+<p>By obtaining and/or copying this work, you (the licensee) agree that you have read, understood, and will comply with the following terms and conditions.</p>
+
+<p>This document may be copied, published and distributed to others, and certain derivative works of it may be prepared, copied, published, and distributed, in whole or in part, provided that the above copyright notice and this Copyright License and Disclaimer are included on all such copies and derivative works. The only derivative works that are permissible under this Copyright License and Disclaimer are:</p>
+
+<p>(i) works which incorporate all or portion of this document for the purpose of providing commentary or explanation (such as an annotated version of the document),</p>
+
+<p>(ii) works which incorporate all or portion of this document for the purpose of incorporating features that provide accessibility,</p>
+
+<p>(iii) translations of this document into languages other than English and into different formats and</p>
+
+<p>(iv) works by making use of this specification in standard conformant products by implementing (e.g. by copy and paste wholly or partly) the functionality therein.</p>
+
+<p>However, the content of this document itself may not be modified in any way, including by removing the copyright notice or references to Ecma International, except as required to translate it into languages other than English or into a different format.</p>
+
+<p>The official version of an Ecma International document is the English language version on the Ecma International website. In the event of discrepancies between a translated version and the official version, the official version shall govern.</p>
+
+<p>The limited permissions granted above are perpetual and will not be revoked by Ecma International or its successors or assigns.</p>
+
+<p>This document and the information contained herein is provided on an “AS IS” basis and ECMA INTERNATIONAL DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY OWNERSHIP RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.</p>
+</div>
+        <h2>Software License</h2>
+        <p>All Software contained in this document ("Software") is protected by copyright and is being made available under the "BSD License", included below. This Software may be subject to third party rights (rights from parties other than Ecma International), including patent rights, and no licenses under such third party rights are granted under this license even if the third party concerned is a member of Ecma International. SEE THE ECMA CODE OF CONDUCT IN PATENT MATTERS AVAILABLE AT <a href="https://ecma-international.org/memento/codeofconduct.htm">https://ecma-international.org/memento/codeofconduct.htm</a> FOR INFORMATION REGARDING THE LICENSING OF PATENT CLAIMS THAT ARE REQUIRED TO IMPLEMENT ECMA INTERNATIONAL STANDARDS.</p>
+
+<p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p>
+
+<ol>
+  <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
+  <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
+  <li>Neither the name of the authors nor Ecma International may be used to endorse or promote products derived from this software without specific prior written permission.</li>
+</ol>
+
+<p>THIS SOFTWARE IS PROVIDED BY THE ECMA INTERNATIONAL "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL ECMA INTERNATIONAL BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+
+      </emu-annex>
+</div></body></html>

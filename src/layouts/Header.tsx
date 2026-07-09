@@ -134,6 +134,7 @@ export default function Header() {
               ))}
             </div>
           </div>
+          <a href="/schemas" className="no-underline text-md font-semibold leading-6 text-gray-900">Schemas</a>
           <a href="/contribute" className="no-underline text-md font-semibold leading-6 text-gray-900">Contribute</a>
           <a href="/history" className="no-underline text-md font-semibold leading-6 text-gray-900">History</a>
         </div>
@@ -213,6 +214,12 @@ export default function Header() {
                     </>
                   )}
                 </Disclosure>
+                <a
+                  href="/schemas"
+                  className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                >
+                  Schemas
+                </a>
                 <a
                   href="/contribute"
                   className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"

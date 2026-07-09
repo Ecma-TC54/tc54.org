@@ -1,0 +1,422 @@
+<!doctype html><html lang="en-GB-oxendict">
+<head><meta name="viewport" content="width=device-width, initial-scale=1"><meta charset="utf-8"><meta property="og:image" content="https://tc39.es/ecmarkup/ecma-logo.png"><meta property="og:title" content="Package-URL (PURL) specification"><meta property="og:description" content="Introduction
+  Software ecosystems have evolved into highly interconnected networks of components, packages, and dependencies. Managing this complexity demands a robust, uniform mechanism to identify and track software packages across diverse ecosystems and tools. Package-URL (PURL) was developed">
+<link rel="icon" href="../img/favicon.ico">
+<link rel="stylesheet" href="../assets/css/ecmarkup.css"><link rel="stylesheet" href="../assets/css/print.css" media="print"><style>
+  pre:has(> code) {
+    margin-block: 0;
+  }
+
+  pre code {
+    white-space: pre-wrap;
+    word-break: break-word;
+    padding: 0 !important;
+  }
+
+  code.pattern {
+    font-weight: normal !important;
+  }
+
+  @supports (color-scheme: dark) {
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --foreground-color: #111;
+        --background-color: #fff;
+
+        --link-foreground-color: #206ca7;
+        --link-hover-foreground-color: #239dee;
+
+        --user-code-foreground-color: brown;
+
+        --var-foreground-color: #218379;
+
+        --referenced0-background-color: #ffff6c;
+        --referenced1-background-color: #ffa4a8;
+        --referenced2-background-color: #96e885;
+        --referenced3-background-color: #3eeed2;
+        --referenced4-background-color: #eacfb6;
+        --referenced5-background-color: #82ddff;
+        --referenced6-background-color: #ffbcf2;
+
+        --note-background-color: #e9fbe9;
+        --note-border-color: #52e052;
+        --note-editor-border-color: #faa;
+
+        --nt-link-foreground-color: #333;
+
+        --production-rhs-background-color: #f0f0f0;
+        --production-rhs-border-color: #888;
+
+        --params-foreground-color: #2aa198;
+        --opt-foreground-color: #b58900;
+
+        --title-foreground-color: #f60;
+
+        --caption-foreground-color: #555555;
+
+        --table-header-background-color: #eeeeee;
+
+        --highlight-background-color-start: rgba(249, 241, 172, 1);
+        --highlight-background-color-end: rgba(249, 241, 172, 0);
+
+        --highlight-background-color: rgba(249, 241, 172, 1);
+
+        --ins-background-color: #e0f8e0;
+        --ins-border-color: #396;
+
+        --del-background-color: #fee;
+
+        --control-foreground-color: #eee;
+        --control-dimmed-foreground-color: #666;
+        --control-background-color: #ddd;
+        --control-dark-background-color: #ccc;
+        --control-border-color: #aaa;
+        --control-light-border-color: #bbb;
+        --control-shortcut-background-color: #eee;
+        --control-shortcut-shadow-color: #ccc;
+        --control-dialog-fade-color: rgba(255, 255, 255, 0.6);
+
+        --control-link-foreground-color: #1567a2;
+
+        --control-input-background-color: #bbb;
+        --control-input-border-color: #999;
+
+        --menu-header-background-color: #bbb;
+        --menu-revealed-link-foreground-color: #206ca7;
+        --menu-unpin-hover-foreground-color: #bb1212;
+
+        --menu-trace-list-foreground-color: #999;
+        --menu-trace-list-background-color: #222;
+
+        --toolbox-tail-background-outside-color: rgba(0, 0, 0, 0);
+        --toolbox-tail-border-outside-color: rgba(204, 204, 204, 0);
+
+        --normative-optional-background-color: #ffeedd;
+        --normative-optional-border-color: #ff6600;
+
+        --attributes-tag-foreground-color: #884400;
+
+        --figure-background: #fff;
+      }
+    }
+  }
+</style>
+<style media="print">
+  a[data-print-href]::after {
+    content: none;
+  }
+
+  #sec-schemas pre {
+    break-inside: auto;
+  }
+
+  p.properties + p, ol {
+    break-before: avoid;
+  }
+
+  /* First edition (2025-specific) changes, reassess in future editions */
+  #sec--name-definition-requirement p.properties + p {
+    break-after: avoid;
+  }
+</style>
+<title>Package-URL (PURL) specification</title><script src="../assets/js/multipage.js?cache=jL7TSay7" defer=""></script><script src="../assets/js/ecmarkup.js?cache=i-g-sGlG" defer=""></script><style>
+    @media print {
+      @page :left {
+        @bottom-right {
+          content: '© Ecma International 2025';
+        }
+      }
+      @page :right {
+        @bottom-left {
+          content: '© Ecma International 2025';
+        }
+      }
+      @page :first {
+        @bottom-left {
+          content: '';
+        }
+        @bottom-right {
+          content: '';
+        }
+      }
+      @page :blank {
+        @bottom-left {
+          content: '';
+        }
+        @bottom-right {
+          content: '';
+        }
+      }
+    }
+    </style><style>
+      @import url("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/base16/solarized-light.min.css");
+      @import url("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/a11y-dark.min.css") (prefers-color-scheme: dark);
+    </style><link rel="canonical" href="../#sec-purl-specification"></head>
+<body><div id="menu"><div id="menu-search"><input type="text" id="menu-search-box" placeholder="Search..."><div id="menu-search-results" class="inactive"></div></div><div id="menu-pins"><div class="menu-pane-header">Pins<button class="unpin-all">clear</button></div><ul id="menu-pins-list"></ul></div><div class="menu-pane-header">Table of Contents</div><div id="menu-toc"><ol class="toc"><li><span class="item-toggle-none"></span><a href="./#sec-intro" title="Introduction">Introduction</a></li><li><span class="item-toggle-none"></span><a href="scope.html#sec-scope" title="Scope"><span class="secnum">1</span> Scope</a></li><li><span class="item-toggle-none"></span><a href="conformance.html#sec-conformance" title="Conformance"><span class="secnum">2</span> Conformance</a></li><li><span class="item-toggle-none"></span><a href="normative-references.html#sec-normative-references" title="Normative references"><span class="secnum">3</span> Normative references</a></li><li><span class="item-toggle-none"></span><a href="overview.html#sec-overview" title="Overview"><span class="secnum">4</span> Overview</a></li><li><span class="item-toggle">+</span><a href="purl-specification.html#sec-purl-specification" title="Package-URL specification"><span class="secnum">5</span> Package-URL specification</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="purl-specification.html#sec-purl-specification-purl-is-a-url" title="A PURL is a URL"><span class="secnum">5.1</span> A PURL is a URL</a></li><li><span class="item-toggle-none"></span><a href="purl-specification.html#sec-purl-specification-permitted-characters" title="Permitted characters"><span class="secnum">5.2</span> Permitted characters</a></li><li><span class="item-toggle-none"></span><a href="purl-specification.html#sec-purl-specification-separator-characters" title="Separator characters"><span class="secnum">5.3</span> Separator characters</a></li><li><span class="item-toggle-none"></span><a href="purl-specification.html#sec-purl-specification-character-encoding" title="Character encoding"><span class="secnum">5.4</span> Character encoding</a></li><li><span class="item-toggle-none"></span><a href="purl-specification.html#sec-purl-specification-case-folding" title="Case folding"><span class="secnum">5.5</span> Case folding</a></li><li><span class="item-toggle">+</span><a href="purl-specification.html#sec-purl-specification-component-rules" title="Rules for each PURL component"><span class="secnum">5.6</span> Rules for each PURL component</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="purl-specification.html#sec-purl-specification-rules-scheme" title="Scheme"><span class="secnum">5.6.1</span> Scheme</a></li><li><span class="item-toggle-none"></span><a href="purl-specification.html#sec-purl-specification-rules-type" title="Type"><span class="secnum">5.6.2</span> Type</a></li><li><span class="item-toggle-none"></span><a href="purl-specification.html#sec-purl-specification-rules-namespace" title="Namespace"><span class="secnum">5.6.3</span> Namespace</a></li><li><span class="item-toggle-none"></span><a href="purl-specification.html#sec-purl-specification-rules-name" title="Name"><span class="secnum">5.6.4</span> Name</a></li><li><span class="item-toggle-none"></span><a href="purl-specification.html#sec-purl-specification-rules-version" title="Version"><span class="secnum">5.6.5</span> Version</a></li><li><span class="item-toggle-none"></span><a href="purl-specification.html#sec-purl-specification-rules-qualifiers" title="Qualifiers"><span class="secnum">5.6.6</span> Qualifiers</a></li><li><span class="item-toggle-none"></span><a href="purl-specification.html#sec-purl-specification-rules-subpath" title="Subpath"><span class="secnum">5.6.7</span> Subpath</a></li></ol></li></ol></li><li><span class="item-toggle">+</span><a href="purl-type-schema.html#sec-purl-type-schema" title="Package-URL Type Definition Schema"><span class="secnum">6</span> Package-URL Type Definition Schema</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--type" title="PURL type"><span class="secnum">6.1</span> PURL type</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--type-name" title="Type name"><span class="secnum">6.2</span> Type name</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--description" title="Description"><span class="secnum">6.3</span> Description</a></li><li><span class="item-toggle">+</span><a href="purl-type-schema.html#sec--repository" title="Repository"><span class="secnum">6.4</span> Repository</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--repository-use-repository" title="Use repository"><span class="secnum">6.4.1</span> Use repository</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--repository-default-repository-url" title="Default repository URL"><span class="secnum">6.4.2</span> Default repository URL</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--repository-note" title="Note"><span class="secnum">6.4.3</span> Note</a></li></ol></li><li><span class="item-toggle">+</span><a href="purl-type-schema.html#sec--namespace-definition" title="Namespace definition"><span class="secnum">6.5</span> Namespace definition</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--namespace-definition-requirement" title="Namespace requirement"><span class="secnum">6.5.1</span> Namespace requirement</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--namespace-definition-requirement-1" title="Component optional requirement"><span class="secnum">6.5.2</span> Component optional requirement</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--namespace-definition-requirement-2" title="Component required requirement"><span class="secnum">6.5.3</span> Component required requirement</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--namespace-definition-requirement-3" title="Component prohibited requirement"><span class="secnum">6.5.4</span> Component prohibited requirement</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--namespace-definition-permitted-characters" title="Permitted characters in this PURL component"><span class="secnum">6.5.5</span> Permitted characters in this PURL component</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--namespace-definition-case-sensitive" title="Case sensitive"><span class="secnum">6.5.6</span> Case sensitive</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--namespace-definition-normalization-rules" title="Normalization rules"><span class="secnum">6.5.7</span> Normalization rules</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--namespace-definition-native-name" title="Native name"><span class="secnum">6.5.8</span> Native name</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--namespace-definition-note" title="Note"><span class="secnum">6.5.9</span> Note</a></li></ol></li><li><span class="item-toggle">+</span><a href="purl-type-schema.html#sec--name-definition" title="Name definition"><span class="secnum">6.6</span> Name definition</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--name-definition-requirement" title="Name component requirement"><span class="secnum">6.6.1</span> Name component requirement</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--name-definition-requirement-1" title="Component required requirement"><span class="secnum">6.6.2</span> Component required requirement</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--name-definition-permitted-characters" title="Permitted characters in this PURL component"><span class="secnum">6.6.3</span> Permitted characters in this PURL component</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--name-definition-case-sensitive" title="Case sensitive"><span class="secnum">6.6.4</span> Case sensitive</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--name-definition-normalization-rules" title="Normalization rules"><span class="secnum">6.6.5</span> Normalization rules</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--name-definition-native-name" title="Native name"><span class="secnum">6.6.6</span> Native name</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--name-definition-note" title="Note"><span class="secnum">6.6.7</span> Note</a></li></ol></li><li><span class="item-toggle">+</span><a href="purl-type-schema.html#sec--version-definition" title="Version definition"><span class="secnum">6.7</span> Version definition</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--version-definition-requirement" title="Version requirement"><span class="secnum">6.7.1</span> Version requirement</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--version-definition-requirement-1" title="Component optional requirement"><span class="secnum">6.7.2</span> Component optional requirement</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--version-definition-permitted-characters" title="Permitted characters in this PURL component"><span class="secnum">6.7.3</span> Permitted characters in this PURL component</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--version-definition-case-sensitive" title="Case sensitive"><span class="secnum">6.7.4</span> Case sensitive</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--version-definition-normalization-rules" title="Normalization rules"><span class="secnum">6.7.5</span> Normalization rules</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--version-definition-native-name" title="Native name"><span class="secnum">6.7.6</span> Native name</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--version-definition-note" title="Note"><span class="secnum">6.7.7</span> Note</a></li></ol></li><li><span class="item-toggle">+</span><a href="purl-type-schema.html#sec--qualifiers-definition" title="Qualifiers definition"><span class="secnum">6.8</span> Qualifiers definition</a><ol class="toc"><li><span class="item-toggle">+</span><a href="purl-type-schema.html#sec--qualifiers-definition-" title="Qualifiers definition"><span class="secnum">6.8.1</span> Qualifiers definition</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--qualifiers-definition-key" title="Qualifier key"><span class="secnum">6.8.1.1</span> Qualifier key</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--qualifiers-definition-requirement" title="Qualifier key requirement"><span class="secnum">6.8.1.2</span> Qualifier key requirement</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--qualifiers-definition-requirement-1" title="Component optional requirement"><span class="secnum">6.8.1.3</span> Component optional requirement</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--qualifiers-definition-requirement-2" title="Component required requirement"><span class="secnum">6.8.1.4</span> Component required requirement</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--qualifiers-definition-description" title="Description"><span class="secnum">6.8.1.5</span> Description</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--qualifiers-definition-default-value" title="Default value"><span class="secnum">6.8.1.6</span> Default value</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--qualifiers-definition-native-name" title="Native name"><span class="secnum">6.8.1.7</span> Native name</a></li></ol></li></ol></li><li><span class="item-toggle">+</span><a href="purl-type-schema.html#sec--subpath-definition" title="Subpath definition"><span class="secnum">6.9</span> Subpath definition</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--subpath-definition-requirement" title="Subpath requirement"><span class="secnum">6.9.1</span> Subpath requirement</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--subpath-definition-requirement-1" title="Component optional requirement"><span class="secnum">6.9.2</span> Component optional requirement</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--subpath-definition-permitted-characters" title="Permitted characters in this PURL component"><span class="secnum">6.9.3</span> Permitted characters in this PURL component</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--subpath-definition-case-sensitive" title="Case sensitive"><span class="secnum">6.9.4</span> Case sensitive</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--subpath-definition-normalization-rules" title="Normalization rules"><span class="secnum">6.9.5</span> Normalization rules</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--subpath-definition-native-name" title="Native name"><span class="secnum">6.9.6</span> Native name</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--subpath-definition-note" title="Note"><span class="secnum">6.9.7</span> Note</a></li></ol></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--examples" title="PURL examples"><span class="secnum">6.10</span> PURL examples</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--note" title="Note"><span class="secnum">6.11</span> Note</a></li><li><span class="item-toggle-none"></span><a href="purl-type-schema.html#sec--reference-urls" title="Reference URLs"><span class="secnum">6.12</span> Reference URLs</a></li></ol></li><li><span class="item-toggle-none"></span><a href="schemas.html#sec-schemas" title="PURL Type Definition"><span class="secnum">Annex A <span class="annex-kind">(normative)</span></span> PURL Type Definition</a></li><li><span class="item-toggle-none"></span><a href="bibliography.html#sec-bibliography" title="Bibliography">Bibliography</a></li><li><span class="item-toggle-none"></span><a href="colophon.html#sec-colophon" title="Colophon">Colophon</a></li><li><span class="item-toggle-none"></span><a href="copyright-and-software-license.html#sec-copyright-and-software-license" title="Copyright &amp; Software License">Copyright &amp; Software License</a></li></ol></div></div>
+<div id="menu-spacer" class="menu-spacer"></div>
+<div id="menu-toggle"><svg xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%; stroke:currentColor" viewBox="0 0 120 120" width="54" height="54">
+      <title>Menu</title>
+      <path stroke-width="10" stroke-linecap="round" d="M30,60 h60  M30,30 m0,5 h60  M30,90 m0,-5 h60"></path>
+    </svg></div>
+<div id="shortcuts-help">
+<ul>
+  <li><span>Toggle shortcuts help</span><code>?</code></li>
+  <li><span>Toggle "can call user code" annotations</span><code>u</code></li>
+<li><span>Navigate to/from multipage</span><code>m</code></li>
+  <li><span>Jump to search box</span><code>/</code></li>
+  <li><span>Toggle pinning of the current clause</span><code>p</code></li>
+  <li><span>Jump to the <i>n</i><sup>th</sup> pin</span><code>1-9</code></li>
+  <li><span>Jump to the 10<sup>th</sup> pin</span><code>0</code></li>
+  <li><span>Jump to the most recent link target</span><code>`</code></li>
+</ul></div><div id='spec-container'><emu-clause id="sec-purl-specification">
+  <h1><span class="secnum">5</span> Package-URL specification</h1>
+  <p>PURL stands for <strong>Package-URL</strong>.</p>
+  <p>A PURL is a URL composed of seven components:</p>
+  <pre>    <code lang="plaintext">
+      scheme:type/namespace/name@version?qualifiers#subpath
+    </code>
+  </pre>
+
+  <p>Components are separated by a specific character for unambiguous parsing.</p>
+
+  <emu-table><figure><figcaption>Table 1: Components of a PURL</figcaption>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Requirement</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody><tr>
+        <td>scheme</td>
+        <td>Required</td>
+        <td>The URL scheme with the constant value of "pkg". One of the primary reasons for this single scheme is to facilitate the future official registration of the "pkg" scheme for Package-URLs.</td>
+      </tr>
+      <tr>
+        <td>type</td>
+        <td>Required</td>
+        <td>The package "type" or package "protocol" such as maven, npm, nuget, gem, pypi, etc.</td>
+      </tr>
+      <tr>
+        <td>namespace</td>
+        <td>Optional</td>
+        <td>A name prefix such as a Maven groupid, a Docker image owner, a GitHub user or organization. Namespace is type-specific.</td>
+      </tr>
+      <tr>
+        <td>name</td>
+        <td>Required</td>
+        <td>The name of the package.</td>
+      </tr>
+      <tr>
+        <td>version</td>
+        <td>Optional</td>
+        <td>The version of the package.</td>
+      </tr>
+      <tr>
+        <td>qualifiers</td>
+        <td>Optional</td>
+        <td>Qualifier data for a package such as OS, architecture, repository, etc. Qualifiers are type-specific.</td>
+      </tr>
+      <tr>
+        <td>subpath</td>
+        <td>Optional</td>
+        <td>Subpath within a package, relative to the package root.</td>
+      </tr>
+    </tbody></table>
+  </figure></emu-table>
+
+  <p>Components are designed such that they form a hierarchy from the most significant on the left to the least significant components on the right.</p>
+  <p>A PURL shall not contain a URL Authority, i.e. there is no support for <code>username</code>, <code>password</code>, <code>host</code> and <code>port</code> components. A <code>namespace</code> segment may sometimes look like a <code>host</code>, but its interpretation is specific to a <code>type</code>.</p>
+
+  <emu-example caption="Debian"><figure><figcaption>Example 1 (Informative): Debian</figcaption>
+    <pre><code>pkg:deb/debian/curl@7.50.3-1?arch=i386&amp;distro=jessie</code></pre>
+  </figure></emu-example>
+  <emu-example caption="Maven"><figure><figcaption>Example 2 (Informative): Maven</figcaption>
+    <pre><code>pkg:maven/org.apache.xmlgraphics/batik-anim@1.9.1?packaging=sources</code></pre>
+  </figure></emu-example>
+  <emu-example caption="Node Package Manager (NPM)"><figure><figcaption>Example 3 (Informative): Node Package Manager (NPM)</figcaption>
+    <pre><code>pkg:npm/foobar@12.3.1</code></pre>
+  </figure></emu-example>
+
+  <emu-clause id="sec-purl-specification-purl-is-a-url">
+    <h1><span class="secnum">5.1</span> A PURL is a URL</h1>
+    <ul>
+      <li>A PURL is a valid URL and URI that conforms to the URL definitions or specifications at:
+        <ul>
+          <li>https://tools.ietf.org/html/rfc3986</li>
+          <li>https://en.wikipedia.org/wiki/URL#Syntax</li>
+          <li>https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax</li>
+          <li>https://url.spec.whatwg.org/</li>
+        </ul>
+      </li>
+      <li>A PURL is a valid URL because it is a locator even though it has no Authority URL component: each type has a default repository location when defined.</li>
+      <li>The PURL components are mapped to these URL components:
+        <ul>
+          <li>PURL <code>scheme</code>: this is a URL <code>scheme</code> with a constant value: <code>pkg</code></li>
+          <li>PURL <code>type</code>, <code>namespace</code>, <code>name</code> and <code>version</code> components: these are collectively mapped to a URL <code>path</code></li>
+          <li>PURL <code>qualifiers</code>: this maps to a URL <code>query</code></li>
+          <li>PURL <code>subpath</code>: this is a URL <code>fragment</code></li>
+        </ul>
+      </li>In a PURL, there is no support for a URL Authority (e.g. no <code>username</code>, <code>password</code>, <code>host</code> and <code>port</code> components).
+      <li>Special URL schemes as defined in https://url.spec.whatwg.org/ such as <code>file://</code>, <code>https://</code>, <code>http://</code> and <code>ftp://</code> are not valid PURL types. They are valid URL or URI schemes but they are not a valid PURL scheme. They may be used to reference URLs in separate attributes outside of a PURL or in a PURL qualifier.</li>
+      <li>Version control system (VCS) URLs such <code>git://</code>, <code>svn://</code>, <code>hg://</code> or as defined in Python pip or SPDX download locations are not valid PURL types. They are valid URL or URI schemes but they are not a valid PURL scheme. They are a closely related, compact and uniform way to reference VCS URLs. They may be used as references in separate attributes outside of a PURL or in a PURL qualifier.</li>
+    </ul>
+  </emu-clause>
+  <emu-clause id="sec-purl-specification-permitted-characters">
+    <h1><span class="secnum">5.2</span> Permitted characters</h1>
+    <p>A canonical PURL is composed of these permitted ASCII characters:</p>
+    <ul>
+      <li>the Alphanumeric Characters: <code>A to Z</code>, <code>a to z</code>, <code>0 to 9</code></li>
+      <li>the Punctuation Characters: <code>.-_~</code> (period '.', dash '-', underscore '_' and tilde '~')</li>
+      <li>the Percent Character: <code>%</code> (percent sign '%')</li>
+      <li>the Separator Characters <code>:/@?=&amp;#</code> (colon ':', slash '/', at sign '@', question mark '?', equal sign '=', ampersand '&amp;' and hash sign '#')</li>
+    </ul>
+  </emu-clause>
+  <emu-clause id="sec-purl-specification-separator-characters">
+    <h1><span class="secnum">5.3</span> Separator characters</h1>
+    <p>This is how each of the Separator Characters is used:</p>
+    <ul>
+      <li>':' (colon) is the separator between <code>scheme</code> and <code>type</code></li>
+      <li>'/' (slash) is the separator between <code>type</code>, <code>namespace</code> and <code>name</code></li>
+      <li>'/' (slash) is the separator between <code>subpath</code> segments</li>
+      <li>'@' (at sign) is the separator between <code>name</code> and <code>version</code></li>
+      <li>'?' (question mark) is the separator before <code>qualifiers</code></li>
+      <li>'=' (equals) is the separator between a <code>key</code> and a <code>value</code> of a <code>qualifier</code></li>
+      <li>'&amp;' (ampersand) is the separator between <code>qualifiers</code> (each being a <code>key=value</code> pair)</li>
+      <li>'#' (hash sign) is the separator before <code>subpath</code></li>
+    </ul>
+  </emu-clause>
+  <emu-clause id="sec-purl-specification-character-encoding">
+    <h1><span class="secnum">5.4</span> Character encoding</h1>
+    <ul>
+      <li>In the <emu-xref href="#sec-purl-specification-component-rules" title="" id="_ref_1"><a href="purl-specification.html#sec-purl-specification-component-rules">Rules for each PURL component</a></emu-xref> clause, each component defines when and how to apply percent-encoding and decoding to its content.</li>
+      <li>When percent-encoding is required by a component definition, the component string shall first be encoded as UTF-8.</li>
+      <li>In the component string, each "data octet" shall be replaced by the percent-encoded "character triplet" applying the percent-encoding mechanism defined in <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.1">RFC 3986 section 2.1</a>, including the RFC definition of "data octet" and "character triplet", and using these definitions for RFC's "allowed set" and "delimiters":
+        <ul>
+          <li>"allowed set" is composed of the Alphanumeric Characters and the Punctuation Characters</li>
+          <li>"delimiters" is composed of the Separator Characters</li>
+        </ul>
+      </li>
+      <li>The following characters shall not be percent-encoded:
+        <ul>
+          <li>the Alphanumeric Characters</li>
+          <li>the Punctuation Characters</li>
+          <li>the Separator Characters when being used as PURL separators</li>
+          <li>the colon ':', whether used as a Separator Character or otherwise</li>
+          <li>the percent sign '%' when used to represent a percent-encoded character</li>
+        </ul>
+      </li>
+      <li>Where the space ' ' is permitted, it shall be percent-encoded as '%20'.</li>
+      <li>With the exception of the percent-encoding mechanism, the rules regarding percent-encoding are defined by this Standard alone.</li>
+    </ul>
+  </emu-clause>
+
+  <emu-clause id="sec-purl-specification-case-folding">
+    <h1><span class="secnum">5.5</span> Case folding</h1>
+    <p>References to "lowercase" in this Standard refer to the <strong>culture-invariant</strong> full case mapping defined in <a href="https://www.unicode.org/versions/Unicode16.0.0/core-spec/chapter-3/#G34078">Section 3.13.2 of the Unicode Standard</a>.</p>
+    <p>When applied to the ASCII character set, this operation converts uppercase Latin letters (<code>A to Z</code>) to their corresponding lowercase forms (<code>a to z</code>). All other ASCII characters remain unchanged.</p>
+  </emu-clause>
+
+  <emu-clause id="sec-purl-specification-component-rules">
+    <h1><span class="secnum">5.6</span> Rules for each PURL component</h1>
+    <p>A PURL string is an ASCII URL string composed of seven components. Except as expressly stated otherwise in this Clause, each component:</p>
+    <ul>
+      <li>may be composed of any of the characters defined in the <emu-xref href="#sec-purl-specification-permitted-characters" title="" id="_ref_2"><a href="purl-specification.html#sec-purl-specification-permitted-characters">Permitted characters</a></emu-xref> clause</li>
+      <li>shall be encoded as defined in the <emu-xref href="#sec-purl-specification-character-encoding" title="" id="_ref_3"><a href="purl-specification.html#sec-purl-specification-character-encoding">Character encoding</a></emu-xref> clause</li>
+    </ul>
+    <p>The "lowercase" rules are defined in the <emu-xref href="#sec-purl-specification-case-folding" title="" id="_ref_4"><a href="purl-specification.html#sec-purl-specification-case-folding">Case folding</a></emu-xref> clause.</p>
+    <p>The rules for each component are:</p>
+    <emu-clause id="sec-purl-specification-rules-scheme">
+      <h1><span class="secnum">5.6.1</span> Scheme</h1>
+      <ul>
+        <li>The <code>scheme</code> is a constant with the value "pkg".</li>
+        <li>The <code>scheme</code> shall be followed by an unencoded colon ':'.</li>
+        <li>PURL parsers shall accept URLs where the <code>scheme</code> and colon ':' are followed by one or more slash '/' characters, such as 'pkg://', and shall ignore and remove all such '/' characters.</li>
+      </ul>
+    </emu-clause>
+    <emu-clause id="sec-purl-specification-rules-type">
+      <h1><span class="secnum">5.6.2</span> Type</h1>
+      <ul>
+        <li>The package <code>type</code> shall be composed only of ASCII letters and numbers, period '.', and dash '-'.</li>
+        <li>The <code>type</code> shall start with an ASCII letter.</li>
+        <li>The <code>type</code> shall not be percent-encoded.</li>
+        <li>The <code>type</code> is case insensitive. The canonical form is lowercase.</li>
+      </ul>
+    </emu-clause>
+    <emu-clause id="sec-purl-specification-rules-namespace">
+      <h1><span class="secnum">5.6.3</span> Namespace</h1>
+      <ul>
+        <li>The <code>namespace</code> is optional, unless required by the package's <code>type</code> definition.</li>
+        <li>If present, the <code>namespace</code> may contain one or more segments, separated by a single unencoded slash '/' character.</li>
+        <li>All leading and trailing slashes '/' are not significant and should be stripped in the canonical form. They are not part of the <code>namespace</code>.</li>
+        <li>Each <code>namespace</code> segment shall be a percent-encoded string.</li>
+        <li>When percent-decoded, a segment:
+          <ul>
+            <li>shall not contain any slash '/' characters</li>
+            <li>shall not be empty</li>
+            <li>may contain any Unicode character other than '/' unless the package's <code>type</code> definition provides otherwise</li>
+          </ul>
+        </li>
+        <li>A URL host or Authority shall not be used as a <code>namespace</code>. Use instead a <code>repository_url</code> qualifier. Note however, that for some types, the <code>namespace</code> may look like a host.</li>
+      </ul>
+    </emu-clause>
+    <emu-clause id="sec-purl-specification-rules-name">
+      <h1><span class="secnum">5.6.4</span> Name</h1>
+      <ul>
+        <li>The <code>name</code> is prefixed by a single slash '/' separator when the <code>namespace</code> is not empty.</li>
+        <li>All leading and trailing slashes '/' are not significant and should be stripped in the canonical form. They are not part of the <code>name</code>.</li>
+        <li>A <code>name</code> shall be a percent-encoded string.</li>
+        <li>When percent-decoded, a <code>name</code> may contain any Unicode character unless the package's <code>type</code> definition provides otherwise.</li>
+      </ul>
+    </emu-clause>
+    <emu-clause id="sec-purl-specification-rules-version">
+      <h1><span class="secnum">5.6.5</span> Version</h1>
+      <ul>
+        <li>The <code>version</code> is prefixed by a '@' separator when not empty.</li>
+        <li>This '@' is not part of the <code>version</code>.</li>
+        <li>A <code>version</code> shall be a percent-encoded string.</li>
+        <li>When percent-decoded, a <code>version</code> may contain any Unicode character unless the package's <code>type</code> definition provides otherwise.</li>
+        <li>A <code>version</code> is a plain and opaque string.</li>
+      </ul>
+    </emu-clause>
+    <emu-clause id="sec-purl-specification-rules-qualifiers">
+      <h1><span class="secnum">5.6.6</span> Qualifiers</h1>
+      <ul>
+        <li>The <code>qualifiers</code> component shall be prefixed by an unencoded question mark '?' separator when not empty. This '?' separator is not part of the <code>qualifiers</code> component.</li>
+        <li>The <code>qualifiers</code> component is composed of one or more <code>key=value</code> pairs. Multiple <code>key=value</code> pairs shall be separated by an unencoded ampersand '&amp;'. This '&amp;' separator is not part of an individual <code>qualifier</code>.</li>
+        <li>A <code>key</code> and <code>value</code> shall be separated by the unencoded equal sign '=' character. This '=' separator is not part of the <code>key</code> or <code>value</code>.</li>
+        <li>A <code>value</code> shall not be an empty string: a <code>key=value</code> pair with an empty <code>value</code> is the same as if no <code>key=value</code> pair exists for this <code>key</code>.</li>
+        <li>For each <code>key=value</code> pair:
+          <ul>
+            <li>The <code>key</code> shall be composed only of lowercase ASCII letters and numbers, period '.', dash '-' and underscore '_'.</li>
+            <li>A <code>key</code> shall start with an ASCII letter.</li>
+            <li>A <code>key</code> shall not be percent-encoded.</li>
+            <li>Each <code>key</code> shall be unique among all the keys of the <code>qualifiers</code> component.</li>
+            <li>A <code>value</code> may contain any Unicode character and all characters shall be encoded as described in the <emu-xref href="#sec-purl-specification-character-encoding" title="" id="_ref_5"><a href="purl-specification.html#sec-purl-specification-character-encoding">Character encoding</a></emu-xref> clause.</li>
+          </ul>
+        </li>
+      </ul>
+    </emu-clause>
+    <emu-clause id="sec-purl-specification-rules-subpath">
+      <h1><span class="secnum">5.6.7</span> Subpath</h1>
+      <ul>
+        <li>The <code>subpath</code> string is prefixed by a '#' separator when not empty.</li>
+        <li>The '#' is not part of the <code>subpath</code>.</li>
+        <li>The <code>subpath</code> contains zero or more segments, separated by slash '/'.</li>
+        <li>Leading and trailing slashes '/' are not significant and should be stripped in the canonical form.</li>
+        <li>Each <code>subpath</code> segment shall be a percent-encoded string.</li>
+        <li>When percent-decoded, a segment:
+          <ul>
+            <li>shall not contain any slash '/' characters</li>
+            <li>shall not be empty</li>
+            <li>shall not be any of '..' or '.'</li>
+            <li>may contain any Unicode character other than '/' unless the package's <code>type</code> definition provides otherwise</li>
+          </ul>
+        </li>
+        <li>The <code>subpath</code> shall be interpreted as relative to the root of the package.</li>
+      </ul>
+    </emu-clause>
+  </emu-clause>
+</emu-clause></div></body>

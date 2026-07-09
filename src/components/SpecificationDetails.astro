@@ -8,6 +8,7 @@ export interface SidebarProps {
     mediaTypes?: string[];
     developedBy?: string[];
     standards?: { name: string; link: string }[];
+    schemas?: { name: string; link: string }[];
     technicalCommittee?: { name: string; link: string };
     taskGroup?: { name: string; link: string };
     websites?: string[];
@@ -20,6 +21,7 @@ const {
     mediaTypes,
     developedBy,
     standards,
+    schemas,
     technicalCommittee,
     taskGroup,
     websites
@@ -77,6 +79,20 @@ const {
                         {standards.map(standard => (
                                 <div>
                                     <a href={standard.link}>{standard.name}</a>
+                                </div>
+                        ))}
+                    </td>
+                </tr>
+        )}
+        {schemas && schemas.length > 0 && (
+                <tr>
+                    <th class="text-sm align-top text-left text-gray-700 py-2">
+                        Schema{schemas.length > 1 ? "s" : ""}
+                    </th>
+                    <td class="text-sm text-gray-900 py-2">
+                        {schemas.map(schema => (
+                                <div>
+                                    <a href={schema.link}>{schema.name}</a>
                                 </div>
                         ))}
                     </td>
